@@ -5,6 +5,8 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.PeaoFactory;
+import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.PecasFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,23 +77,12 @@ public class Tabuleiro {
 
     private void criaPeoes() {
         //Criando os peoes;
-        Peca[] peoesBrancos;
-        Peca[] peoesPretos;
-        peoesBrancos = new Peca[8];
-        peoesPretos = new Peca[8];
-
-        for (int nPeao = 0; nPeao < peoesBrancos.length; nPeao++) {
-            peoesBrancos[nPeao] = new Peao();
-            peoesBrancos[nPeao].setCor(Cor.BRANCO);
-        }
-        for (int nPeao = 0; nPeao < peoesPretos.length; nPeao++) {
-            peoesPretos[nPeao] = new Peao();
-            peoesPretos[nPeao].setCor(Cor.PRETO);
-        }
+        PecasFactory pecasFactory = new PeaoFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(16);
 
         //Salvando nas posições do Tabuleiro.
-        salvarPeoes('2', peoesBrancos);
-        salvarPeoes('7', peoesPretos);
+        salvarPeoes('2', pecas.get(Cor.BRANCO));
+        salvarPeoes('7', pecas.get(Cor.PRETO));
 
     }
 
