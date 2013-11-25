@@ -5,8 +5,10 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.BispoFactory;
 import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.PeaoFactory;
 import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.PecasFactory;
+import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.TorreFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,48 +105,24 @@ public class Tabuleiro {
     }
 
     private void criarTorres() {
-        Peca[] torresBrancas;
-        Peca[] torresPretas;
-        torresBrancas = new Peca[2];
-        torresPretas = new Peca[2];
-
-        // Instanciando as torres.
-        for (int nTorre = 0; nTorre < torresBrancas.length; nTorre++) {
-            torresBrancas[nTorre] = new Torre();
-            torresBrancas[nTorre].setCor(Cor.BRANCO);
-        }
-        for (int nTorre = 0; nTorre < torresPretas.length; nTorre++) {
-            torresPretas[nTorre] = new Torre();
-            torresPretas[nTorre].setCor(Cor.BRANCO);
-        }
+        PecasFactory pecasFactory = new TorreFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4);
 
         //Salvando as torres
-        mapNomePosicao.get("a1").setPecaAtual(torresBrancas[0]);
-        mapNomePosicao.get("h1").setPecaAtual(torresBrancas[1]);
-        mapNomePosicao.get("a8").setPecaAtual(torresPretas[0]);
-        mapNomePosicao.get("h8").setPecaAtual(torresPretas[1]);
+        mapNomePosicao.get("a1").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("h1").setPecaAtual(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("a8").setPecaAtual(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("h8").setPecaAtual(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarBispos() {
-        Peca[] bisposBrancos;
-        Peca[] bisposPretos;
-        bisposBrancos = new Peca[2];
-        bisposPretos = new Peca[2];
-
-        // Instanciando os bispos.
-        for (int nBispo = 0; nBispo < bisposBrancos.length; nBispo++) {
-            bisposBrancos[nBispo] = new Bispo();
-            bisposBrancos[nBispo].setCor(Cor.BRANCO);
-        }
-        for (int nBispo = 0; nBispo < bisposPretos.length; nBispo++) {
-            bisposPretos[nBispo] = new Bispo();
-            bisposPretos[nBispo].setCor(Cor.PRETO);
-        }
+        PecasFactory pecasFactory = new BispoFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4);
 
         //Salvando os bispos
-        mapNomePosicao.get("b1").setPecaAtual(bisposBrancos[0]);
-        mapNomePosicao.get("g1").setPecaAtual(bisposBrancos[1]);
-        mapNomePosicao.get("b8").setPecaAtual(bisposPretos[0]);
-        mapNomePosicao.get("g8").setPecaAtual(bisposPretos[1]);
+        mapNomePosicao.get("b1").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("g1").setPecaAtual(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("b8").setPecaAtual(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("g8").setPecaAtual(pecas.get(Cor.PRETO)[1]);
     }
 }

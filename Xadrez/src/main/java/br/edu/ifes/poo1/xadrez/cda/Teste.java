@@ -15,7 +15,7 @@ public class Teste {
 
     public static void main(String[] args) {
 
-        System.out.println(Tabuleiro.getInstance().getPosicao("g2").getPecaAtual().getCor());
+        System.out.println(Tabuleiro.getInstance().getPosicao("h1").getPecaAtual());
     }
 
 }
