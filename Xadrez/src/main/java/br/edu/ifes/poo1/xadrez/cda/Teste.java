@@ -5,8 +5,6 @@
  */
 package br.edu.ifes.poo1.xadrez.cda;
 
-import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
-
 /**
  *
  * @author phillipe
