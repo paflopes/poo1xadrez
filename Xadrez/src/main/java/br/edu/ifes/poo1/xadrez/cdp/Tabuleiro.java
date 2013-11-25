@@ -5,10 +5,6 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
-import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.BispoFactory;
-import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.PeaoFactory;
-import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.PecasFactory;
-import br.edu.ifes.poo1.xadrez.cdp.pecasFactory.TorreFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,8 +75,8 @@ public class Tabuleiro {
 
     private void criaPeoes() {
         //Criando os peoes;
-        PecasFactory pecasFactory = new PeaoFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(16);
+        PecasFactory pecasFactory = new PecasFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(16, "Peao");
 
         //Salvando nas posições do Tabuleiro.
         salvarPeoes('2', pecas.get(Cor.BRANCO));
@@ -105,8 +101,8 @@ public class Tabuleiro {
     }
 
     private void criarTorres() {
-        PecasFactory pecasFactory = new TorreFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4);
+        PecasFactory pecasFactory = new PecasFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4, "Torre");
 
         //Salvando as torres
         mapNomePosicao.get("a1").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
@@ -116,8 +112,8 @@ public class Tabuleiro {
     }
 
     private void criarBispos() {
-        PecasFactory pecasFactory = new BispoFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4);
+        PecasFactory pecasFactory = new PecasFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4, "Bispo");
 
         //Salvando os bispos
         mapNomePosicao.get("b1").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
