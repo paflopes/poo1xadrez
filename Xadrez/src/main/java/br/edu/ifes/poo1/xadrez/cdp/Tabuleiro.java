@@ -27,8 +27,8 @@ public class Tabuleiro {
         for (int nPosicao = 0; nPosicao < posicoes.length; nPosicao++) {
             posicoes[nPosicao] = new Posicao();
         }
-
         salvarPosicoes(posicoes);
+
         criaPeoes();
         criarTorres();
         criarBispos();
@@ -58,14 +58,13 @@ public class Tabuleiro {
 
         for (char coluna = '1'; coluna < '9'; coluna++) {
             for (char linha = '1'; linha < '9'; linha++) {
-                StringBuffer idPosicao;
-                idPosicao = new StringBuffer();
+                String idPosicao;
+
                 //Montando a String
-                idPosicao.append(coluna);
-                idPosicao.append(linha);
+                idPosicao = "" + coluna + linha;
                 //Salvando as posições
-                mapNomePosicao.put(idPosicao.toString(), posicoes[contadorPosicoes]);
-                mapPosicaoNome.put(posicoes[contadorPosicoes], idPosicao.toString());
+                mapNomePosicao.put(idPosicao, posicoes[contadorPosicoes]);
+                mapPosicaoNome.put(posicoes[contadorPosicoes], idPosicao);
                 contadorPosicoes++;
             }
         }
