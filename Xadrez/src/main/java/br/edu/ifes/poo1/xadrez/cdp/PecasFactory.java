@@ -24,11 +24,11 @@ public class PecasFactory {
      * @param nomePeca Nome da classe desejada. Ex.: "Cavalo", "Peao".
      * @return Um mapa com um vetor da peça desejada relacionado a uma cor.
      */
-    public Map<Cor, Peca[]> getPecas(int quantidade, String nomePeca) {
+    public static Map<Cor, Peca[]> getPecas(int quantidade, String nomePeca) {
         Map<Cor, Peca[]> pecas;
-        pecas = this.criarMapPecas(quantidade);
+        pecas = criarMapPecas(quantidade);
         try {
-            this.instanciarPecas(pecas, nomePeca);
+            instanciarPecas(pecas, nomePeca);
         } catch (Exception ex) {
             Logger.getLogger(PecasFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -43,7 +43,7 @@ public class PecasFactory {
      * Cavalo.
      * @throws java.lang.ClassNotFoundException
      */
-    private void instanciarPecas(Map<Cor, Peca[]> pecas, String nomePeca) throws Exception {
+    private static void instanciarPecas(Map<Cor, Peca[]> pecas, String nomePeca) throws Exception {
         Peca[] pecasBrancas = pecas.get(Cor.BRANCO);
         Peca[] pecasPretas = pecas.get(Cor.PRETO);
         String nomePacote = "br.edu.ifes.poo1.xadrez.cdp.pecas.";
@@ -66,7 +66,7 @@ public class PecasFactory {
      * @return Um Map que a cada cor associada, retorna um vetor vazio do tipo
      * Peça.
      */
-    private Map<Cor, Peca[]> criarMapPecas(int quantidade) {
+    private static Map<Cor, Peca[]> criarMapPecas(int quantidade) {
         Peca[] pecasBrancas;
         Peca[] pecasPretas;
         Map<Cor, Peca[]> pecas;

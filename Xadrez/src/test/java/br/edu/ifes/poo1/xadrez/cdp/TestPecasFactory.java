@@ -17,13 +17,11 @@ import org.junit.Test;
  */
 public class TestPecasFactory {
 
-    PecasFactory pecasFactory;
     Map<Cor, Peca[]> pecas;
 
     @Before
     public void before() {
-        this.pecasFactory = new PecasFactory();
-        this.pecas = this.pecasFactory.getPecas(16, "Peao");
+        this.pecas = PecasFactory.getPecas(16, "Peao");
     }
 
     @Test
@@ -38,5 +36,4 @@ public class TestPecasFactory {
         }
 
     }
-
 }

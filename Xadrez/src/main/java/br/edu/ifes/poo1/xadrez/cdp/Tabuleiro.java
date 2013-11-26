@@ -39,6 +39,10 @@ public class Tabuleiro {
         return Tabuleiro.instance.mapNomePosicao.get(id);
     }
 
+    public String getIdPosicao(Posicao posicao) {
+        return Tabuleiro.instance.mapPosicaoNome.get(posicao);
+    }
+
     /**
      *
      * @param posicoes Vetor de posições.
@@ -62,8 +66,7 @@ public class Tabuleiro {
     //Funções de criação das peças. São utilizadas no construtor da Classe.    
     private void criarPeoes() {
         //Criando os peoes;
-        PecasFactory pecasFactory = new PecasFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(16, "Peao");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(16, "Peao");
 
         //Salvando nas posições do Tabuleiro.
         salvarPeoes('2', pecas.get(Cor.BRANCO));
@@ -82,59 +85,54 @@ public class Tabuleiro {
             posicao.append(linha);
 
             //Salvando
-            mapNomePosicao.get(posicao.toString()).setPecaAtual(peoes[nPeoes]);
+            mapNomePosicao.get(posicao.toString()).setPeca(peoes[nPeoes]);
             nPeoes++;
         }
     }
 
     private void criarTorres() {
-        PecasFactory pecasFactory = new PecasFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4, "Torre");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Torre");
 
         //Salvando as torres
-        mapNomePosicao.get("11").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("81").setPecaAtual(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("18").setPecaAtual(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("88").setPecaAtual(pecas.get(Cor.PRETO)[1]);
+        mapNomePosicao.get("11").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("81").setPeca(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("18").setPeca(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("88").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarBispos() {
-        PecasFactory pecasFactory = new PecasFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4, "Bispo");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Bispo");
 
         //Salvando os bispos
-        mapNomePosicao.get("21").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("71").setPecaAtual(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("28").setPecaAtual(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("78").setPecaAtual(pecas.get(Cor.PRETO)[1]);
+        mapNomePosicao.get("21").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("71").setPeca(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("28").setPeca(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("78").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarCavalos() {
-        PecasFactory pecasFactory = new PecasFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4, "Cavalo");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Cavalo");
 
         //Salvando os bispos
-        mapNomePosicao.get("31").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("61").setPecaAtual(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("38").setPecaAtual(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("68").setPecaAtual(pecas.get(Cor.PRETO)[1]);
+        mapNomePosicao.get("31").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("61").setPeca(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("38").setPeca(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("68").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarReis() {
-        PecasFactory pecasFactory = new PecasFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(2, "Rei");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rei");
 
         //Salvando os bispos
-        mapNomePosicao.get("41").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("48").setPecaAtual(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("41").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("48").setPeca(pecas.get(Cor.PRETO)[0]);
     }
 
     private void criarRainhas() {
-        PecasFactory pecasFactory = new PecasFactory();
-        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(2, "Rainha");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rainha");
 
         //Salvando os bispos
-        mapNomePosicao.get("51").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("58").setPecaAtual(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("51").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("58").setPeca(pecas.get(Cor.PRETO)[0]);
     }
 }
