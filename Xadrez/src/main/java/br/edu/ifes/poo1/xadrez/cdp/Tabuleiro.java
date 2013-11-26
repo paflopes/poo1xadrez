@@ -15,8 +15,8 @@ import java.util.Map;
  */
 public class Tabuleiro {
 
-    private Map<String, Posicao> mapNomePosicao = new HashMap<>();
-    private Map<Posicao, String> mapPosicaoNome = new HashMap<>();
+    private final Map<String, Posicao> mapNomePosicao = new HashMap<>();
+    private final Map<Posicao, String> mapPosicaoNome = new HashMap<>();
     private static final Tabuleiro instance = new Tabuleiro();
 
     public Tabuleiro() {
