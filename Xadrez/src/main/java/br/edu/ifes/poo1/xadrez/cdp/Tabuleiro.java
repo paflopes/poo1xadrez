@@ -20,20 +20,11 @@ public class Tabuleiro {
     private static final Tabuleiro instance = new Tabuleiro();
 
     public Tabuleiro() {
-        //Criando Posições.
-        Posicao[] posicoes;
-        posicoes = new Posicao[64];
-
-        for (int nPosicao = 0; nPosicao < posicoes.length; nPosicao++) {
-            posicoes[nPosicao] = new Posicao();
-        }
-        salvarPosicoes(posicoes);
-
-        criaPeoes();
+        criarPosicoes();
+        criarPeoes();
         criarTorres();
         criarBispos();
         criarCavalos();
-
     }
 
     /**
@@ -52,27 +43,24 @@ public class Tabuleiro {
      *
      * @param posicoes Vetor de posições.
      */
-    private void salvarPosicoes(Posicao[] posicoes) {
+    private void criarPosicoes() {
         //Montando as posições no Tabuleiro;
-        int contadorPosicoes = 0;
-
         for (char coluna = '1'; coluna < '9'; coluna++) {
             for (char linha = '1'; linha < '9'; linha++) {
                 String idPosicao;
+                Posicao posicao = new Posicao();
 
                 //Montando a String
                 idPosicao = "" + coluna + linha;
                 //Salvando as posições
-                mapNomePosicao.put(idPosicao, posicoes[contadorPosicoes]);
-                mapPosicaoNome.put(posicoes[contadorPosicoes], idPosicao);
-                contadorPosicoes++;
+                mapNomePosicao.put(idPosicao, posicao);
+                mapPosicaoNome.put(posicao, idPosicao);
             }
         }
-
     }
 
     //Funções de criação das peças. São utilizadas no construtor da Classe.    
-    private void criaPeoes() {
+    private void criarPeoes() {
         //Criando os peoes;
         PecasFactory pecasFactory = new PecasFactory();
         Map<Cor, Peca[]> pecas = pecasFactory.getPecas(16, "Peao");
