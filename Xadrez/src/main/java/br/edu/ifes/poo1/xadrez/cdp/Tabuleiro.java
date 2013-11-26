@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ public class Tabuleiro {
         criaPeoes();
         criarTorres();
         criarBispos();
+        criarCavalos();
 
     }
 
@@ -50,6 +52,10 @@ public class Tabuleiro {
         return Tabuleiro.instance.mapNomePosicao.get(id);
     }
 
+    /**
+     *
+     * @param posicoes Vetor de posições.
+     */
     private void salvarPosicoes(Posicao[] posicoes) {
         //Montando as posições no Tabuleiro;
         int contadorPosicoes = 0;
@@ -70,6 +76,7 @@ public class Tabuleiro {
 
     }
 
+    //Funções de criação das peças. São utilizadas no construtor da Classe.    
     private void criaPeoes() {
         //Criando os peoes;
         PecasFactory pecasFactory = new PecasFactory();
@@ -117,5 +124,34 @@ public class Tabuleiro {
         mapNomePosicao.get("g1").setPecaAtual(pecas.get(Cor.BRANCO)[1]);
         mapNomePosicao.get("b8").setPecaAtual(pecas.get(Cor.PRETO)[0]);
         mapNomePosicao.get("g8").setPecaAtual(pecas.get(Cor.PRETO)[1]);
+    }
+
+    private void criarCavalos() {
+        PecasFactory pecasFactory = new PecasFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(4, "Cavalo");
+
+        //Salvando os bispos
+        mapNomePosicao.get("c1").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("f1").setPecaAtual(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("c8").setPecaAtual(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("f8").setPecaAtual(pecas.get(Cor.PRETO)[1]);
+    }
+
+    private void criarReis() {
+        PecasFactory pecasFactory = new PecasFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(2, "Rei");
+
+        //Salvando os bispos
+        mapNomePosicao.get("d1").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("d8").setPecaAtual(pecas.get(Cor.PRETO)[0]);
+    }
+
+    private void criarRainhas() {
+        PecasFactory pecasFactory = new PecasFactory();
+        Map<Cor, Peca[]> pecas = pecasFactory.getPecas(2, "Rainha");
+
+        //Salvando os bispos
+        mapNomePosicao.get("e1").setPecaAtual(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("e8").setPecaAtual(pecas.get(Cor.PRETO)[0]);
     }
 }

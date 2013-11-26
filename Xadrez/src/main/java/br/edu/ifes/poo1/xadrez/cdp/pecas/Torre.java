@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 
-package br.edu.ifes.poo1.xadrez.cdp;
+package br.edu.ifes.poo1.xadrez.cdp.pecas;
+
+import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
  *
  * @author phillipe
  */
-public class Peao extends Peca{
+public class Torre extends Peca {
 
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {

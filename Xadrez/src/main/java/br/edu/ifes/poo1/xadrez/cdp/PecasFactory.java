@@ -5,6 +5,8 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -58,7 +60,7 @@ public class PecasFactory {
     private void instanciarPecas(Map<Cor, Peca[]> pecas, String nomePeca) throws Exception {
         Peca[] pecasBrancas = pecas.get(Cor.BRANCO);
         Peca[] pecasPretas = pecas.get(Cor.PRETO);
-        String nomePacote = "br.edu.ifes.poo1.xadrez.cdp.";
+        String nomePacote = "br.edu.ifes.poo1.xadrez.cdp.pecas.";
         Class c = Class.forName(nomePacote + nomePeca);
 
         for (int nPeca = 0; nPeca < pecasBrancas.length; nPeca++) {

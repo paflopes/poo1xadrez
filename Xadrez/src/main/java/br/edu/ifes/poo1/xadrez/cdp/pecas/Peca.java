@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifes.poo1.xadrez.cdp;
+package br.edu.ifes.poo1.xadrez.cdp.pecas;
+
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
  *

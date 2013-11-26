@@ -5,6 +5,8 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+
 /**
  *
  * @author phillipe
