@@ -15,6 +15,16 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 public abstract class Peca {
 
     Cor cor;
+    Posicao posicao;
+
+    
+    public Posicao getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(Posicao posicao) {
+        this.posicao = posicao;
+    }
 
     /**
      *

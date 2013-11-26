@@ -19,8 +19,15 @@ public class Posicao {
         return peca;
     }
 
-    public void setPeca(Peca pecaAtual) {
-        this.peca = pecaAtual;
+    public void setPeca(Peca peca) {
+        Posicao posicaoAnt = peca.getPosicao();
+
+        if (posicaoAnt != null) {
+            posicaoAnt.setPeca(null);
+        }
+
+        peca.setPosicao(this);
+        this.peca = peca;
     }
 
     /**
@@ -32,15 +39,27 @@ public class Posicao {
         return this.peca != null;
     }
 
+    /**
+     *
+     * @param coordenada A direção desejada em relação a esta posição.
+     * @return {@code true} se existir alguma posição na direção desejada,
+     * {@code else} caso contrário.
+     */
     public boolean existePosicao(Coordenada coordenada) {
         String novaPosicao = this.coordenadaToPosicao(coordenada);
 
         return Tabuleiro.getInstance().getPosicao(novaPosicao) != null;
     }
 
+    /**
+     *
+     * @param coordenada A direção desejada em relação a esta posição.
+     * @return A posição desejada. Antes execute {@code existePosicao()} para
+     * verificar se existe alguma peça nessa direção.
+     */
     public Posicao getPosicao(Coordenada coordenada) {
         String novaPosicao = this.coordenadaToPosicao(coordenada);
-        
+
         return Tabuleiro.getInstance().getPosicao(novaPosicao);
     }
 
