@@ -44,10 +44,6 @@ public class Tabuleiro {
         return Tabuleiro.instance;
     }
 
-    public Peca getPeca(String posicao) {
-        return Tabuleiro.instance.mapNomePosicao.get(posicao).getPecaAtual();
-    }
-
     public Posicao getPosicao(String id) {
         return Tabuleiro.instance.mapNomePosicao.get(id);
     }
