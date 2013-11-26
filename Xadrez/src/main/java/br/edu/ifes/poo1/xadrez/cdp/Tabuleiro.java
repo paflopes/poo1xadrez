@@ -14,11 +14,8 @@ import java.util.Map;
  */
 public class Tabuleiro {
 
-    @SuppressWarnings("FieldMayBeFinal")
     private Map<String, Posicao> mapNomePosicao = new HashMap<>();
-    @SuppressWarnings("FieldMayBeFinal")
     private Map<Posicao, String> mapPosicaoNome = new HashMap<>();
-
     private static final Tabuleiro instance = new Tabuleiro();
 
     public Tabuleiro() {
