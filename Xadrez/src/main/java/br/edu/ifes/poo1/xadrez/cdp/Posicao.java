@@ -33,43 +33,61 @@ public class Posicao {
     }
 
     public boolean existePosicao(Coordenada coordenada) {
-        char coluna;
-        char linha;
-        return false;
+        String novaPosicao = this.coordenadaToPosicao(coordenada);
+
+        return Tabuleiro.getInstance().getPosicao(novaPosicao) != null;
+    }
+
+    public Posicao getPosicao(Coordenada coordenada) {
+        String novaPosicao = this.coordenadaToPosicao(coordenada);
+        
+        return Tabuleiro.getInstance().getPosicao(novaPosicao);
     }
 
     /**
+     * Converte uma coordenada para um id de posição.
      *
      * @return
      */
-    private String coordenadaToPos(Coordenada coordenada) {
+    private String coordenadaToPosicao(Coordenada coordenada) {
 
-        String posicao = null;
         String posAtual = Tabuleiro.getInstance().getIdPosicao(this);
-        //char linhaAtual = posAtual.
-        
+        char coluna = posAtual.charAt(0);
+        char linha = posAtual.charAt(1);
+
         switch (coordenada) {
             case N:
-                
+                linha++;
                 break;
             case NE:
+                linha++;
+                coluna++;
                 break;
             case E:
+                coluna++;
                 break;
             case SE:
+                linha--;
+                coluna++;
                 break;
             case S:
+                linha--;
                 break;
             case SO:
+                linha--;
+                coluna--;
                 break;
             case O:
+                coluna--;
                 break;
             case NO:
+                linha++;
+                coluna--;
                 break;
             default:
                 throw new AssertionError(coordenada.name());
-
         }
-        return posicao;
+
+        return "" + coluna + linha;
     }
 }
