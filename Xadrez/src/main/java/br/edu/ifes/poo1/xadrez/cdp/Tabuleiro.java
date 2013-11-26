@@ -25,6 +25,8 @@ public class Tabuleiro {
         criarTorres();
         criarBispos();
         criarCavalos();
+        criarReis();
+        criarRainhas();
     }
 
     /**
