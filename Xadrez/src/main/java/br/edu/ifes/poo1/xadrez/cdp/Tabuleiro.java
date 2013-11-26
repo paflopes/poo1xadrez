@@ -18,8 +18,7 @@ public class Tabuleiro {
     private final Map<String, Posicao> mapNomePosicao = new HashMap<>();
     private final Map<Posicao, String> mapPosicaoNome = new HashMap<>();
     private static final Tabuleiro instance = new Tabuleiro();
-    
-    //Teste 123
+
     public Tabuleiro() {
         criarPosicoes();
         criarPeoes();
