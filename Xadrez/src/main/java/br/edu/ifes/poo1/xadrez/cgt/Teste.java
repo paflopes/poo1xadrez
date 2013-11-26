@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifes.poo1.xadrez.cda;
+package br.edu.ifes.poo1.xadrez.cgt;
 
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 
