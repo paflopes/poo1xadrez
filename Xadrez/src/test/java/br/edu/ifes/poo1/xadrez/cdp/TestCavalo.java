@@ -14,7 +14,7 @@ import org.junit.Test;
  *
  * @author Adm
  */
-public class TestPeca {
+public class TestCavalo {
 
     Peca peca;
     Tabuleiro tabuleiro;
