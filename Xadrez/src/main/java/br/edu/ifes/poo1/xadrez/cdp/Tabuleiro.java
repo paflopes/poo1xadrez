@@ -106,20 +106,20 @@ public class Tabuleiro {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Bispo");
 
         //Salvando os bispos
-        mapNomePosicao.get("21").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("71").setPeca(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("28").setPeca(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("78").setPeca(pecas.get(Cor.PRETO)[1]);
+        mapNomePosicao.get("31").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("61").setPeca(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("38").setPeca(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("68").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarCavalos() {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Cavalo");
 
-        //Salvando os bispos
-        mapNomePosicao.get("31").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("61").setPeca(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("38").setPeca(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("68").setPeca(pecas.get(Cor.PRETO)[1]);
+        //Salvando os cavalos
+        mapNomePosicao.get("21").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("71").setPeca(pecas.get(Cor.BRANCO)[1]);
+        mapNomePosicao.get("28").setPeca(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("78").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarReis() {

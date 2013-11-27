@@ -66,7 +66,7 @@ public class Posicao {
     /**
      * Converte uma coordenada para um id de posição.
      *
-     * @return
+     * @return O endereço da posição.
      */
     private String coordenadaToPosicao(Coordenada coordenada) {
 
