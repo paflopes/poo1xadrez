@@ -28,28 +28,28 @@ public class Cavalo extends Peca {
     public boolean validarMovimento(Posicao novaPosicao) {
         Posicao posTemp1 = this.getPosicao();
         Posicao posTemp2 = this.getPosicao();
-        int nMov1, nMov2;
+        int nMov;
 
         for (Coordenada direcao : this.movPossiveis) {
             //É verificado quantas posições a peça consegue se movimentar.
-            for (nMov1 = 0; nMov1 < 2 && posTemp2.existePosicao(direcao); nMov1++) {
+            for (nMov = 0; nMov < 2 && posTemp2.existePosicao(direcao); nMov++) {
                 posTemp2 = posTemp2.getPosicao(direcao);
             }
 
             //Se a peça tiver se movimentado duas casas, então é verificada o último movimento da peça.
-            if (nMov1 == 2) {
+            if (nMov == 2) {
                 for (Coordenada ultimoMov : this.movPossiveis) {
                     if (posTemp2.existePosicao(ultimoMov) && posTemp2.getPosicao(ultimoMov) == novaPosicao) {
                         return true;
                     }
                 }
                 //Se a peça tiver andado apenas uma casa, então é verificado o resto das possibilidades.
-            } else if (nMov1 == 1) {
+            } else if (nMov == 1) {
                 for (Coordenada ultimoMov : this.movPossiveis) {
-                    for (nMov1 = 0; nMov1 < 2 && posTemp2.existePosicao(ultimoMov); nMov1++) {
+                    for (nMov = 0; nMov < 2 && posTemp2.existePosicao(ultimoMov); nMov++) {
                         posTemp2 = posTemp2.getPosicao(direcao);
                     }
-                    if (nMov1 == 2) {
+                    if (nMov == 2 && posTemp2 == novaPosicao) {
                         return true;
                     }
                 }
