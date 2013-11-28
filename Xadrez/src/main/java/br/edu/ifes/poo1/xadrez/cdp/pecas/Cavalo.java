@@ -10,7 +10,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
  *
- * @author phillipe cagao
+ * @author phillipe
  */
 public class Cavalo extends Peca {
 
