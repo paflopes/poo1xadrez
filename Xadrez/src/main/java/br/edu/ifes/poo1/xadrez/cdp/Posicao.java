@@ -13,7 +13,16 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  */
 public class Posicao {
 
+    private String id;
     private Peca peca = null;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Peca getPeca() {
         return peca;
@@ -70,7 +79,7 @@ public class Posicao {
      */
     private String coordenadaToPosicao(Coordenada coordenada) {
 
-        String posAtual = Tabuleiro.getInstance().getIdPosicao(this);
+        String posAtual = this.id;
         char coluna = posAtual.charAt(0);
         char linha = posAtual.charAt(1);
 

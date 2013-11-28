@@ -16,7 +16,6 @@ import java.util.Map;
 public class Tabuleiro {
 
     private final Map<String, Posicao> mapNomePosicao = new HashMap<>();
-    private final Map<Posicao, String> mapPosicaoNome = new HashMap<>();
     private static final Tabuleiro instance = new Tabuleiro();
 
     public Tabuleiro() {
@@ -41,10 +40,6 @@ public class Tabuleiro {
         return Tabuleiro.instance.mapNomePosicao.get(id);
     }
 
-    public String getIdPosicao(Posicao posicao) {
-        return Tabuleiro.instance.mapPosicaoNome.get(posicao);
-    }
-
     /**
      *
      * @param posicoes Vetor de posições.
@@ -60,7 +55,7 @@ public class Tabuleiro {
                 idPosicao = "" + coluna + linha;
                 //Salvando as posições
                 mapNomePosicao.put(idPosicao, posicao);
-                mapPosicaoNome.put(posicao, idPosicao);
+                posicao.setId(idPosicao);
             }
         }
     }
