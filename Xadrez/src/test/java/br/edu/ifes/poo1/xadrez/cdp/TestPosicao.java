@@ -23,19 +23,6 @@ public class TestPosicao {
     }
 
     @Test
-    public void testExistePosicao() {
-        Posicao posicao = this.tabuleiro.getPosicao("11");
-        Assert.assertTrue(posicao.existePosicao(Coordenada.N));
-        Assert.assertTrue(posicao.existePosicao(Coordenada.NE));
-        Assert.assertTrue(posicao.existePosicao(Coordenada.E));
-        Assert.assertFalse(posicao.existePosicao(Coordenada.SE));
-        Assert.assertFalse(posicao.existePosicao(Coordenada.S));
-        Assert.assertFalse(posicao.existePosicao(Coordenada.SO));
-        Assert.assertFalse(posicao.existePosicao(Coordenada.O));
-        Assert.assertFalse(posicao.existePosicao(Coordenada.NO));
-    }
-
-    @Test
     public void testGetPosicao() {
         Assert.assertNotNull(this.tabuleiro.getPosicao("85"));
         Assert.assertNull(this.tabuleiro.getPosicao("01"));
