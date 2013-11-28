@@ -20,8 +20,7 @@ public class Cavalo extends Peca {
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
 
-
-        return Math.abs(colunaAtual - colunaNova) == 2 && Math.abs(linhaAtual - linhaNova) == 1
-                || Math.abs(colunaAtual - colunaNova) == 1 && Math.abs(linhaAtual - linhaNova) == 2;
+        return ((Math.abs(colunaAtual - colunaNova) == 2) && (Math.abs(linhaAtual - linhaNova) == 1))
+                || ((Math.abs(colunaAtual - colunaNova) == 1) && (Math.abs(linhaAtual - linhaNova) == 2));
     }
 }

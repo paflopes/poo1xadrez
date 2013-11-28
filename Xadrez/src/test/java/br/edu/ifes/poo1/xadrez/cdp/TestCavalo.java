@@ -27,7 +27,7 @@ public class TestCavalo {
 
     
     @Test
-    public void testValidarPosicao() {
+    public void testValidarMovimento() {
         Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("13")));
         Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("33")));
         Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("42")));
