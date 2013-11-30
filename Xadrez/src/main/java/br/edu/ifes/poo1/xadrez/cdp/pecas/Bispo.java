@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
+import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
@@ -15,7 +16,8 @@ public class Bispo extends Peca {
 
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao);
     }
 
 }

@@ -12,8 +12,12 @@ package br.edu.ifes.poo1.xadrez.cdp;
 public class MovimentoPeca {
 
     public static boolean isDiagonal(Posicao posicaoAtual, Posicao novaPosicao) {
-
-        return false;
+        char colunaAtual = posicaoAtual.getId().charAt(0);
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        
+        return Math.abs(colunaAtual - colunaNova)== Math.abs(linhaAtual-linhaNova);
     }
 
     public static boolean isStraight(Posicao posicaoAtual, Posicao novaPosicao) {
