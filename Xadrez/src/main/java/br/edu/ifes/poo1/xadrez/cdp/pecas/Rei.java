@@ -14,6 +14,12 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public class Rei extends Peca {
 
+    public Rei() {
+        desenho = 'R';
+        
+    }
+    
+    
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
         char colunaAtual = this.posicao.getId().charAt(0);

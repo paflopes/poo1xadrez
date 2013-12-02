@@ -13,6 +13,11 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public class Cavalo extends Peca {
 
+    public Cavalo() {
+        desenho = 'C';
+        
+    }
+    
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
         char colunaAtual = this.posicao.getId().charAt(0);

@@ -15,6 +15,11 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public class Rainha extends Peca {
 
+    public Rainha() {
+        desenho = 'D';
+        
+    }
+    
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
         

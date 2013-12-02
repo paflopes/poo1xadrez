@@ -14,6 +14,13 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public class Peao extends Peca{
 
+    public Peao() {
+        desenho = 'P';
+        
+    }
+
+    
+    
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
         char colunaAtual = this.posicao.getId().charAt(0);

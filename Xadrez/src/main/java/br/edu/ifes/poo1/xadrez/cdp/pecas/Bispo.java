@@ -14,6 +14,11 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public class Bispo extends Peca {
 
+    public Bispo() {
+        desenho = 'B';
+        
+    }
+    
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
         

@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Tabuleiro {
 
-    private final Map<String, Posicao> mapNomePosicao = new HashMap<>();
+    private Map<String, Posicao> mapNomePosicao = new HashMap<>();
     private static final Tabuleiro instance = new Tabuleiro();
 
     public Tabuleiro() {
@@ -37,7 +37,7 @@ public class Tabuleiro {
     }
 
     public Posicao getPosicao(String id) {
-        return Tabuleiro.instance.mapNomePosicao.get(id);
+        return Tabuleiro.instance.getMapNomePosicao().get(id);
     }
 
     /**
@@ -54,7 +54,7 @@ public class Tabuleiro {
                 //Montando a String
                 idPosicao = "" + coluna + linha;
                 //Salvando as posições
-                mapNomePosicao.put(idPosicao, posicao);
+                getMapNomePosicao().put(idPosicao, posicao);
                 posicao.setId(idPosicao);
             }
         }
@@ -82,7 +82,7 @@ public class Tabuleiro {
             posicao.append(linha);
 
             //Salvando
-            mapNomePosicao.get(posicao.toString()).setPeca(peoes[nPeoes]);
+            getMapNomePosicao().get(posicao.toString()).setPeca(peoes[nPeoes]);
             nPeoes++;
         }
     }
@@ -91,45 +91,64 @@ public class Tabuleiro {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Torre");
 
         //Salvando as torres
-        mapNomePosicao.get("11").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("81").setPeca(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("18").setPeca(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("88").setPeca(pecas.get(Cor.PRETO)[1]);
+        getMapNomePosicao().get("11").setPeca(pecas.get(Cor.BRANCO)[0]);
+        getMapNomePosicao().get("81").setPeca(pecas.get(Cor.BRANCO)[1]);
+        getMapNomePosicao().get("18").setPeca(pecas.get(Cor.PRETO)[0]);
+        getMapNomePosicao().get("88").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarBispos() {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Bispo");
 
         //Salvando os bispos
-        mapNomePosicao.get("31").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("61").setPeca(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("38").setPeca(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("68").setPeca(pecas.get(Cor.PRETO)[1]);
+        getMapNomePosicao().get("31").setPeca(pecas.get(Cor.BRANCO)[0]);
+        getMapNomePosicao().get("61").setPeca(pecas.get(Cor.BRANCO)[1]);
+        getMapNomePosicao().get("38").setPeca(pecas.get(Cor.PRETO)[0]);
+        getMapNomePosicao().get("68").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarCavalos() {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Cavalo");
 
         //Salvando os cavalos
-        mapNomePosicao.get("21").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("71").setPeca(pecas.get(Cor.BRANCO)[1]);
-        mapNomePosicao.get("28").setPeca(pecas.get(Cor.PRETO)[0]);
-        mapNomePosicao.get("78").setPeca(pecas.get(Cor.PRETO)[1]);
+        getMapNomePosicao().get("21").setPeca(pecas.get(Cor.BRANCO)[0]);
+        getMapNomePosicao().get("71").setPeca(pecas.get(Cor.BRANCO)[1]);
+        getMapNomePosicao().get("28").setPeca(pecas.get(Cor.PRETO)[0]);
+        getMapNomePosicao().get("78").setPeca(pecas.get(Cor.PRETO)[1]);
     }
 
     private void criarReis() {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rei");
 
         //Salvando os bispos
-        mapNomePosicao.get("41").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("48").setPeca(pecas.get(Cor.PRETO)[0]);
+        getMapNomePosicao().get("41").setPeca(pecas.get(Cor.BRANCO)[0]);
+        getMapNomePosicao().get("48").setPeca(pecas.get(Cor.PRETO)[0]);
     }
 
     private void criarRainhas() {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rainha");
 
         //Salvando os bispos
-        mapNomePosicao.get("51").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("58").setPeca(pecas.get(Cor.PRETO)[0]);
+        getMapNomePosicao().get("51").setPeca(pecas.get(Cor.BRANCO)[0]);
+        getMapNomePosicao().get("58").setPeca(pecas.get(Cor.PRETO)[0]);
     }
+
+    /**
+     * @return the mapNomePosicao
+     */
+    public Map<String, Posicao> getMapNomePosicao() {
+        return mapNomePosicao;
+    }
+
+    /**
+     * @param mapNomePosicao the mapNomePosicao to set
+     */
+    public void setMapNomePosicao(Map<String, Posicao> mapNomePosicao) {
+        this.mapNomePosicao = mapNomePosicao;
+    }
+    
+    
+   
+
+   
 }

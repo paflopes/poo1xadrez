@@ -14,6 +14,12 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public class Torre extends Peca {
 
+    public Torre() {
+        desenho = 'T';
+        
+    }
+    
+    
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
 

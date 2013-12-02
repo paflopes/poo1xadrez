@@ -14,8 +14,9 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public abstract class Peca {
 
-    Cor cor;
-    Posicao posicao;
+    protected Cor cor;
+    protected Posicao posicao;
+    protected char desenho;
 
     
     public Posicao getPosicao() {
@@ -48,4 +49,18 @@ public abstract class Peca {
      * @return
      */
     public abstract boolean validarMovimento(Posicao novaPosicao);
+
+    /**
+     * @return the desenho
+     */
+    public char getDesenho() {
+        return desenho;
+    }
+
+    /**
+     * @param desenho the desenho to set
+     */
+    public void setDesenho(char desenho) {
+        this.desenho = desenho;
+    }
 }
