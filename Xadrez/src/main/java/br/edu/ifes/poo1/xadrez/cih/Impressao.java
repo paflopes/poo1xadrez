@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifes.poo1.xadrez.cci;
+package br.edu.ifes.poo1.xadrez.cih;
 
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
@@ -39,7 +39,7 @@ public class Impressao {
                         if(Tabuleiro.getInstance().getPosicao(idPosicao) == null){
                             System.out.print("| ");
                         }else{
-                            System.out.print(Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getDesenho());
+                            System.out.print("|"+Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getDesenho());
                         }
                     }
                     imprimir("|");

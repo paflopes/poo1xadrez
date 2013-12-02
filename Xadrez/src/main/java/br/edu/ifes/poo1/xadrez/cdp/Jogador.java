@@ -17,8 +17,12 @@ public class Jogador {
     private String jogadaAnterior;
     private int pontos;
     private boolean vitoria;
+    private String cor;
     
-    Jogador(){
+    /**
+     *
+     */
+    public Jogador(){
         pontos=0;
         vitoria=false;        
     }
@@ -92,6 +96,20 @@ public class Jogador {
      */
     public void setVitoria(boolean vitoria) {
         this.vitoria = vitoria;
+    }
+
+    /**
+     * @return the cor
+     */
+    public String getCor() {
+        return cor;
+    }
+
+    /**
+     * @param cor the cor to set
+     */
+    public void setCor(String cor) {
+        this.cor = cor;
     }
     
     
