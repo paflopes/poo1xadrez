@@ -16,7 +16,16 @@ public class Peao extends Peca{
 
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char colunaAtual = this.posicao.getId().charAt(0);
+        char linhaAtual = this.posicao.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        
+        if(linhaAtual == 2 || linhaAtual == 7){
+            return Math.abs(linhaNova - linhaAtual) <= 2;
+        }else{
+            return Math.abs(linhaNova - linhaAtual) == 1;
+        }        
     }
     
 }

@@ -16,7 +16,12 @@ public class Rei extends Peca {
 
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char colunaAtual = this.posicao.getId().charAt(0);
+        char linhaAtual = this.posicao.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        
+        return Math.abs(colunaAtual - colunaNova)<=1 && Math.abs(linhaAtual - linhaNova)<=1;
     }
     
 }
