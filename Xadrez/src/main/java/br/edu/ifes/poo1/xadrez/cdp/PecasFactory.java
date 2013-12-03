@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 /**
  * Fábrica de Peças.
+ *
  * @author leds
  */
 public class PecasFactory {
@@ -55,7 +56,7 @@ public class PecasFactory {
         }
 
         for (int nPeca = 0; nPeca < pecasPretas.length; nPeca++) {
-            pecasPretas[nPeca] = new Torre();
+            pecasPretas[nPeca] = (Peca) c.newInstance();
             pecasPretas[nPeca].setCor(Cor.PRETO);
         }
     }

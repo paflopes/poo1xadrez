@@ -28,7 +28,7 @@ public class ControleGeral {
                     Jogador jogadorBranco = cadastraJogador("branca");
                     Jogador jogadorPreto = cadastraJogador("preta");
                     
-                    impressora.imprimiTabuleiro(Tabuleiro.getInstance());
+                    impressora.imprimiTabuleiro();
 
 
             }		

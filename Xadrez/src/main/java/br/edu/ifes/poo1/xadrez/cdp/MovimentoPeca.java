@@ -28,4 +28,7 @@ public class MovimentoPeca {
 
         return ((colunaAtual - colunaNova) == 0) || ((linhaAtual - linhaNova) == 0);
     }
+    
+    public static boolean isEnPassant(Posicao posicao);
+    
 }
