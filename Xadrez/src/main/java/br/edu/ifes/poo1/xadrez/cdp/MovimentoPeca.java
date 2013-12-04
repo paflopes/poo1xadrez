@@ -16,8 +16,8 @@ public class MovimentoPeca {
         char linhaAtual = posicaoAtual.getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
-        
-        return Math.abs(colunaAtual - colunaNova)== Math.abs(linhaAtual-linhaNova);
+
+        return Math.abs(colunaAtual - colunaNova) == Math.abs(linhaAtual - linhaNova);
     }
 
     public static boolean isStraight(Posicao posicaoAtual, Posicao novaPosicao) {
@@ -28,9 +28,14 @@ public class MovimentoPeca {
 
         return ((colunaAtual - colunaNova) == 0) || ((linhaAtual - linhaNova) == 0);
     }
-    
+
     public static boolean isEnPassant(Posicao posicao) {
+
         return false;
-    };
-    
+    }
+
+    public static boolean isRoque(Posicao posicao) {
+
+        return false;
+    }
 }
