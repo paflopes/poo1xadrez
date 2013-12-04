@@ -8,8 +8,6 @@ package br.edu.ifes.poo1.xadrez.cdp;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

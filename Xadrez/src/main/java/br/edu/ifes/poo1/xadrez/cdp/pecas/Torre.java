@@ -12,7 +12,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  *
  * @author phillipe
  */
-public class Torre extends Peca {
+public class Torre extends PecaImpl {
 
     public Torre() {
         desenho = 'T';

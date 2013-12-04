@@ -11,7 +11,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  *
  * @author phillipe
  */
-public class Cavalo extends Peca {
+public class Cavalo extends PecaImpl {
 
     public Cavalo() {
         desenho = 'C';

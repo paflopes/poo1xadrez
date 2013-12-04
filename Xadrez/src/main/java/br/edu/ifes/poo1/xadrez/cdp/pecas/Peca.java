@@ -10,64 +10,41 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
  *
- * @author phillipe
+ * @author leds
  */
-public abstract class Peca implements Cloneable{
+public interface Peca {
 
-    protected Cor cor;
-    protected Posicao posicao;
-    protected char desenho;
+    public Posicao getPosicao();
 
-    
-    public Posicao getPosicao() {
-        return posicao;
-    }
-
-    public void setPosicao(Posicao posicao) {
-        this.posicao = posicao;
-    }
+    public void setPosicao(Posicao posicao);
 
     /**
      *
      * @param cor A cor da peça.
      */
-    public void setCor(Cor cor) {
-        this.cor = cor;
-    }
+    public void setCor(Cor cor);
 
     /**
      *
      * @return A cor da peça.
      */
-    public Cor getCor() {
-        return this.cor;
-    }
-    
+    public Cor getCor();
+
     /**
      *
      * @param novaPosicao A posição que se deseja que a peça vá.
      * @return
      */
-    public abstract boolean validarMovimento(Posicao novaPosicao);
+    public boolean validarMovimento(Posicao novaPosicao);
 
     /**
      * @return the desenho
      */
-    public char getDesenho() {
-        return desenho;
-    }
+    public char getDesenho();
 
     /**
      * @param desenho the desenho to set
      */
-    public void setDesenho(char desenho) {
-        this.desenho = desenho;
-    }
+    public void setDesenho(char desenho);
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone(); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
 }

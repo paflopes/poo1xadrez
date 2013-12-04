@@ -12,7 +12,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  *
  * @author phillipe
  */
-public class Rei extends Peca {
+public class Rei extends PecaImpl {
 
     public Rei() {
         desenho = 'R';

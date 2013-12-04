@@ -12,7 +12,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  *
  * @author phillipe
  */
-public class Bispo extends Peca {
+public class Bispo extends PecaImpl {
 
     public Bispo() {
         desenho = 'B';

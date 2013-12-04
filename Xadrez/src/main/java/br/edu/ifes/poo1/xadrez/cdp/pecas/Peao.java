@@ -12,7 +12,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  *
  * @author phillipe
  */
-public class Peao extends Peca{
+public class Peao extends PecaImpl{
 
     public Peao() {
         desenho = 'P';

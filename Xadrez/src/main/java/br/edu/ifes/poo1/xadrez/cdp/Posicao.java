@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.xadrez.cdp;
 
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.PecaImpl;
 
 /**
  *
@@ -64,7 +65,7 @@ public class Posicao implements Cloneable {
         Posicao clone = (Posicao) super.clone();
 
         try {
-            clone.peca = (Peca) this.peca.clone();
+            clone.peca = (Peca) ((PecaImpl) this.peca).clone();
             clone.peca.setPosicao(clone);
         } catch (NullPointerException e) {
 
