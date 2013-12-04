@@ -11,7 +11,7 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  *
  * @author phillipe
  */
-public class Posicao {
+public class Posicao implements Cloneable {
 
     private String id;
     private Peca peca = null;
@@ -28,15 +28,26 @@ public class Posicao {
         return peca;
     }
 
+    /**
+     * Coloca uma peca na posição e retira da posição anterior.
+     *
+     * @param peca
+     */
     public void setPeca(Peca peca) {
-        Posicao posicaoAnt = peca.getPosicao();
+        Posicao posicaoAnt;
+        this.peca = peca;
+
+        try {
+            posicaoAnt = peca.getPosicao();
+        } catch (NullPointerException e) {
+            return;
+        }
 
         if (posicaoAnt != null) {
             posicaoAnt.setPeca(null);
         }
 
         peca.setPosicao(this);
-        this.peca = peca;
     }
 
     /**
@@ -46,5 +57,19 @@ public class Posicao {
      */
     public boolean existePeca() {
         return this.peca != null;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Posicao clone = (Posicao) super.clone();
+
+        try {
+            clone.peca = (Peca) this.peca.clone();
+            clone.peca.setPosicao(clone);
+        } catch (NullPointerException e) {
+
+        }
+
+        return clone;
     }
 }

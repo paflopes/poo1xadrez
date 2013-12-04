@@ -12,7 +12,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  *
  * @author phillipe
  */
-public abstract class Peca {
+public abstract class Peca implements Cloneable{
 
     protected Cor cor;
     protected Posicao posicao;
@@ -63,4 +63,11 @@ public abstract class Peca {
     public void setDesenho(char desenho) {
         this.desenho = desenho;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

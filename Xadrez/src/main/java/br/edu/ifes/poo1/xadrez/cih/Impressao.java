@@ -32,7 +32,7 @@ public class Impressao {
     public void imprimiTabuleiro() {
         imprimir("_________________");
         for (int countLinha = 8; countLinha > 0; countLinha--) {
-            for (int countColuna = 8; countColuna > 0; countColuna--) {
+            for (int countColuna = 1; countColuna < 9; countColuna++) {
                 String idPosicao = "" + countColuna + countLinha;
                 if (!Tabuleiro.getInstance().getPosicao(idPosicao).existePeca()) {
                     System.out.print("| ");

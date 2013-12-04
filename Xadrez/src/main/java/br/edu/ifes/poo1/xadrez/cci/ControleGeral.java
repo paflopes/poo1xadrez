@@ -7,8 +7,6 @@
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
-import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
-import br.edu.ifes.poo1.xadrez.cgt.Controle;
 import br.edu.ifes.poo1.xadrez.cih.Impressao;
 import java.util.Scanner;
 
