@@ -45,29 +45,14 @@ public class Tabuleiro implements Cloneable {
         return this.mapNomePosicao.get(id);
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        Tabuleiro clone;
-
-        clone = (Tabuleiro) super.clone();
-        clone.mapNomePosicao = new HashMap<>();
-
-        for (Map.Entry<String, Posicao> entrada : mapNomePosicao.entrySet()) {
-            Posicao posicao = entrada.getValue();
-            String idPosicao = entrada.getKey();
-
-            clone.mapNomePosicao.put(idPosicao, (Posicao) posicao.clone());
-        }
-
-        return clone;
-    }
+    
 
     private void criarPosicoes() {
         //Montando as posições no Tabuleiro;
         for (char coluna = '1'; coluna < '9'; coluna++) {
             for (char linha = '1'; linha < '9'; linha++) {
                 String idPosicao;
-                Posicao posicao = new PosicaoImpl();
+                Posicao posicao = new Posicao();
 
                 //Montando a String
                 idPosicao = "" + coluna + linha;

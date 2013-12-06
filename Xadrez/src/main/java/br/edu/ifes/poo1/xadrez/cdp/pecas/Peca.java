@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
 
 /**
  *
@@ -37,14 +38,20 @@ public interface Peca {
      */
     public boolean validarMovimento(Posicao novaPosicao);
 
+    public boolean validarMovimentoCaptura(Posicao novaPosicao);
+    
     /**
      * @return the desenho
      */
-    public char getDesenho();
+    public String getDesenho();
 
     /**
      * @param desenho the desenho to set
      */
-    public void setDesenho(char desenho);
+    public void setDesenho(String desenho);
 
+    
+    public TipoPeca getTipo();
+    
+    
 }

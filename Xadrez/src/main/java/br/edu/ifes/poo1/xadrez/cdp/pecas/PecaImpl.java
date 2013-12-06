@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
 
 /**
  *
@@ -14,9 +15,10 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
  */
 public abstract class PecaImpl implements Peca, Cloneable {
 
+    protected TipoPeca tipo;
     protected Cor cor;
     protected Posicao posicao;
-    protected char desenho;
+    protected String desenho;
 
     @Override
     public Posicao getPosicao() {
@@ -58,7 +60,7 @@ public abstract class PecaImpl implements Peca, Cloneable {
      * @return the desenho
      */
     @Override
-    public char getDesenho() {
+    public String getDesenho() {
         return desenho;
     }
 
@@ -66,13 +68,20 @@ public abstract class PecaImpl implements Peca, Cloneable {
      * @param desenho the desenho to set
      */
     @Override
-    public void setDesenho(char desenho) {
+    public void setDesenho(String desenho) {
         this.desenho = desenho;
     }
 
+
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    public TipoPeca getTipo() {
+        
+        return this.tipo;
     }
 
+    @Override
+    public abstract boolean validarMovimentoCaptura(Posicao novaPosicao);
+       
+   
+    
 }

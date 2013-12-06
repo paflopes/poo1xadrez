@@ -5,8 +5,10 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
 
 /**
  *
@@ -15,7 +17,8 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 public class Torre extends PecaImpl {
 
     public Torre() {
-        desenho = 'T';
+        desenho = "T";
+        tipo=TipoPeca.TORRE;
         
     }
     
@@ -25,5 +28,10 @@ public class Torre extends PecaImpl {
 
         return MovimentoPeca.isStraight(this.getPosicao(), novaPosicao);
     }
-
+    
+    @Override
+    public boolean validarMovimentoCaptura(Posicao novaPosicao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

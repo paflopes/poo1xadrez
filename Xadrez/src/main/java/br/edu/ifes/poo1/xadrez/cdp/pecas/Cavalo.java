@@ -5,7 +5,9 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
 
 /**
  *
@@ -14,7 +16,8 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 public class Cavalo extends PecaImpl {
 
     public Cavalo() {
-        desenho = 'C';
+        desenho = "C";
+        tipo=TipoPeca.CAVALO;
         
     }
     
@@ -28,4 +31,11 @@ public class Cavalo extends PecaImpl {
         return ((Math.abs(colunaAtual - colunaNova) == 2) && (Math.abs(linhaAtual - linhaNova) == 1))
                 || ((Math.abs(colunaAtual - colunaNova) == 1) && (Math.abs(linhaAtual - linhaNova) == 2));
     }
+
+    @Override
+    public boolean validarMovimentoCaptura(Posicao novaPosicao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

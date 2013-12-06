@@ -6,7 +6,9 @@
 
 package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
 
 /**
  *
@@ -15,7 +17,8 @@ import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 public class Rei extends PecaImpl {
 
     public Rei() {
-        desenho = 'R';
+        desenho = "R";
+        tipo=TipoPeca.REI;
         
     }
     
@@ -30,4 +33,8 @@ public class Rei extends PecaImpl {
         return Math.abs(colunaAtual - colunaNova)<=1 && Math.abs(linhaAtual - linhaNova)<=1;
     }
     
+    @Override
+    public boolean validarMovimentoCaptura(Posicao novaPosicao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

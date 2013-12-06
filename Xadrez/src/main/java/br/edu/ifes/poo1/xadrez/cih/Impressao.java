@@ -4,6 +4,7 @@
  */
 package br.edu.ifes.poo1.xadrez.cih;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 
@@ -30,24 +31,28 @@ public class Impressao {
     }
 
     public void imprimiTabuleiro() {
-        imprimir("_________________");
+        imprimir("---------------------------------");
         for (int countLinha = 8; countLinha > 0; countLinha--) {
             for (int countColuna = 1; countColuna < 9; countColuna++) {
                 String idPosicao = "" + countColuna + countLinha;
                 if (!Tabuleiro.getInstance().getPosicao(idPosicao).existePeca()) {
-                    System.out.print("| ");
+                    System.out.print("|   ");
                 } else {
-                    System.out.print("|" + Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getDesenho());
+                    if(Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getCor()==Cor.BRANCO){
+                        System.out.print("|" + Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getDesenho()+".b");
+                    }else{
+                        System.out.print("|" + Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getDesenho()+".p");
+                    }
                 }
             }
             imprimir("|");
-            imprimir("_________________");
+            imprimir("---------------------------------");
         }
 
     }
 
     public void imprimiPedidoMovimento(Jogador jogador) {
-        imprimir("Digite o movimento " + jogador.getNome());
+        imprimir("Digite o movimento " + jogador.getNome()+":");
     }
 
     public void imprimiPontos(Jogador jogador) {

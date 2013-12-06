@@ -7,6 +7,7 @@
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
+import br.edu.ifes.poo1.xadrez.cgt.Controle;
 import br.edu.ifes.poo1.xadrez.cih.Impressao;
 import java.util.Scanner;
 
@@ -17,55 +18,43 @@ import java.util.Scanner;
 public class ControleGeral {
     
     private Impressao impressora = new Impressao();
-
+    private Controle controle = new Controle();
+    private boolean jogadaValida;
+    
     public void exibirMenu(){
-            impressora.imprimiMenu();
-            Scanner scanner = new Scanner(System.in);
-            int escolha = scanner.nextInt();
-            if(escolha==1){
-                    Jogador jogadorBranco = cadastraJogador("branca");
-                    Jogador jogadorPreto = cadastraJogador("preta");
-                    
-                    impressora.imprimiTabuleiro();
+           
+        impressora.imprimiMenu();
+        Scanner scanner = new Scanner(System.in);
+        int escolha = scanner.nextInt();
+        if(escolha==1){
+            Jogador jogadorBranco = cadastraJogador("branca");
+            Jogador jogadorPreto = cadastraJogador("preta");
+
+            while(true){
+                impressora.imprimiTabuleiro();
+                jogadorBranco.setJogada(pedeJogada(jogadorBranco));
+                controle.processaJogada(jogadorBranco);
+                
+                
+                
+                
+            
+            
+            }
 
 
-            }		
+        }		
 
 
 
     }
-
-    /*public Jogador processaPartida(Jogador jogadorBranco, Jogador jogadorPreto) {
-        boolean vitoria = false;
-        Controle controle = new Controle();
-        while(vitoria==false){
-            impressora.imprimiPedidoMovimento(jogadorBranco);
-            Scanner scanner = new Scanner(System.in);
-            String jogada = scanner.nextLine();
-            if(jogada.equals("O-O-O")){
-
-            }else{
-                if(jogada.equals("O-O")){
-
-                }else{
-                    if(jogada.equals("pontos")){
-
-                    }else{
-                        if(jogada.equals("desistir")){
-
-                        }else{
-                            if(jogada.equals("empate")){
-
-                            }else{
-                                
-                            }
-                        }
-                    }
-                }
-            }
-        }			
-    }*/
-
+    
+    public String pedeJogada(Jogador jogador){
+        impressora.imprimiPedidoMovimento(jogador);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+    
     public Jogador cadastraJogador(String cor) {	
         impressora.imprimiPedidoNomeJogador(cor);
         Jogador jogador = new Jogador();
@@ -76,6 +65,9 @@ public class ControleGeral {
         return jogador;
 
     }    
+    
+    
+    
     
 }
 

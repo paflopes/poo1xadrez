@@ -1,31 +1,64 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.PecaImpl;
 
 /**
  *
- * @author 20121bsi0236
+ * @author phillipe
  */
-public interface Posicao extends Cloneable {
+public class Posicao {
 
-    public String getId();
+    private String id;
+    private Peca peca = null;
 
-    public void setId(String id);
+    public String getId() {
+        return id;
+    }
 
-    public Peca getPeca();
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public void setPeca(Peca peca);
+    public Peca getPeca() {
+        return peca;
+    }
+
+    /**
+     * Coloca uma peca na posição e retira da posição anterior.
+     *
+     * @param peca
+     */
+    public void setPeca(Peca peca) {
+        Posicao posicaoAnt;
+        this.peca = peca;
+
+        try {
+            posicaoAnt = peca.getPosicao();
+        } catch (NullPointerException e) {
+            return;
+        }
+
+        if (posicaoAnt != null) {
+            posicaoAnt.setPeca(null);
+        }
+
+        peca.setPosicao(this);
+    }
 
     /**
      *
      * @return Retorna true se há alguma peça na posição atual e false caso
      * contrário.
      */
-    public boolean existePeca();
+    public boolean existePeca() {
+        return this.peca != null;
+    }
 
-    public Object clone() throws CloneNotSupportedException;
+    
 }

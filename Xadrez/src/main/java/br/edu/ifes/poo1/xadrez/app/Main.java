@@ -17,15 +17,8 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
         ControleGeral controleGeral = new ControleGeral();
-        Tabuleiro clone;
-        Peca pos1, pos2, pos3;
-        clone = (Tabuleiro) Tabuleiro.getInstance().clone();
-
-//        System.out.println(clone == Tabuleiro.getInstance());
-//        System.out.println(clone.getPosicao("11") == Tabuleiro.getInstance().getPosicao("11"));
-//        System.out.println(clone.getMapNomePosicao());
-        pos1 = clone.getPosicao("11").getPeca();
-        clone.getPosicao("44").setPeca(pos1);
+        
+        
 
         controleGeral.exibirMenu();
     }
