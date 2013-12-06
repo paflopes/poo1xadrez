@@ -33,9 +33,9 @@ public class Peao extends PecaImpl{
         char linhaNova = novaPosicao.getId().charAt(1);
                 
         if(linhaAtual == '2' || linhaAtual == '7'){
-            return Math.abs(linhaNova - linhaAtual) <= 2;
+            return Math.abs(linhaNova - linhaAtual) <= 2 && colunaAtual==colunaNova;
         }else{
-            return Math.abs(linhaNova - linhaAtual) == 1;
+            return Math.abs(linhaNova - linhaAtual) == 1 && colunaAtual==colunaNova;
         }        
     }
     

@@ -80,7 +80,6 @@ public class Controle {
               
             //Se a peça vai fazer um movimento, o movimento tem que ser valido e a posição desejada estar vazia
             if(peca.validarMovimento(novaPosicao) && posicaoFrenteVazia(novaPosicao, Tabuleiro.getInstance())){
-                System.out.println("Andou");
                 
                 //Seta a nova posição na peca, e altera as posições no tabuleiro
                 peca.setPosicao(novaPosicao);
@@ -91,7 +90,6 @@ public class Controle {
                 //Se a peça vai capturar, a posiçao de captura tem que ser valida,captura ser valido e a cor da peça na posição desejada ser da outra cor
                 if(peca.validarMovimentoCaptura(novaPosicao) && captura==true 
                         && Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor()!=peca.getCor()){
-                    System.out.println("Capturou");
                     
                     //Seta a nova posição na peca, e altera as posições no tabuleiro
                     peca.setPosicao(novaPosicao);
@@ -105,10 +103,43 @@ public class Controle {
             //Se a peça selecionada é do tipo Torre
             if(tipo == TipoPeca.TORRE){
                 
+                if(peca.validarMovimento(novaPosicao)&& caminhoRetoVazio(posicaoAtual, novaPosicao, Tabuleiro.getInstance())){
+                    
+                    //Seta a nova posição na peca, e altera as posições no tabuleiro
+                    peca.setPosicao(novaPosicao);
+                    Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).setPeca(null);                
+                    Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).setPeca(peca);
+                    
+                }else{
+                    
+                    if(peca.validarMovimento(novaPosicao) && caminhoRetoCaptura(posicaoAtual, novaPosicao, Tabuleiro.getInstance()) &&
+                            captura==true){
+                        
+                        //Seta a nova posição na peca, e altera as posições no tabuleiro
+                        peca.setPosicao(novaPosicao);
+                        Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).setPeca(null);                
+                        Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).setPeca(peca);
+                    }
+                }
+                
+                
             }else{
                 
                 //Se a peça selecionada é do tipo Bispo
                 if(tipo == TipoPeca.BISPO){
+                    
+                    if(peca.validarMovimento(novaPosicao) && caminhoDiagonalVazio(posicaoAtual, novaPosicao, Tabuleiro.getInstance()) ){
+                        
+                        peca.setPosicao(novaPosicao);
+                        Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).setPeca(null);                
+                        Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).setPeca(peca);
+                    }else{
+                        
+                    }
+                        
+                        
+                    
+                    
                     
                 }else{
                     
@@ -129,6 +160,107 @@ public class Controle {
                 }
             }
         }
+    }
+    
+    public boolean caminhoDiagonalVazio(Posicao posicaoAtual, Posicao novaPosicao, Tabuleiro tabuleiro){
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunaAtual = posicaoAtual.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        
+        
+        //Verifica a direção Nordeste
+        if(linhaAtual <= linhaNova && colunaAtual <= colunaNova){
+            while(linhaAtual <= linhaNova && colunaAtual <= colunaNova){
+                if(tabuleiro.getPosicao(""+(linhaAtual+1) + (linhaNova+1)).existePeca()){
+                    return false;
+                }
+                linhaAtual++;
+                colunaAtual++;
+            }              
+        }else{
+            
+            //Verifica a direção Noroeste
+            if(linhaAtual >= linhaNova && colunaAtual <= colunaNova){
+                while(linhaAtual >= linhaNova && colunaAtual <= colunaNova){
+                    if(tabuleiro.getPosicao(""+(linhaAtual+1) + (linhaNova+1)).existePeca()){
+                        return false;
+                    }
+                    linhaAtual++;
+                    colunaAtual--;
+                }
+            }else{
+                
+                //Verifica a direção Sudoeste
+                if(linhaAtual >= linhaNova && colunaAtual >= colunaNova){
+                    while(linhaAtual <= linhaNova && colunaAtual <= colunaNova){
+                    if(tabuleiro.getPosicao(""+(linhaAtual+1) + (linhaNova+1)).existePeca()){
+                        return false;
+                    }
+                    linhaAtual--;
+                    colunaAtual--;
+                    }
+                }else{
+                    
+                    //Verifica a direção Sudeste
+                    while(linhaAtual <= linhaNova && colunaAtual >= colunaNova){
+                        if(tabuleiro.getPosicao(""+(linhaAtual+1) + (linhaNova+1)).existePeca()){
+                            return false;
+                        }
+                        linhaAtual--;
+                        colunaAtual++;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
+    
+    public boolean caminhoRetoCaptura(Posicao posicaoAtual, Posicao novaPosicao, Tabuleiro tabuleiro){
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunaAtual = posicaoAtual.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        
+        if(colunaAtual == colunaNova || linhaAtual != linhaNova){
+            for(linhaAtual = (char)(posicaoAtual.getId().charAt(1) +1); linhaAtual<linhaNova; linhaAtual++){
+                if(Tabuleiro.getInstance().getPosicao("" +colunaAtual +linhaAtual).existePeca()){
+                   return false; 
+                }
+            }
+        }else{
+            for(colunaAtual = (char)(posicaoAtual.getId().charAt(0) +1); colunaAtual<colunaNova; colunaAtual++){
+                if(Tabuleiro.getInstance().getPosicao("" +colunaAtual +linhaAtual).existePeca()){
+                   return false; 
+                }
+            }
+        }
+        return true;
+        
+    }
+    
+    
+    public boolean caminhoRetoVazio(Posicao posicaoAtual, Posicao novaPosicao, Tabuleiro tabuleiro){
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunaAtual = posicaoAtual.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        
+        if(colunaAtual == colunaNova || linhaAtual != linhaNova){
+            for(linhaAtual = (char)(posicaoAtual.getId().charAt(1) +1); linhaAtual<=linhaNova; linhaAtual++){
+                if(Tabuleiro.getInstance().getPosicao("" +colunaAtual +linhaAtual).existePeca()){
+                   return false; 
+                }
+            }
+        }else{
+            for(colunaAtual = (char)(posicaoAtual.getId().charAt(0) +1); colunaAtual<=colunaNova; colunaAtual++){
+                if(Tabuleiro.getInstance().getPosicao("" +colunaAtual +linhaAtual).existePeca()){
+                   return false; 
+                }
+            }
+        }
+        return true;
     }
     
     public boolean posicaoFrenteVazia(Posicao novaPosicao, Tabuleiro tabuleiro){
