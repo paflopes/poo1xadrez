@@ -25,14 +25,18 @@ public class Impressao {
         imprimir("3 - Sair");
     }
 
-    public void imprimiPedidoNomeJogador(String cor) {
+    public void imprimiPedidoNomeJogador(Cor cor) {
         imprimir("Digite o nome do jogador com as peças de cor " + cor + ": ");
 
     }
 
     public void imprimiTabuleiro() {
-        imprimir("---------------------------------");
+        
+        
+        imprimir("    1   2   3   4   5   6   7   8");
+        imprimir("  ---------------------------------");
         for (int countLinha = 8; countLinha > 0; countLinha--) {
+            System.out.print(countLinha+" ");
             for (int countColuna = 1; countColuna < 9; countColuna++) {
                 String idPosicao = "" + countColuna + countLinha;
                 if (!Tabuleiro.getInstance().getPosicao(idPosicao).existePeca()) {
@@ -45,9 +49,11 @@ public class Impressao {
                     }
                 }
             }
-            imprimir("|");
-            imprimir("---------------------------------");
+            System.out.print("|");
+            imprimir(" " +countLinha);
+            imprimir("  ---------------------------------");
         }
+        imprimir("    1   2   3   4   5   6   7   8");
 
     }
 
@@ -57,5 +63,9 @@ public class Impressao {
 
     public void imprimiPontos(Jogador jogador) {
         imprimir("Pontos do jogador " + jogador.getNome() + ": " + jogador.getPontos());
+    }
+    
+    public void imprimiJogadaInvalida(){
+        imprimir("Jogada invalida!");
     }
 }

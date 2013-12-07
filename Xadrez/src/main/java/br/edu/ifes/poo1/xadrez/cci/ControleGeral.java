@@ -6,6 +6,7 @@
 
 package br.edu.ifes.poo1.xadrez.cci;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cgt.Controle;
 import br.edu.ifes.poo1.xadrez.cih.Impressao;
@@ -27,13 +28,28 @@ public class ControleGeral {
         Scanner scanner = new Scanner(System.in);
         int escolha = scanner.nextInt();
         if(escolha==1){
-            Jogador jogadorBranco = cadastraJogador("branca");
-            Jogador jogadorPreto = cadastraJogador("preta");
+            Jogador jogadorBranco = cadastraJogador(Cor.BRANCO);
+            Jogador jogadorPreto = cadastraJogador(Cor.PRETO);
 
             while(true){
+                
                 impressora.imprimiTabuleiro();
                 jogadorBranco.setJogada(pedeJogada(jogadorBranco));
                 controle.processaJogada(jogadorBranco);
+                while(!jogadorBranco.getJogada().equals("valida")){
+                    impressora.imprimiJogadaInvalida();
+                    jogadorBranco.setJogada(pedeJogada(jogadorBranco));
+                    controle.processaJogada(jogadorBranco);
+                }
+                
+                impressora.imprimiTabuleiro();
+                jogadorPreto.setJogada(pedeJogada(jogadorPreto));
+                controle.processaJogada(jogadorPreto);
+                while(!jogadorPreto.getJogada().equals("valida")){
+                    impressora.imprimiJogadaInvalida();
+                    jogadorPreto.setJogada(pedeJogada(jogadorPreto));
+                    controle.processaJogada(jogadorPreto);
+                }
                 
                 
                 
@@ -55,7 +71,7 @@ public class ControleGeral {
         return scanner.nextLine();
     }
     
-    public Jogador cadastraJogador(String cor) {	
+    public Jogador cadastraJogador(Cor cor) {	
         impressora.imprimiPedidoNomeJogador(cor);
         Jogador jogador = new Jogador();
         Scanner scanner = new Scanner(System.in);
