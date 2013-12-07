@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Tabuleiro implements Cloneable {
 
-    private Map<String, Posicao> mapNomePosicao = new HashMap<>();
+    private final Map<String, Posicao> mapNomePosicao = new HashMap<>();
     private static final Tabuleiro instance = new Tabuleiro();
 
     public Tabuleiro() {
@@ -57,7 +57,7 @@ public class Tabuleiro implements Cloneable {
                 //Montando a String
                 idPosicao = "" + coluna + linha;
                 //Criando a posição
-                posicao = new Posicao(idPosicao);
+                posicao = new PosicaoImpl(idPosicao);
                 //Salvando as posições
                 mapNomePosicao.put(idPosicao, posicao);
             }

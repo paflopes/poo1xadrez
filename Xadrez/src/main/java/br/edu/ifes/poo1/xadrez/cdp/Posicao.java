@@ -11,53 +11,22 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  *
  * @author phillipe
  */
-public class Posicao {
+public interface Posicao {
 
-    private final String id;
-    private Peca peca = null;
+    public String getId();
 
-    public Posicao(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Peca getPeca() {
-        return peca;
-    }
+    public Peca getPeca();
 
     /**
      * Coloca uma peca na posição e retira da posição anterior.
      *
      * @param peca
      */
-    public void setPeca(Peca peca) {
-        Posicao posicaoAnt;
-        this.peca = peca;
-
-        try {
-            posicaoAnt = peca.getPosicao();
-        } catch (NullPointerException e) {
-            return;
-        }
-
-        if (posicaoAnt != null) {
-            posicaoAnt.setPeca(null);
-        }
-
-        peca.setPosicao(this);
-    }
+    public void setPeca(Peca peca);
 
     /**
-     *
-     * @return Retorna true se há alguma peça na posição atual e false caso
-     * contrário.
+     * @return Retorna {@code true} se há alguma peça na posição atual e
+     * {@code false} caso contrário.
      */
-    public boolean existePeca() {
-        return this.peca != null;
-    }
-
-    
+    public boolean existePeca();
 }
