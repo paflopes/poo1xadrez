@@ -52,13 +52,14 @@ public class Tabuleiro implements Cloneable {
         for (char coluna = '1'; coluna < '9'; coluna++) {
             for (char linha = '1'; linha < '9'; linha++) {
                 String idPosicao;
-                Posicao posicao = new Posicao();
+                Posicao posicao;
 
                 //Montando a String
                 idPosicao = "" + coluna + linha;
+                //Criando a posição
+                posicao = new Posicao(idPosicao);
                 //Salvando as posições
                 mapNomePosicao.put(idPosicao, posicao);
-                posicao.setId(idPosicao);
             }
         }
     }

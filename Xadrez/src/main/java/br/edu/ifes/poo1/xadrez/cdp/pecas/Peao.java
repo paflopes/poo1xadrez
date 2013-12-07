@@ -23,8 +23,6 @@ public class Peao extends PecaImpl{
         
     }
 
-    
-    
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
         char colunaAtual = this.posicao.getId().charAt(0);
@@ -38,12 +36,6 @@ public class Peao extends PecaImpl{
             return Math.abs(linhaNova - linhaAtual) == 1 && colunaAtual==colunaNova;
         }        
     }
-    
-    /**
-     *
-     * @param novaPosicao
-     * @return
-     */
     
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao){

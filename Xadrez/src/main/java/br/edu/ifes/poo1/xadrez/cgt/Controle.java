@@ -63,16 +63,16 @@ public class Controle {
         Posicao posicaoAtual = Tabuleiro.getInstance().getPosicao(""+jogador.getJogada().charAt(0)+jogador.getJogada().charAt(1));
         Peca peca = posicaoAtual.getPeca();
         TipoPeca tipo = peca.getTipo();
-        Posicao novaPosicao = new Posicao();
+        Posicao novaPosicao;
         
         //Se vai acontecer tentiva de captura na jogada
         boolean captura = isCaptura(jogador.getJogada().charAt(2));
         
         //Posicao desejada pelo o usuario
         if(jogador.getJogada().charAt(2)=='x'){
-            novaPosicao.setId(""+jogador.getJogada().charAt(3)+jogador.getJogada().charAt(4));
+            novaPosicao = Tabuleiro.getInstance().getPosicao(""+jogador.getJogada().charAt(3)+jogador.getJogada().charAt(4));
         }else{
-            novaPosicao.setId(""+jogador.getJogada().charAt(2)+jogador.getJogada().charAt(3));
+            novaPosicao = Tabuleiro.getInstance().getPosicao(""+jogador.getJogada().charAt(2)+jogador.getJogada().charAt(3));
         }
         
         //Se a peça selecionada é do tipo Peão

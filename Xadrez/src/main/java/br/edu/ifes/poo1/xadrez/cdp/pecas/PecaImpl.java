@@ -49,14 +49,6 @@ public abstract class PecaImpl implements Peca, Cloneable {
     }
 
     /**
-     *
-     * @param novaPosicao A posição que se deseja que a peça vá.
-     * @return
-     */
-    @Override
-    public abstract boolean validarMovimento(Posicao novaPosicao);
-
-    /**
      * @return the desenho
      */
     @Override
@@ -80,7 +72,9 @@ public abstract class PecaImpl implements Peca, Cloneable {
     }
 
     @Override
-    public abstract boolean validarMovimentoCaptura(Posicao novaPosicao);
+    public boolean validarMovimentoCaptura(Posicao novaPosicao) {
+        return validarMovimento(novaPosicao);
+    }
        
    
     

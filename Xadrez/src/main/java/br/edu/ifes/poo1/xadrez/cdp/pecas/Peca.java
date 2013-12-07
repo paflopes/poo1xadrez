@@ -38,6 +38,11 @@ public interface Peca {
      */
     public boolean validarMovimento(Posicao novaPosicao);
 
+    /**
+     * Verifica se a peça pode realizar a captura.
+     * @param novaPosicao Posição onde está a peça a ser capturada.
+     * @return {@code true} se o movimento for válido ou {@code false} caso contrário.
+     */
     public boolean validarMovimentoCaptura(Posicao novaPosicao);
     
     /**

@@ -6,7 +6,6 @@
 package br.edu.ifes.poo1.xadrez.cdp;
 
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
-import br.edu.ifes.poo1.xadrez.cdp.pecas.PecaImpl;
 
 /**
  *
@@ -14,15 +13,15 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.PecaImpl;
  */
 public class Posicao {
 
-    private String id;
+    private final String id;
     private Peca peca = null;
+
+    public Posicao(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Peca getPeca() {
