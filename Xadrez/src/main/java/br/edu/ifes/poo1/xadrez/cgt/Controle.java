@@ -17,40 +17,7 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  * @author Lincoln
  */
 public class Controle {
-    
-    public void processaJogada(Jogador jogador){
-        if(isDesistencia(jogador.getJogada())){
-            
-        }else{
-            if(isEmpate(jogador.getJogada())){
-                
-            }else{
-                if(isPontuacao(jogador.getJogada())){
-                    
-                }else{
-                    if(isPromocao(jogador.getJogada())){
-                        
-                    }else{
-                        if(isRoqueMaior(jogador.getJogada())){
-                            
-                        }else{
-                            if(isRoqueMenor(jogador.getJogada())){
-                                
-                            }else{
-                                fazJogada(jogador);
-                                
-                            }
-                        }
-                    }
-                }
-            }
-        }
         
-        
-        
-    }
-    
-    
     public void fazJogada(Jogador jogador){
         processaJogadaPeca(jogador);
         
