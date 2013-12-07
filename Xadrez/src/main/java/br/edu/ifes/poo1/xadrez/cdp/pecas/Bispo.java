@@ -8,7 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
 /**
  *
@@ -16,18 +16,17 @@ import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
  */
 public class Bispo extends PecaImpl {
 
-    public Bispo() {
-        desenho = "B";
-        tipo=TipoPeca.BISPO;
-        
+    public Bispo(Cor cor) {
+        super(cor, NomePeca.BISPO);
+        this.setDesenho("B");
     }
-    
+
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
-        
+
         return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao);
     }
-    
+
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

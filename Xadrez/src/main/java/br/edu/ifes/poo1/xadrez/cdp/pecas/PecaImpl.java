@@ -7,18 +7,24 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
 /**
  *
  * @author phillipe
  */
-public abstract class PecaImpl implements Peca, Cloneable {
+public abstract class PecaImpl implements Peca {
 
-    protected TipoPeca tipo;
-    protected Cor cor;
-    protected Posicao posicao;
-    protected String desenho;
+    private final Cor cor;
+    private Posicao posicao;
+    private String desenho;
+    private final NomePeca nome;
+    private boolean seMovimentou;
+
+    public PecaImpl(Cor cor, NomePeca nome) {
+        this.cor = cor;
+        this.nome = nome;
+    }
 
     @Override
     public Posicao getPosicao() {
@@ -28,15 +34,9 @@ public abstract class PecaImpl implements Peca, Cloneable {
     @Override
     public void setPosicao(Posicao posicao) {
         this.posicao = posicao;
-    }
-
-    /**
-     *
-     * @param cor A cor da peça.
-     */
-    @Override
-    public void setCor(Cor cor) {
-        this.cor = cor;
+        if (!this.seMovimentou) {
+            this.seMovimentou = true;
+        }
     }
 
     /**
@@ -64,18 +64,24 @@ public abstract class PecaImpl implements Peca, Cloneable {
         this.desenho = desenho;
     }
 
-
     @Override
-    public TipoPeca getTipo() {
-        
-        return this.tipo;
+    public NomePeca getNome() {
+        return this.nome;
     }
 
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
         return validarMovimento(novaPosicao);
     }
-       
-   
-    
+
+    @Override
+    public boolean jaMovimentou() {
+        return this.seMovimentou;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
 }

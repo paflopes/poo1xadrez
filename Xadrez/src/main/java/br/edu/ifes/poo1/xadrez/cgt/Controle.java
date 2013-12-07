@@ -9,7 +9,7 @@ package br.edu.ifes.poo1.xadrez.cgt;
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 
 /**
@@ -62,7 +62,7 @@ public class Controle {
         //Pego a posicao atual da peca, pego a peça, pego o tipo da peça e instancio a posicao desejada
         Posicao posicaoAtual = Tabuleiro.getInstance().getPosicao(""+jogador.getJogada().charAt(0)+jogador.getJogada().charAt(1));
         Peca peca = posicaoAtual.getPeca();
-        TipoPeca tipo = peca.getTipo();
+        NomePeca tipo = peca.getNome();
         Posicao novaPosicao;
         
         //Se vai acontecer tentiva de captura na jogada
@@ -76,7 +76,7 @@ public class Controle {
         }
         
         //Se a peça selecionada é do tipo Peão
-        if(tipo == TipoPeca.PEAO){
+        if(tipo == NomePeca.PEAO){
               
             //Se a peça vai fazer um movimento, o movimento tem que ser valido e a posição desejada estar vazia
             if(peca.validarMovimento(novaPosicao) && posicaoFrenteVazia(novaPosicao, Tabuleiro.getInstance())){
@@ -101,7 +101,7 @@ public class Controle {
         }else{
             
             //Se a peça selecionada é do tipo Torre
-            if(tipo == TipoPeca.TORRE){
+            if(tipo == NomePeca.TORRE){
                 
                 if(peca.validarMovimento(novaPosicao)&& caminhoRetoVazio(posicaoAtual, novaPosicao, Tabuleiro.getInstance())){
                     
@@ -126,7 +126,7 @@ public class Controle {
             }else{
                 
                 //Se a peça selecionada é do tipo Bispo
-                if(tipo == TipoPeca.BISPO){
+                if(tipo == NomePeca.BISPO){
                     
                     if(peca.validarMovimento(novaPosicao) && caminhoDiagonalVazio(posicaoAtual, novaPosicao, Tabuleiro.getInstance()) ){
                         
@@ -144,12 +144,12 @@ public class Controle {
                 }else{
                     
                     //Se a peça selecionada é do tipo Cavalo
-                    if(tipo == TipoPeca.CAVALO){
+                    if(tipo == NomePeca.CAVALO){
                         
                     }else{
                         
                         //Se a peça selecionada é do tipo Rainha
-                        if(tipo == TipoPeca.RAINHA){
+                        if(tipo == NomePeca.RAINHA){
                             
                         }else{
                             

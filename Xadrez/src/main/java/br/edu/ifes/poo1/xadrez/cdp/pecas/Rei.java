@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
 /**
  *
@@ -16,23 +15,21 @@ import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
  */
 public class Rei extends PecaImpl {
 
-    public Rei() {
-        desenho = "R";
-        tipo=TipoPeca.REI;
-        
+    public Rei(Cor cor) {
+        super(cor, NomePeca.REI);
+        this.setDesenho("R");
     }
-    
-    
+
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
-        char colunaAtual = this.posicao.getId().charAt(0);
-        char linhaAtual = this.posicao.getId().charAt(1);
+        char colunaAtual = this.getPosicao().getId().charAt(0);
+        char linhaAtual = this.getPosicao().getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
-        
-        return Math.abs(colunaAtual - colunaNova)<=1 && Math.abs(linhaAtual - linhaNova)<=1;
+
+        return Math.abs(colunaAtual - colunaNova) <= 1 && Math.abs(linhaAtual - linhaNova) <= 1;
     }
-    
+
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

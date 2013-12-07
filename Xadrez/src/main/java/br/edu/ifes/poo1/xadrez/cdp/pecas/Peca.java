@@ -7,13 +7,13 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
 /**
  *
  * @author leds
  */
-public interface Peca {
+public interface Peca extends Cloneable {
 
     public Posicao getPosicao();
 
@@ -21,15 +21,15 @@ public interface Peca {
 
     /**
      *
-     * @param cor A cor da peça.
-     */
-    public void setCor(Cor cor);
-
-    /**
-     *
      * @return A cor da peça.
      */
     public Cor getCor();
+    
+    /**
+     * Verifica se a peça já se movimentou no Tabuleiro.
+     * @return {@code true}  se já se movimentou, {@code false} caso contrário.
+     */
+    public boolean jaMovimentou();
 
     /**
      *
@@ -55,8 +55,14 @@ public interface Peca {
      */
     public void setDesenho(String desenho);
 
+
+    /**
+     * 
+     * @return O nome da peça. Ex.: {@code NomePeca.CAVALO}.
+     */
+    public NomePeca getNome();
     
-    public TipoPeca getTipo();
+    public Object clone() throws CloneNotSupportedException;
     
     
 }

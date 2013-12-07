@@ -7,7 +7,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
 /**
  *
@@ -15,16 +15,15 @@ import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
  */
 public class Cavalo extends PecaImpl {
 
-    public Cavalo() {
-        desenho = "C";
-        tipo=TipoPeca.CAVALO;
-        
+    public Cavalo(Cor cor) {
+        super(cor, NomePeca.CAVALO);
+        this.setDesenho("C");
     }
-    
+
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
-        char colunaAtual = this.posicao.getId().charAt(0);
-        char linhaAtual = this.posicao.getId().charAt(1);
+        char colunaAtual = this.getPosicao().getId().charAt(0);
+        char linhaAtual = this.getPosicao().getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
 
@@ -36,6 +35,5 @@ public class Cavalo extends PecaImpl {
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

@@ -38,4 +38,8 @@ public class MovimentoPeca {
 
         return false;
     }
+    
+    public static boolean haPecas(String[] caminho) {
+        return false;        
+    }
 }

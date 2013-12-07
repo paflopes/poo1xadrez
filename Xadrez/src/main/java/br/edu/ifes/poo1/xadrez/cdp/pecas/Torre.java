@@ -8,7 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
 /**
  *
@@ -16,13 +16,11 @@ import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
  */
 public class Torre extends PecaImpl {
 
-    public Torre() {
-        desenho = "T";
-        tipo=TipoPeca.TORRE;
-        
+    public Torre(Cor cor) {
+        super(cor, NomePeca.TORRE);
+        this.setDesenho("T");
     }
-    
-    
+
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
 

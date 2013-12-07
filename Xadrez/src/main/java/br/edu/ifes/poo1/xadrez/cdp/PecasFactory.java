@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.xadrez.cdp;
 
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -46,21 +47,22 @@ public class PecasFactory {
     private static void instanciarPecas(Map<Cor, Peca[]> pecas, String nomePeca) throws Exception {
         Peca[] pecasBrancas = pecas.get(Cor.BRANCO);
         Peca[] pecasPretas = pecas.get(Cor.PRETO);
+        //Instanciando a classe recebida por parâmetro.
         String nomePacote = "br.edu.ifes.poo1.xadrez.cdp.pecas.";
         Class c = Class.forName(nomePacote + nomePeca);
+        Constructor ctor = c.getDeclaredConstructor(Cor.class);
+        //Criando os Objetos para serem clonados.
+        Peca pecaPreta = (Peca) ctor.newInstance(Cor.PRETO);
+        Peca pecaBranca = (Peca) ctor.newInstance(Cor.BRANCO);
 
         for (int nPeca = 0; nPeca < pecasBrancas.length; nPeca++) {
-            pecasBrancas[nPeca] = (Peca) c.newInstance();
-            pecasBrancas[nPeca].setCor(Cor.BRANCO);
-        }
-
-        for (int nPeca = 0; nPeca < pecasPretas.length; nPeca++) {
-            pecasPretas[nPeca] = (Peca) c.newInstance();
-            pecasPretas[nPeca].setCor(Cor.PRETO);
+            pecasBrancas[nPeca] = (Peca) pecaBranca.clone();
+            pecasPretas[nPeca] = (Peca) pecaPreta.clone();
         }
     }
 
     /**
+     * Cria o Map de peças.
      *
      * @param quantidade A quantidade total de peças que se deseja criar.
      * @return Um Map que a cada cor associada, retorna um vetor vazio do tipo

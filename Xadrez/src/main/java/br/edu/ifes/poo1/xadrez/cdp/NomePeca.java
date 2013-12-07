@@ -10,7 +10,7 @@ package br.edu.ifes.poo1.xadrez.cdp;
  *
  * @author Lincoln
  */
-public enum TipoPeca {
+public enum NomePeca {
     
     PEAO,TORRE,REI,RAINHA,CAVALO,BISPO;
 }

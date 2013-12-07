@@ -8,7 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
 /**
  *
@@ -16,16 +16,15 @@ import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
  */
 public class Rainha extends PecaImpl {
 
-    public Rainha() {
-        desenho = "D";
-        tipo=TipoPeca.RAINHA;
-        
+    public Rainha(Cor cor) {
+        super(cor, NomePeca.RAINHA);
+        this.setDesenho("D");
     }
 
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
 
-        return MovimentoPeca.isDiagonal(this.posicao, novaPosicao) || MovimentoPeca.isStraight(this.posicao, novaPosicao);
+        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) || MovimentoPeca.isStraight(this.getPosicao(), novaPosicao);
     }
     
     @Override
