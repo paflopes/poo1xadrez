@@ -68,4 +68,16 @@ public class Impressao {
     public void imprimiJogadaInvalida(){
         imprimir("Jogada invalida!");
     }
+    
+    public void imprimiPedidoEmpate(){
+        imprimir("Deseja aceitar o empate jogador adversario? S/N");
+    }
+    
+    public void imprimiEmpate(){
+        imprimir("Jogo empatado");
+    }
+    
+    public void imprimiVencedor(Jogador jogador){
+        imprimir("O jogador " +jogador.getNome() +" ganhou");
+    }
 }

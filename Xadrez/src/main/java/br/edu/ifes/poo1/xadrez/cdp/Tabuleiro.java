@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author phillipe
  */
-public class Tabuleiro implements Cloneable {
+public class Tabuleiro  {
 
     private Map<String, Posicao> mapNomePosicao = new HashMap<>();
     private static final Tabuleiro instance = new Tabuleiro();

@@ -7,9 +7,11 @@
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.DadosPartida;
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cgt.Controle;
 import br.edu.ifes.poo1.xadrez.cih.Impressao;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -22,7 +24,7 @@ public class ControleGeral {
     private Controle controle = new Controle();
     private boolean jogadaValida;
     
-    public void exibirMenu(){
+    public void exibirMenu() throws IOException{
            
         impressora.imprimiMenu();
         Scanner scanner = new Scanner(System.in);
@@ -35,25 +37,57 @@ public class ControleGeral {
                 
                 jogada(jogadorBranco);
                 
-                jogada(jogadorPreto);       
+                if(isDesistencia(jogadorBranco.getJogada())){
+                    impressora.imprimiVencedor(jogadorPreto);
+                    DadosPartida.getInstance().setListaDados(jogadorPreto);
+                    break;
+                }
+                
+                if(jogadorBranco.isVitoria()){
+                    impressora.imprimiVencedor(jogadorBranco);
+                    DadosPartida.getInstance().setListaDados(jogadorBranco);
+                    break;
+                }
+                
+                jogada(jogadorPreto);
+                if(isDesistencia(jogadorPreto.getJogada())){
+                    impressora.imprimiVencedor(jogadorBranco);
+                    DadosPartida.getInstance().setListaDados(jogadorBranco);
+                    break;
+                }
+                
+                if(jogadorPreto.isVitoria()){
+                    impressora.imprimiVencedor(jogadorPreto);
+                    DadosPartida.getInstance().setListaDados(jogadorPreto);
+                    break;
+                }
             
             }
         }
     }
     
-    private void jogada(Jogador jogador){
+    private void jogada(Jogador jogador) {
         impressora.imprimiTabuleiro();
         jogador.setJogada(pedeJogada(jogador));
         processaJogada(jogador);
 
-        while(!jogador.getJogada().equals("valida")){
-            if(!(jogador.getJogada().equals("pontos") || jogador.getJogada().equals("empate")
-               || jogador.getJogada().equals("desistir"))){
+        while(!jogador.getJogada().equals("valida") &&  !jogador.getJogada().equals("desistir")){
+            if(!(jogador.getJogada().equals("pontos") && !jogador.getJogada().equals("empate"))){
                 impressora.imprimiJogadaInvalida();
             }                   
+            if(jogador.getJogada().equals("empate")){
+                impressora.imprimiPedidoEmpate();
+                Scanner scanner = new Scanner(System.in);
+                String escolha = scanner.nextLine();
+                if(escolha.equals("S")){
+                    impressora.imprimiEmpate();
+                    break;
+                }
+            }
             jogador.setJogada(pedeJogada(jogador));
             processaJogada(jogador);
         }
+        jogador.setVitoria(controle.isXequeMate(jogador.getJogada().charAt(4)));
     }
     
     public String pedeJogada(Jogador jogador){
@@ -74,15 +108,12 @@ public class ControleGeral {
     }    
     
     public void processaJogada(Jogador jogador){
-        if(isDesistencia(jogador.getJogada())){
-            
+        if(isDesistencia(jogador.getJogada())){                
         }else{
-            if(isEmpate(jogador.getJogada())){
-                
+            if(isEmpate(jogador.getJogada())){                
             }else{
                 if(isPontuacao(jogador.getJogada())){
                     impressora.imprimir("" +jogador.getPontos());
-                    
                 }else{
                     if(isPromocao(jogador.getJogada())){
                         

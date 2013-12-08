@@ -14,7 +14,6 @@ public class Jogador {
     
     private String nome;
     private String jogada;
-    private String jogadaAnterior;
     private int pontos;
     private boolean vitoria;
     private Cor cor;
@@ -56,20 +55,7 @@ public class Jogador {
         this.jogada = jogada;
     }
 
-    /**
-     * @return the jogadaAnterior
-     */
-    public String getJogadaAnterior() {
-        return jogadaAnterior;
-    }
-
-    /**
-     * @param jogadaAnterior the jogadaAnterior to set
-     */
-    public void setJogadaAnterior(String jogadaAnterior) {
-        this.jogadaAnterior = jogadaAnterior;
-    }
-
+ 
     /**
      * @return the pontos
      */
