@@ -82,8 +82,8 @@ public class Controle {
             if(peca.validarMovimento(novaPosicao) && posicaoFrenteVazia(novaPosicao, Tabuleiro.getInstance())){
                 
                 //Seta a nova posição na peca, e altera as posições no tabuleiro
-                peca.setPosicao(novaPosicao);
-                Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).setPeca(null);                
+                //peca.setPosicao(novaPosicao);
+                //Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).setPeca(null);                
                 Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).setPeca(peca);
             }else{
                 
@@ -92,8 +92,8 @@ public class Controle {
                         && Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor()!=peca.getCor()){
                     
                     //Seta a nova posição na peca, e altera as posições no tabuleiro
-                    peca.setPosicao(novaPosicao);
-                    Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).setPeca(null);
+                    //peca.setPosicao(novaPosicao);
+                    //Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).setPeca(null);
                     Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).setPeca(peca);                    
                 }
             }

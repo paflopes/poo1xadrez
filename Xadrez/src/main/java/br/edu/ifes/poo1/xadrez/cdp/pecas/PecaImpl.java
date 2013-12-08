@@ -38,6 +38,11 @@ public abstract class PecaImpl implements Peca {
             this.seMovimentou = true;
         }
     }
+    
+    @Override
+    public void setPosicaoInicial(Posicao posicao) {
+        this.posicao = posicao;
+    }
 
     /**
      *

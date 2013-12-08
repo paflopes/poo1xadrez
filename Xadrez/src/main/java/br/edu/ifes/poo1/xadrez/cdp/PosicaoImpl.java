@@ -40,17 +40,14 @@ public class PosicaoImpl implements Posicao {
         Posicao posicaoAnt;
         this.peca = peca;
 
-        try {
-            posicaoAnt = peca.getPosicao();
-        } catch (NullPointerException e) {
-            return;
-        }
-
+        // Aqui é verificado se é a primeira vez que é a primeira vez que a posição é definida.
+        posicaoAnt = peca.getPosicao();
         if (posicaoAnt != null) {
-            posicaoAnt.setPeca(null);
+            ((PosicaoImpl) posicaoAnt).peca = null;
+            peca.setPosicao(this);
+        } else {
+            peca.setPosicaoInicial(this);
         }
-
-        peca.setPosicao(this);
     }
 
     /**
@@ -63,5 +60,4 @@ public class PosicaoImpl implements Posicao {
         return this.peca != null;
     }
 
-    
 }

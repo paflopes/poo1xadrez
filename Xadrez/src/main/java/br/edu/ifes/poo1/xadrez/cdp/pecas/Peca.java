@@ -19,6 +19,8 @@ public interface Peca extends Cloneable {
 
     public void setPosicao(Posicao posicao);
 
+    public void setPosicaoInicial(Posicao posicao);
+    
     /**
      *
      * @return A cor da peça.
@@ -63,6 +65,4 @@ public interface Peca extends Cloneable {
     public NomePeca getNome();
     
     public Object clone() throws CloneNotSupportedException;
-    
-    
 }
