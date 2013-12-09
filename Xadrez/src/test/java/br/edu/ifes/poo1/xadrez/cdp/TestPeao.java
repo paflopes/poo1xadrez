@@ -53,11 +53,12 @@ public class TestPeao {
         Assert.assertFalse(peaoPreto.validarMovimentoCaptura(tab.getPosicao("56")));
         Assert.assertFalse(peaoPreto.validarMovimentoCaptura(tab.getPosicao("36")));
 
-        tab.getPosicao("56").setPeca(tab.getPosicao("57").getPeca());
-        tab.getPosicao("36").setPeca(tab.getPosicao("37").getPeca());
+        tab.getPosicao("56").setPeca(tab.getPosicao("52").getPeca());
+        tab.getPosicao("36").setPeca(tab.getPosicao("32").getPeca());
 
         Assert.assertTrue(peaoPreto.validarMovimentoCaptura(tab.getPosicao("56")));
         Assert.assertTrue(peaoPreto.validarMovimentoCaptura(tab.getPosicao("36")));
+        Assert.assertFalse(peaoPreto.validarMovimentoCaptura(tab.getPosicao("46")));
 
     }
 }

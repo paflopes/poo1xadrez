@@ -41,7 +41,7 @@ public class Cavalo extends PecaImpl {
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
 
-        if (novaPosicao.existePeca()) {
+        if (novaPosicao.existePeca() && novaPosicao.getPeca().getCor() != this.getCor()) {
             return ((Math.abs(colunaAtual - colunaNova) == 2) && (Math.abs(linhaAtual - linhaNova) == 1))
                     || ((Math.abs(colunaAtual - colunaNova) == 1) && (Math.abs(linhaAtual - linhaNova) == 2));
         }

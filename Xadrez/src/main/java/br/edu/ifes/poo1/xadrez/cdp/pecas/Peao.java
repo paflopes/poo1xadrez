@@ -65,7 +65,7 @@ public class Peao extends PecaImpl {
          * Se a peça não existir, então não há captura e um movimento deverá ser
          * realizado.
          */
-        if (novaPosicao.existePeca()) {
+        if (novaPosicao.existePeca() && (novaPosicao.getPeca().getCor() != this.getCor())) {
             /**
              * Se a peça for branca, verificamos nas diagonais para cima, caso
              * contrário verificamos as diagonais abaixo.

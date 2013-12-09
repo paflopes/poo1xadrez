@@ -31,6 +31,10 @@ public class TestBispo {
     @Test
     public void testValidarMovimentoCaptura() {
         Assert.assertFalse(bispoPreto.validarMovimentoCaptura(tab.getPosicao("46")));
+
+        tab.getPosicao("27").setPeca(tab.getPosicao("22").getPeca());
+        tab.getPosicao("47").setPeca(tab.getPosicao("42").getPeca());
+
         Assert.assertTrue(bispoPreto.validarMovimentoCaptura(tab.getPosicao("27")));
         Assert.assertTrue(bispoPreto.validarMovimentoCaptura(tab.getPosicao("47")));
 

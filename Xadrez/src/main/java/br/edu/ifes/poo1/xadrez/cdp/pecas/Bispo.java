@@ -27,15 +27,17 @@ public class Bispo extends PecaImpl {
         List<String> caminho = MovimentoPeca.caminhoDiagonal(this.getPosicao(), novaPosicao);
 
         //O movimento só é válido quando for diagonal, não houver peças em seu caminho e não existir nenhuma peça na nova posição.
-        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) & !MovimentoPeca.haPeca(caminho) & !novaPosicao.existePeca();
+        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho) && !novaPosicao.existePeca();
     }
 
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
         List<String> caminho = MovimentoPeca.caminhoDiagonal(this.getPosicao(), novaPosicao);
 
-        //O movimento só é válido quando for diagonal, não houver peças em seu caminho e existir uma peça na nova posição.
-        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) & !MovimentoPeca.haPeca(caminho) & novaPosicao.existePeca();
+        //O movimento só é válido quando for diagonal, não houver peças em seu caminho,
+        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho)
+                //existir uma peça na nova posição e esta peça for de outra cor.
+                && novaPosicao.existePeca() && novaPosicao.getPeca().getCor() != this.getCor();
     }
 
 }
