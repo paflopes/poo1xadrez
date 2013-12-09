@@ -47,17 +47,14 @@ public class MovimentoPeca {
      */
     public static boolean haPeca(List<String> caminho) {
         Tabuleiro tab = Tabuleiro.getInstance();
-        boolean haPeca = true;
 
         for (String idPosicao : caminho) {
-            haPeca = haPeca && tab.getPosicao(idPosicao).existePeca();
+            if (tab.getPosicao(idPosicao).existePeca() == true) {
+                return true;
+            }
         }
 
-        if (caminho.isEmpty()) {
-            return false;
-        }
-
-        return haPeca;
+        return false;
     }
 
     /**

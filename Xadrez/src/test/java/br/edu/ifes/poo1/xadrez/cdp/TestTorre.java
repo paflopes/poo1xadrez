@@ -8,6 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -15,27 +16,46 @@ import org.junit.Before;
  */
 public class TestTorre {
 
-    Peca peca;
-    Tabuleiro tabuleiro;
+    Peca torreBranca;
+    Peca torrePreta;
+    Tabuleiro tab;
 
     @Before
     public void before() {
         Tabuleiro.getInstance().restaurarTabuleiro();
-        this.tabuleiro = Tabuleiro.getInstance();
-        this.peca = this.tabuleiro.getPosicao("88").getPeca();
+        this.tab = Tabuleiro.getInstance();
+        this.torrePreta = this.tab.getPosicao("88").getPeca();
+        this.torreBranca = this.tab.getPosicao("11").getPeca();
     }
 
+    @Test
     public void testValidarMovimento() {
-        for (char linha = '1'; linha < '9'; linha++) {
-            Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("8" + linha)));
-        }
-        for (char coluna = '1'; coluna < '9'; coluna++) {
-            Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao(coluna + "8")));
-        }
-        for (char coluna = '1'; coluna < '8'; coluna++) {
-            for (char linha = '1'; linha < '8'; linha++) {
-                Assert.assertFalse(this.peca.validarMovimento(this.tabuleiro.getPosicao("" + coluna + linha)));
-            }
-        }
+        Assert.assertFalse(torrePreta.validarMovimento(tab.getPosicao("12")));
+        Assert.assertFalse(torrePreta.validarMovimento(tab.getPosicao("22")));
+        Assert.assertFalse(torrePreta.validarMovimento(tab.getPosicao("21")));
+
+        Assert.assertFalse(torrePreta.validarMovimento(tab.getPosicao("87")));
+        Assert.assertFalse(torrePreta.validarMovimento(tab.getPosicao("77")));
+        Assert.assertFalse(torrePreta.validarMovimento(tab.getPosicao("78")));
+
+        Assert.assertFalse(torrePreta.validarMovimento(tab.getPosicao("85")));
+
+        tab.getPosicao("45").setPeca(torreBranca);
+        
+        Assert.assertTrue(torreBranca.validarMovimento(tab.getPosicao("55")));
+        Assert.assertTrue(torreBranca.validarMovimento(tab.getPosicao("65")));
+        Assert.assertTrue(torreBranca.validarMovimento(tab.getPosicao("46")));
+        Assert.assertTrue(torreBranca.validarMovimento(tab.getPosicao("44")));
+        
+        
+    }
+
+    @Test
+    public void testValidarMovimentoCaptura() {
+        tab.getPosicao("45").setPeca(torrePreta);
+        
+        Assert.assertTrue(torrePreta.validarMovimentoCaptura(tab.getPosicao("42")));
+        Assert.assertFalse(torrePreta.validarMovimentoCaptura(tab.getPosicao("48")));
+        Assert.assertFalse(torrePreta.validarMovimentoCaptura(tab.getPosicao("45")));
     }
 }

@@ -26,23 +26,10 @@ public class TestCavalo {
         this.peca = this.tabuleiro.getPosicao("21").getPeca();
     }
 
-    
     @Test
     public void testValidarMovimento() {
         Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("13")));
         Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("33")));
         Assert.assertFalse(this.peca.validarMovimento(this.tabuleiro.getPosicao("42")));
-        for (char coluna = '1'; coluna < '9'; coluna++) {
-            for (char linha = '1'; linha < '9'; linha++) {
-                Posicao posicaoTmp = this.tabuleiro.getPosicao("" + coluna + linha);
-                boolean posValidas = posicaoTmp == this.tabuleiro.getPosicao("13");
-                posValidas = posValidas || (posicaoTmp == this.tabuleiro.getPosicao("33"));
-                posValidas = posValidas || (posicaoTmp == this.tabuleiro.getPosicao("42"));
-
-                if (!posValidas) {
-                    Assert.assertFalse(this.peca.validarMovimento(posicaoTmp));
-                }
-            }
-        }
     }
 }

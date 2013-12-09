@@ -9,6 +9,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import java.util.List;
 
 /**
  *
@@ -23,13 +24,27 @@ public class Torre extends PecaImpl {
 
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
+        List<String> caminho;
 
-        return MovimentoPeca.isStraight(this.getPosicao(), novaPosicao);
+        if (!novaPosicao.existePeca()) {
+            caminho = MovimentoPeca.caminhoReto(this.getPosicao(), novaPosicao);
+            System.out.println(MovimentoPeca.haPeca(caminho));
+            return MovimentoPeca.isStraight(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho);
+        }
+
+        return false;
     }
-    
+
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<String> caminho;
+
+        if (novaPosicao.existePeca() && novaPosicao.getPeca().getCor() != this.getCor()) {
+            caminho = MovimentoPeca.caminhoReto(this.getPosicao(), novaPosicao);
+            return MovimentoPeca.isStraight(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho);
+        }
+
+        return false;
     }
-    
+
 }
