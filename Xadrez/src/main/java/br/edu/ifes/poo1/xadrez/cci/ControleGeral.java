@@ -11,7 +11,6 @@ import br.edu.ifes.poo1.xadrez.cdp.DadosPartida;
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cgt.Controle;
 import br.edu.ifes.poo1.xadrez.cih.Impressao;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -24,45 +23,67 @@ public class ControleGeral {
     private Controle controle = new Controle();
     private boolean jogadaValida;
     
-    public void exibirMenu() throws IOException{
+    public void exibirMenu(){
            
         impressora.imprimiMenu();
         Scanner scanner = new Scanner(System.in);
         int escolha = scanner.nextInt();
-        if(escolha==1){
-            Jogador jogadorBranco = cadastraJogador(Cor.BRANCO);
-            Jogador jogadorPreto = cadastraJogador(Cor.PRETO);
+        
+        while(escolha!=3){
+            if(escolha==1){
+                Jogador jogadorBranco = cadastraJogador(Cor.BRANCO);
+                Jogador jogadorPreto = cadastraJogador(Cor.PRETO);
 
-            while(true){
-                
-                jogada(jogadorBranco);
-                
-                if(isDesistencia(jogadorBranco.getJogada())){
-                    impressora.imprimiVencedor(jogadorPreto);
-                    DadosPartida.getInstance().setListaDados(jogadorPreto);
-                    break;
+                while(true){
+
+                    jogada(jogadorBranco);
+
+                    if(isDesistencia(jogadorBranco.getJogada())){
+                        impressora.imprimiVencedor(jogadorPreto);
+                        jogadorPreto.setVitoria(true);
+                    }
+
+                    if(jogadorBranco.isVitoria()){
+                        impressora.imprimiVencedor(jogadorBranco);
+                        jogadorBranco.setVitoria(true);
+                    }
+                    
+                    if(isDesistencia(jogadorBranco.getJogada()) || isEmpate(jogadorBranco.getJogada()) 
+                            || jogadorBranco.isVitoria()){
+                        DadosPartida.getInstance().setListaDados(jogadorPreto);
+                        DadosPartida.getInstance().setListaDados(jogadorBranco);
+                        break;
+                    }
+                    
+
+                    jogada(jogadorPreto);
+                    
+                    if(isDesistencia(jogadorPreto.getJogada())){
+                        impressora.imprimiVencedor(jogadorBranco);
+                        jogadorBranco.setVitoria(true);
+                    }
+
+
+                    if(jogadorPreto.isVitoria()){
+                        impressora.imprimiVencedor(jogadorPreto);
+                        jogadorPreto.setVitoria(true);
+                    }
+                    
+                    if(isDesistencia(jogadorPreto.getJogada()) || isEmpate(jogadorPreto.getJogada()) 
+                            || jogadorPreto.isVitoria()){
+                        DadosPartida.getInstance().setListaDados(jogadorPreto);
+                        DadosPartida.getInstance().setListaDados(jogadorBranco);
+                        break;
+                    }
                 }
                 
-                if(jogadorBranco.isVitoria()){
-                    impressora.imprimiVencedor(jogadorBranco);
-                    DadosPartida.getInstance().setListaDados(jogadorBranco);
-                    break;
+            }else{
+                if(escolha==2){
+                    impressora.imprimiDados();
                 }
-                
-                jogada(jogadorPreto);
-                if(isDesistencia(jogadorPreto.getJogada())){
-                    impressora.imprimiVencedor(jogadorBranco);
-                    DadosPartida.getInstance().setListaDados(jogadorBranco);
-                    break;
-                }
-                
-                if(jogadorPreto.isVitoria()){
-                    impressora.imprimiVencedor(jogadorPreto);
-                    DadosPartida.getInstance().setListaDados(jogadorPreto);
-                    break;
-                }
-            
             }
+            impressora.imprimiMenu();
+            escolha = scanner.nextInt();
         }
     }
     
@@ -72,14 +93,15 @@ public class ControleGeral {
         processaJogada(jogador);
 
         while(!jogador.getJogada().equals("valida") &&  !jogador.getJogada().equals("desistir")){
-            if(!(jogador.getJogada().equals("pontos") && !jogador.getJogada().equals("empate"))){
+            
+            if(!jogador.getJogada().equals("pontos") && !jogador.getJogada().equals("empate")){
                 impressora.imprimiJogadaInvalida();
             }                   
             if(jogador.getJogada().equals("empate")){
                 impressora.imprimiPedidoEmpate();
                 Scanner scanner = new Scanner(System.in);
                 String escolha = scanner.nextLine();
-                if(escolha.equals("S")){
+                if(escolha.equals("S")|| escolha.equals("s")){
                     impressora.imprimiEmpate();
                     break;
                 }
@@ -116,13 +138,13 @@ public class ControleGeral {
                     impressora.imprimir("" +jogador.getPontos());
                 }else{
                     if(isPromocao(jogador.getJogada())){
-                        
+                        controle.fazPromocao(jogador);
                     }else{
                         if(isRoqueMaior(jogador.getJogada())){
-                            
+                            controle.fazRoqueMaior(jogador);
                         }else{
                             if(isRoqueMenor(jogador.getJogada())){
-                                
+                                controle.fazRoqueMenor(jogador);
                             }else{
                                 controle.fazJogada(jogador);
                                 

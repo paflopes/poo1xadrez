@@ -39,14 +39,19 @@ public class DadosPartida {
         boolean achouNaListaa = false;        
         for(int contador = 0; contador< DadosPartida.getInstance().getListaDados().size(); contador++){
             if(retornaNome(contador).equals(jogador.getNome())){
-                DadosPartida.getInstance().getListaDados().get(contador).setPontos(DadosPartida.getInstance().getListaDados().get(contador).getPontos() + 1);
+                if(jogador.isVitoria()){
+                    DadosPartida.getInstance().getListaDados().get(contador).setPontos(DadosPartida.getInstance().getListaDados().get(contador).getPontos() + 1);
+                }
                 achouNaListaa = true;
             }
         }
+        
         if(achouNaListaa == false){
             Dados dados = new Dados();
             dados.setNome(jogador.getNome());
-            dados.setPontos(1);
+            if(jogador.isVitoria()){
+                dados.setPontos(1);
+            }
             DadosPartida.getInstance().getListaDados().add(dados);
         }     
         

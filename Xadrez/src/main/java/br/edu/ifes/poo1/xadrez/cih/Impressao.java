@@ -5,6 +5,7 @@
 package br.edu.ifes.poo1.xadrez.cih;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.DadosPartida;
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 
@@ -80,4 +81,13 @@ public class Impressao {
     public void imprimiVencedor(Jogador jogador){
         imprimir("O jogador " +jogador.getNome() +" ganhou");
     }
+    
+    public void imprimiDados(){
+        for(int contador = 0; contador<DadosPartida.getInstance().getListaDados().size(); contador++){
+            imprimir(DadosPartida.getInstance().getListaDados().get(contador).getNome()+"     "+
+                    DadosPartida.getInstance().getListaDados().get(contador).getPontos());            
+        }
+    }
+    
+    
 }

@@ -6,11 +6,16 @@
 
 package br.edu.ifes.poo1.xadrez.cgt;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.TipoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Bispo;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Cavalo;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Rainha;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
 
 /**
  *
@@ -18,6 +23,80 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  */
 public class Controle {
         
+    
+    public void fazPromocao(Jogador jogador){
+        
+        //Se o jogador for da cor branca e a jogada estiver com a linha 8 e a peca for um peão ou 
+        //Se o jogador for da cor preta e a jogada estiver com a linha 1 e a peca for um peão
+        if((jogador.getCor()==Cor.BRANCO && jogador.getJogada().charAt(1)=='8' &&
+           Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)).getPeca().getTipo() == TipoPeca.PEAO)
+           ||jogador.getCor()==Cor.PRETO && jogador.getJogada().charAt(1)=='1' &&
+           Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)).getPeca().getTipo() == TipoPeca.PEAO ){
+           
+            if(jogador.getJogada().charAt(3) == 'D'){
+                Rainha peca = new Rainha();
+                atualizaTabuleiro(peca, Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)) , Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)));
+                atualizaJogadorJogada(jogador);
+            }else{
+               if(jogador.getJogada().charAt(3) == 'B'){
+                   Bispo peca = new Bispo();
+                   atualizaTabuleiro(peca, Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)) , Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)));
+                    atualizaJogadorJogada(jogador);
+               }else{
+                   if(jogador.getJogada().charAt(3) == 'T'){
+                       Torre peca = new Torre();
+                       atualizaTabuleiro(peca, Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)) , Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)));
+                        atualizaJogadorJogada(jogador);
+                   }else{
+                       if(jogador.getJogada().charAt(3) == 'C'){
+                           Cavalo peca = new Cavalo();
+                           atualizaTabuleiro(peca, Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)) , Tabuleiro.getInstance().getPosicao("" +jogador.getJogada().charAt(0) +jogador.getJogada().charAt(1)));
+                           atualizaJogadorJogada(jogador);
+                       }
+                   }
+               }
+           }           
+        }
+    }
+    
+    public void fazRoqueMenor(Jogador jogador){
+        if(jogador.getCor() == Cor.BRANCO && Tabuleiro.getInstance().getPosicao("51").getPeca().getTipo() == TipoPeca.REI
+           && Tabuleiro.getInstance().getPosicao("81").getPeca().getTipo() == TipoPeca.TORRE && 
+           caminhoRetoCaptura(Tabuleiro.getInstance().getPosicao("51"), Tabuleiro.getInstance().getPosicao("81"))){
+            
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("51").getPeca(), Tabuleiro.getInstance().getPosicao("51"), Tabuleiro.getInstance().getPosicao("71"));
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("81").getPeca(), Tabuleiro.getInstance().getPosicao("81"), Tabuleiro.getInstance().getPosicao("61"));
+            atualizaJogadorJogada(jogador);
+        }
+        if(jogador.getCor() == Cor.PRETO && Tabuleiro.getInstance().getPosicao("58").getPeca().getTipo() == TipoPeca.REI
+           && Tabuleiro.getInstance().getPosicao("88").getPeca().getTipo() == TipoPeca.TORRE && 
+           caminhoRetoCaptura(Tabuleiro.getInstance().getPosicao("58"), Tabuleiro.getInstance().getPosicao("88"))){
+            
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("58").getPeca(), Tabuleiro.getInstance().getPosicao("58"), Tabuleiro.getInstance().getPosicao("78"));
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("88").getPeca(), Tabuleiro.getInstance().getPosicao("88"), Tabuleiro.getInstance().getPosicao("68"));
+            atualizaJogadorJogada(jogador);
+        }
+    }
+    
+    public void fazRoqueMaior(Jogador jogador){
+        if(jogador.getCor() == Cor.BRANCO && Tabuleiro.getInstance().getPosicao("51").getPeca().getTipo() == TipoPeca.REI
+           && Tabuleiro.getInstance().getPosicao("11").getPeca().getTipo() == TipoPeca.TORRE && 
+           caminhoRetoCaptura(Tabuleiro.getInstance().getPosicao("51"), Tabuleiro.getInstance().getPosicao("11"))){
+            
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("51").getPeca(), Tabuleiro.getInstance().getPosicao("51"), Tabuleiro.getInstance().getPosicao("31"));
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("11").getPeca(), Tabuleiro.getInstance().getPosicao("11"), Tabuleiro.getInstance().getPosicao("41"));
+            atualizaJogadorJogada(jogador);
+        }
+        if(jogador.getCor() == Cor.PRETO && Tabuleiro.getInstance().getPosicao("58").getPeca().getTipo() == TipoPeca.REI
+           && Tabuleiro.getInstance().getPosicao("18").getPeca().getTipo() == TipoPeca.TORRE && 
+           caminhoRetoCaptura(Tabuleiro.getInstance().getPosicao("58"), Tabuleiro.getInstance().getPosicao("18"))){
+            
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("58").getPeca(), Tabuleiro.getInstance().getPosicao("58"), Tabuleiro.getInstance().getPosicao("38"));
+            atualizaTabuleiro(Tabuleiro.getInstance().getPosicao("18").getPeca(), Tabuleiro.getInstance().getPosicao("18"), Tabuleiro.getInstance().getPosicao("48"));
+            atualizaJogadorJogada(jogador);
+        }
+    }    
+    
     public void fazJogada(Jogador jogador){
         processaJogadaPeca(jogador);
         
@@ -61,9 +140,10 @@ public class Controle {
                     if(peca.validarMovimentoCaptura(novaPosicao) && captura==true 
                             && Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor()!=peca.getCor()){
 
+                        atualizaPontosJogador(jogador, novaPosicao);
                         atualizaTabuleiro(peca, posicaoAtual, novaPosicao);
                         atualizaJogadorJogada(jogador);
-                        atualizaPontosJogador(jogador, novaPosicao);
+                        
                         
                     }
                 }
@@ -85,9 +165,10 @@ public class Controle {
                         if(peca.validarMovimento(novaPosicao) && caminhoRetoCaptura(posicaoAtual, novaPosicao) && captura==true &&
                                 Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor() != peca.getCor()){
 
+                            atualizaPontosJogador(jogador, novaPosicao);
                             atualizaTabuleiro(peca, posicaoAtual, novaPosicao);
                             atualizaJogadorJogada(jogador);
-                            atualizaPontosJogador(jogador, novaPosicao);
+                            
 
                         }
                     }
@@ -110,9 +191,10 @@ public class Controle {
                             if(peca.validarMovimento(novaPosicao) && caminhoDiagonalCaptura(posicaoAtual, novaPosicao) && captura == true
                                     && Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor() != peca.getCor()){
 
+                                atualizaPontosJogador(jogador, novaPosicao);
                                 atualizaTabuleiro(peca, posicaoAtual, novaPosicao);
                                 atualizaJogadorJogada(jogador);
-                                atualizaPontosJogador(jogador, novaPosicao);
+                                
 
                             }
                         }  
@@ -134,9 +216,10 @@ public class Controle {
                                 if(peca.validarMovimento(novaPosicao) && captura == true &&
                                         Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor() != peca.getCor()){
 
+                                    atualizaPontosJogador(jogador, novaPosicao);
                                     atualizaTabuleiro(peca, posicaoAtual, novaPosicao);
                                     atualizaJogadorJogada(jogador);
-                                    atualizaPontosJogador(jogador, novaPosicao);
+                                    
 
                                 }
                             }                       
@@ -160,9 +243,10 @@ public class Controle {
                                         caminhoDiagonalCaptura(posicaoAtual, novaPosicao)) && captura==true && 
                                             Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor() != peca.getCor()){
 
+                                        atualizaPontosJogador(jogador, novaPosicao);
                                         atualizaTabuleiro(peca, posicaoAtual, novaPosicao);
                                         atualizaJogadorJogada(jogador);
-                                        atualizaPontosJogador(jogador, novaPosicao);
+                                        
 
                                     }
                                 }
@@ -182,9 +266,10 @@ public class Controle {
                                     if(peca.validarMovimento(novaPosicao) && captura == true &&
                                         Tabuleiro.getInstance().getPosicao(novaPosicao.getId()).getPeca().getCor() != peca.getCor()){
 
+                                        atualizaPontosJogador(jogador, novaPosicao);
                                         atualizaTabuleiro(peca, posicaoAtual, novaPosicao);
                                         atualizaJogadorJogada(jogador);
-                                        atualizaPontosJogador(jogador, novaPosicao);
+                                        
 
                                     }
                                 }                           
