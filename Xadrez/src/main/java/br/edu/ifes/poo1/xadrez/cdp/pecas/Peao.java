@@ -30,6 +30,9 @@ public class Peao extends PecaImpl {
         String[] caminho = new String[2];
         int linhasAndadas = Math.abs(linhaNova - linhaAtual);
 
+        /**
+         * Defino o caminho da peça.
+         */
         if (this.getCor() == Cor.PRETO) {
             caminho[0] = "" + colunaAtual + (char) (linhaAtual - 1);
             caminho[1] = "" + colunaAtual + (char) (linhaAtual - 2);
