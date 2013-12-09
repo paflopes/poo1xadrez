@@ -11,7 +11,7 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  *
  * @author phillipe
  */
-public interface Posicao {
+public interface Posicao extends Cloneable {
 
     public String getId();
 
@@ -29,4 +29,6 @@ public interface Posicao {
      * {@code false} caso contrário.
      */
     public boolean existePeca();
+
+    public Object clone() throws CloneNotSupportedException;
 }

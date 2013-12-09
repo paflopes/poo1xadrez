@@ -27,13 +27,25 @@ public class Cavalo extends PecaImpl {
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
 
-        return ((Math.abs(colunaAtual - colunaNova) == 2) && (Math.abs(linhaAtual - linhaNova) == 1))
-                || ((Math.abs(colunaAtual - colunaNova) == 1) && (Math.abs(linhaAtual - linhaNova) == 2));
+        if (!novaPosicao.existePeca()) {
+            return ((Math.abs(colunaAtual - colunaNova) == 2) && (Math.abs(linhaAtual - linhaNova) == 1))
+                    || ((Math.abs(colunaAtual - colunaNova) == 1) && (Math.abs(linhaAtual - linhaNova) == 2));
+        }
+        return false;
     }
 
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char colunaAtual = this.getPosicao().getId().charAt(0);
+        char linhaAtual = this.getPosicao().getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+
+        if (novaPosicao.existePeca()) {
+            return ((Math.abs(colunaAtual - colunaNova) == 2) && (Math.abs(linhaAtual - linhaNova) == 1))
+                    || ((Math.abs(colunaAtual - colunaNova) == 1) && (Math.abs(linhaAtual - linhaNova) == 2));
+        }
+        return false;
     }
 
 }

@@ -60,4 +60,18 @@ public class PosicaoImpl implements Posicao {
         return this.peca != null;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        PosicaoImpl clone = (PosicaoImpl) super.clone();
+
+        try {
+            clone.peca = (Peca) this.peca.clone();
+            clone.peca.setPosicao(clone);
+        } catch (NullPointerException e) {
+
+        }
+
+        return clone;
+    }
+
 }

@@ -8,6 +8,8 @@ package br.edu.ifes.poo1.xadrez.cdp;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,8 +17,9 @@ import java.util.Map;
  */
 public class Tabuleiro implements Cloneable {
 
-    private final Map<String, Posicao> mapNomePosicao = new HashMap<>();
-    private static final Tabuleiro instance = new Tabuleiro();
+    private Map<String, Posicao> mapNomePosicao = new HashMap<>();
+    private static Tabuleiro instance = new Tabuleiro();
+    private Tabuleiro clone;
 
     public Tabuleiro() {
         criarPosicoes();
@@ -26,6 +29,11 @@ public class Tabuleiro implements Cloneable {
         criarCavalos();
         criarReis();
         criarRainhas();
+        try {
+            this.clone = (Tabuleiro) this.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Tabuleiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -38,14 +46,35 @@ public class Tabuleiro implements Cloneable {
 
     /**
      * Pega uma posição do Tabuleiro
-     * @param id id da Posição. Ex.: {@code "11"} para coluna 1 e linha 1 ou {@code "32"} para coluna 3 e linha 2
+     *
+     * @param id id da Posição. Ex.: {@code "11"} para coluna 1 e linha 1 ou
+     * {@code "32"} para coluna 3 e linha 2
      * @return a Posicao pedida.
      */
     public Posicao getPosicao(String id) {
         return this.mapNomePosicao.get(id);
     }
 
-    
+    public void restaurarTab() {
+        Tabuleiro.instance = this.clone;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Tabuleiro cloneMet;
+
+        cloneMet = (Tabuleiro) super.clone();
+        cloneMet.mapNomePosicao = new HashMap<>();
+
+        for (Map.Entry<String, Posicao> entrada : mapNomePosicao.entrySet()) {
+            Posicao posicao = entrada.getValue();
+            String idPosicao = entrada.getKey();
+
+            cloneMet.mapNomePosicao.put(idPosicao, (Posicao) posicao.clone());
+        }
+
+        return cloneMet;
+    }
 
     private void criarPosicoes() {
         //Montando as posições no Tabuleiro;
