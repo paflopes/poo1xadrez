@@ -146,16 +146,16 @@ public class Tabuleiro implements Cloneable {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rei");
 
         //Salvando os bispos
-        mapNomePosicao.get("41").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("48").setPeca(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("51").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("58").setPeca(pecas.get(Cor.PRETO)[0]);
     }
 
     private void criarRainhas() {
         Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rainha");
 
         //Salvando os bispos
-        mapNomePosicao.get("51").setPeca(pecas.get(Cor.BRANCO)[0]);
-        mapNomePosicao.get("58").setPeca(pecas.get(Cor.PRETO)[0]);
+        mapNomePosicao.get("41").setPeca(pecas.get(Cor.BRANCO)[0]);
+        mapNomePosicao.get("48").setPeca(pecas.get(Cor.PRETO)[0]);
     }
 
 }

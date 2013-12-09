@@ -71,6 +71,53 @@ public class MovimentoPeca {
     }
 
     /**
+     * Verifica se a reta está vazia ate uma posiçao antes da peca a ser
+     * capturada
+     *
+     * @param posicaoAtual A posição atual.
+     * @param novaPosicao A nova posição da peça.
+     * @return Uma lista com todos o caminho reto de uma posição a outra.
+     */
+    public static List<String> caminhoReto(Posicao posicaoAtual, Posicao novaPosicao) {
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunaAtual = posicaoAtual.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        List<String> caminho = new ArrayList<>();
+
+        //Norte
+        if (colunaAtual == colunaNova && linhaAtual < linhaNova) {
+            linhaAtual++;
+            while (linhaAtual < linhaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                linhaAtual++;
+            }
+        } //Leste
+        if (colunaAtual < colunaNova && linhaAtual == linhaNova) {
+            colunaAtual++;
+            while (colunaAtual < colunaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                colunaAtual++;
+            }
+        } //Sul
+        if (colunaAtual == colunaNova && linhaAtual > linhaNova) {
+            linhaAtual--;
+            while (linhaAtual > linhaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                linhaAtual--;
+            }
+        } //Oeste
+        if (colunaAtual > colunaNova && linhaAtual == linhaNova) {
+            colunaAtual--;
+            while (colunaAtual > colunaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                colunaAtual--;
+            }
+        }
+        return caminho;
+    }
+
+    /**
      * Verifica se a diagonal está vazia ate uma posiçao diagonal antes da peca
      * a ser capturada.
      *
