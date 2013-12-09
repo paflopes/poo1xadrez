@@ -8,10 +8,6 @@ package br.edu.ifes.poo1.xadrez.cdp;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author leds
- */
 public class MovimentoPeca {
 
     public static boolean isDiagonal(Posicao posicaoAtual, Posicao novaPosicao) {

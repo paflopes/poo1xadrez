@@ -28,6 +28,14 @@ public class TestBispo {
     }
 
     @Test
+    public void testValidarMovimentoCaptura() {
+        Assert.assertFalse(bispoPreto.validarMovimentoCaptura(tab.getPosicao("46")));
+        Assert.assertTrue(bispoPreto.validarMovimentoCaptura(tab.getPosicao("27")));
+        Assert.assertTrue(bispoPreto.validarMovimentoCaptura(tab.getPosicao("47")));
+
+    }
+
+    @Test
     public void testValidarMovimento() {
         Assert.assertFalse(bispoBranco.validarMovimento(tab.getPosicao("52")));
         Assert.assertFalse(bispoBranco.validarMovimento(tab.getPosicao("62")));

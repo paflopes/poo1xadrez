@@ -24,12 +24,7 @@ public class Bispo extends PecaImpl {
 
     @Override
     public boolean validarMovimento(Posicao novaPosicao) {
-        char colunaInicial = this.getPosicao().getId().charAt(0);
-        char linhaInicial = this.getPosicao().getId().charAt(1);
-        char colunaDestino = novaPosicao.getId().charAt(0);
-        char linhaDestino = novaPosicao.getId().charAt(1);
         List<String> caminho = MovimentoPeca.caminhoDiagonal(this.getPosicao(), novaPosicao);
-        System.out.println(caminho);
 
         //O movimento só é válido quando for diagonal, não houver peças em seu caminho e não existir nenhuma peça na nova posição.
         return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) & !MovimentoPeca.haPeca(caminho) & !novaPosicao.existePeca();
@@ -37,7 +32,10 @@ public class Bispo extends PecaImpl {
 
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<String> caminho = MovimentoPeca.caminhoDiagonal(this.getPosicao(), novaPosicao);
+
+        //O movimento só é válido quando for diagonal, não houver peças em seu caminho e existir uma peça na nova posição.
+        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) & !MovimentoPeca.haPeca(caminho) & novaPosicao.existePeca();
     }
 
 }
