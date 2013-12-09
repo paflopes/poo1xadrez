@@ -5,6 +5,9 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author leds
@@ -46,12 +49,16 @@ public class MovimentoPeca {
      * @return {@code true} se não houver peças em nenhuma das posições,
      * {@code false} caso contrário.
      */
-    public static boolean haPeca(String[] caminho) {
+    public static boolean haPeca(List<String> caminho) {
         Tabuleiro tab = Tabuleiro.getInstance();
         boolean haPeca = true;
-        
+
         for (String idPosicao : caminho) {
             haPeca = haPeca && tab.getPosicao(idPosicao).existePeca();
+        }
+
+        if (caminho.isEmpty()) {
+            return false;
         }
 
         return haPeca;
@@ -65,5 +72,68 @@ public class MovimentoPeca {
      */
     public static boolean haPeca(String idPosicao) {
         return Tabuleiro.getInstance().getPosicao(idPosicao).existePeca();
+    }
+
+    /**
+     * Verifica se a diagonal está vazia ate uma posiçao diagonal antes da peca
+     * a ser capturada.
+     *
+     * @param posicaoAtual A posição atual da peça.
+     * @param novaPosicao A nova posição da peça.
+     * @return Uma lista com todos o caminho diagonal de uma posição a outra.
+     */
+    public static List<String> caminhoDiagonal(Posicao posicaoAtual, Posicao novaPosicao) {
+
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunaAtual = posicaoAtual.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        List<String> caminho = new ArrayList<>();
+
+        //Nordeste
+        if (linhaNova > linhaAtual && colunaNova > colunaAtual) {
+            linhaAtual++;
+            colunaAtual++;
+            while ((linhaAtual) < linhaNova && (colunaAtual) < colunaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                linhaAtual++;
+                colunaAtual++;
+            }
+        }
+
+        //Noroeste
+        if (linhaNova > linhaAtual && colunaAtual > colunaNova) {
+            linhaAtual++;
+            colunaAtual--;
+            while ((linhaAtual) < linhaNova && (colunaAtual) > colunaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                linhaAtual++;
+                colunaAtual--;
+            }
+        }
+
+        //Sudoeste
+        if (linhaAtual > linhaNova && colunaAtual > colunaNova) {
+            linhaAtual--;
+            colunaAtual--;
+            while ((linhaAtual) > linhaNova && (colunaAtual) > colunaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                linhaAtual--;
+                colunaAtual--;
+            }
+        }
+
+        //Sudeste
+        if (linhaAtual > linhaNova && colunaNova > colunaAtual) {
+            linhaAtual--;
+            colunaAtual++;
+            while ((linhaAtual) > linhaNova && (colunaAtual) < colunaNova) {
+                caminho.add("" + colunaAtual + linhaAtual);
+                linhaAtual--;
+                colunaAtual++;
+            }
+        }
+
+        return caminho;
     }
 }

@@ -9,6 +9,8 @@ import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,18 +29,18 @@ public class Peao extends PecaImpl {
         char linhaAtual = this.getPosicao().getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
-        String[] caminho = new String[2];
+        List<String> caminho = new ArrayList<>();
         int linhasAndadas = Math.abs(linhaNova - linhaAtual);
 
         /**
          * Defino o caminho da peça.
          */
         if (this.getCor() == Cor.PRETO) {
-            caminho[0] = "" + colunaAtual + (char) (linhaAtual - 1);
-            caminho[1] = "" + colunaAtual + (char) (linhaAtual - 2);
+            caminho.add("" + colunaAtual + (char) (linhaAtual - 1));
+            caminho.add("" + colunaAtual + (char) (linhaAtual - 2));
         } else {
-            caminho[0] = "" + colunaAtual + (char) (linhaAtual + 1);
-            caminho[1] = "" + colunaAtual + (char) (linhaAtual + 2);
+            caminho.add("" + colunaAtual + (char) (linhaAtual + 1));
+            caminho.add("" + colunaAtual + (char) (linhaAtual + 2));
         }
 
         /**
