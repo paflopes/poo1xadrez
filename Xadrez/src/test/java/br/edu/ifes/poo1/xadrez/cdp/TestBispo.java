@@ -22,6 +22,7 @@ public class TestBispo {
 
     @Before
     public void before() {
+        Tabuleiro.getInstance().restaurarTabuleiro();
         tab = Tabuleiro.getInstance();
         bispoBranco = tab.getPosicao("61").getPeca();
         bispoPreto = tab.getPosicao("38").getPeca();

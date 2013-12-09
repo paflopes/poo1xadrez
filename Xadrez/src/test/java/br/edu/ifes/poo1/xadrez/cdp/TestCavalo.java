@@ -21,6 +21,7 @@ public class TestCavalo {
 
     @Before
     public void before() {
+        Tabuleiro.getInstance().restaurarTabuleiro();
         this.tabuleiro = Tabuleiro.getInstance();
         this.peca = this.tabuleiro.getPosicao("21").getPeca();
     }
@@ -30,7 +31,7 @@ public class TestCavalo {
     public void testValidarMovimento() {
         Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("13")));
         Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("33")));
-        Assert.assertTrue(this.peca.validarMovimento(this.tabuleiro.getPosicao("42")));
+        Assert.assertFalse(this.peca.validarMovimento(this.tabuleiro.getPosicao("42")));
         for (char coluna = '1'; coluna < '9'; coluna++) {
             for (char linha = '1'; linha < '9'; linha++) {
                 Posicao posicaoTmp = this.tabuleiro.getPosicao("" + coluna + linha);

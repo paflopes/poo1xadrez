@@ -20,6 +20,7 @@ public class TestTorre {
 
     @Before
     public void before() {
+        Tabuleiro.getInstance().restaurarTabuleiro();
         this.tabuleiro = Tabuleiro.getInstance();
         this.peca = this.tabuleiro.getPosicao("88").getPeca();
     }

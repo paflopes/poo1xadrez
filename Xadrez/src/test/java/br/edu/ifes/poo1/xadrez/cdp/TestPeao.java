@@ -22,6 +22,7 @@ public class TestPeao {
 
     @Before
     public void before() {
+        Tabuleiro.getInstance().restaurarTabuleiro();
         tab = Tabuleiro.getInstance();
         peaoPreto = tab.getPosicao("47").getPeca();
         peaoBranco = tab.getPosicao("32").getPeca();

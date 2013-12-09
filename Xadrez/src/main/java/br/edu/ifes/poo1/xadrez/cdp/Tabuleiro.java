@@ -8,8 +8,6 @@ package br.edu.ifes.poo1.xadrez.cdp;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,11 +27,6 @@ public class Tabuleiro implements Cloneable {
         criarCavalos();
         criarReis();
         criarRainhas();
-        try {
-            this.clone = (Tabuleiro) this.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Tabuleiro.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -55,8 +48,11 @@ public class Tabuleiro implements Cloneable {
         return this.mapNomePosicao.get(id);
     }
 
-    public void restaurarTab() {
-        Tabuleiro.instance = this.clone;
+    /**
+     * Restaura o Tabuleiro para seu estado inicial.
+     */
+    public void restaurarTabuleiro() {
+        Tabuleiro.instance = new Tabuleiro();
     }
 
     @Override
