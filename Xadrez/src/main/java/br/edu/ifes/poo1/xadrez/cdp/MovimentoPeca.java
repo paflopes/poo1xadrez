@@ -38,8 +38,32 @@ public class MovimentoPeca {
 
         return false;
     }
-    
-    public static boolean haPecas(String[] caminho) {
-        return false;        
+
+    /**
+     * Verifica se todas as posições no caminho dado estão sem peças.
+     *
+     * @param caminho O caminho a ser verificado no Tabuleiro.
+     * @return {@code true} se não houver peças em nenhuma das posições,
+     * {@code false} caso contrário.
+     */
+    public static boolean haPeca(String[] caminho) {
+        Tabuleiro tab = Tabuleiro.getInstance();
+        boolean haPeca = true;
+        
+        for (String idPosicao : caminho) {
+            haPeca = haPeca && tab.getPosicao(idPosicao).existePeca();
+        }
+
+        return haPeca;
+    }
+
+    /**
+     * Verifica se há alguma peça na posição dada.
+     *
+     * @param idPosicao
+     * @return
+     */
+    public static boolean haPeca(String idPosicao) {
+        return Tabuleiro.getInstance().getPosicao(idPosicao).existePeca();
     }
 }

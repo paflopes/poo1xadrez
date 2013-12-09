@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 
@@ -26,24 +27,25 @@ public class Peao extends PecaImpl {
         char linhaAtual = this.getPosicao().getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
+        String[] caminho = new String[2];
         int linhasAndadas = Math.abs(linhaNova - linhaAtual);
 
-        /**
-         * Se não houver Peça na nova posição, então verificamos se os
-         * movimentos são válidos.
-         */
-        if (!novaPosicao.existePeca()) {
-            /**
-             * Se não for o primeiro movimento, então o Peão anda apenas uma
-             * casa. O peão anda duas ou uma casa, caso contrário.
-             */
-            if (linhaAtual != '2' && linhaAtual != '7') {
-                return (linhasAndadas == 1 && colunaAtual == colunaNova);
-            } else {
-                return ((linhasAndadas == 2 || linhasAndadas == 1) && colunaAtual == colunaNova);
-            }
+        if (this.getCor() == Cor.PRETO) {
+            caminho[0] = "" + colunaAtual + (char) (linhaAtual - 1);
+            caminho[1] = "" + colunaAtual + (char) (linhaAtual - 2);
         } else {
-            return false;
+            caminho[0] = "" + colunaAtual + (char) (linhaAtual + 1);
+            caminho[1] = "" + colunaAtual + (char) (linhaAtual + 2);
+        }
+
+        /**
+         * Se não for o primeiro movimento, então o Peão anda apenas uma casa. O
+         * peão anda duas ou uma casa, caso contrário.
+         */
+        if (this.jaMovimentou()) {
+            return (linhasAndadas == 1 && colunaAtual == colunaNova && !novaPosicao.existePeca());
+        } else {
+            return ((linhasAndadas == 2 || linhasAndadas == 1) && colunaAtual == colunaNova && !MovimentoPeca.haPeca(caminho));
         }
     }
 

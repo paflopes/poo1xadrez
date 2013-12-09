@@ -32,6 +32,7 @@ public class TestTabuleiro {
                 pos2 = "" + coluna + proxLinha;
                 Assert.assertNotNull(this.tabuleiro.getPosicao(pos1));
                 Assert.assertNotSame(this.tabuleiro.getPosicao(pos1), this.tabuleiro.getPosicao(pos2));
+                Assert.assertEquals(pos1, this.tabuleiro.getPosicao(pos1).getId());
             }
         }
     }

@@ -27,8 +27,8 @@ public class TestPeca {
     
     @Test
     public void testJaMovimentou() {
-        Assert.assertEquals(false, peca.jaMovimentou());
+        Assert.assertFalse(peca.jaMovimentou());
         peca.setPosicao(tabuleiro.getPosicao("25"));
-        Assert.assertEquals(true, peca.jaMovimentou());
+        Assert.assertTrue(peca.jaMovimentou());
     }
 }
