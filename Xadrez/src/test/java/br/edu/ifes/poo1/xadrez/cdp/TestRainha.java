@@ -57,4 +57,17 @@ public class TestRainha {
         Assert.assertTrue(rainhaPreta.validarMovimento(tab.getPosicao("53")));
 
     }
+
+    @Test
+    public void testValidarMovimentoCaptura() {
+        tab.getPosicao("44").setPeca(rainhaBranca);
+
+        Assert.assertTrue(rainhaBranca.validarMovimentoCaptura(tab.getPosicao("17")));
+        Assert.assertTrue(rainhaBranca.validarMovimentoCaptura(tab.getPosicao("47")));
+        Assert.assertTrue(rainhaBranca.validarMovimentoCaptura(tab.getPosicao("77")));
+        Assert.assertFalse(rainhaBranca.validarMovimentoCaptura(tab.getPosicao("22")));
+        Assert.assertFalse(rainhaBranca.validarMovimentoCaptura(tab.getPosicao("32")));
+        Assert.assertFalse(rainhaBranca.validarMovimentoCaptura(tab.getPosicao("42")));
+
+    }
 }
