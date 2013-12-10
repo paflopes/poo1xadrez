@@ -5,9 +5,7 @@
  */
 package br.edu.ifes.poo1.xadrez.app;
 
-import br.edu.ifes.poo1.xadrez.cci.ControleGeral;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
-import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 
 /**
  *
@@ -16,10 +14,14 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
-        ControleGeral controleGeral = new ControleGeral();
+//        ControleGeral controleGeral = new ControleGeral();
+//        
+//        
+//
+//        controleGeral.exibirMenu();
+        Tabuleiro tab = Tabuleiro.getInstance();
+        System.out.println(tab);
         
         
-
-        controleGeral.exibirMenu();
     }
 }

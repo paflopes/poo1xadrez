@@ -56,34 +56,6 @@ public class Tabuleiro implements Cloneable {
     }
 
     @Override
-    public String toString() {
-        String saida = "";
-
-        saida += " 1 2 3 4 5 6 7 8\n";
-        saida += " ---------------------------------\n";
-        for (int countLinha = 8; countLinha > 0; countLinha--) {
-            saida += countLinha + " ";
-            for (int countColuna = 1; countColuna < 9; countColuna++) {
-                String idPosicao = "" + countColuna + countLinha;
-                if (!Tabuleiro.getInstance().getPosicao(idPosicao).existePeca()) {
-                    saida += "| ";
-                } else {
-                    if (Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getCor() == Cor.BRANCO) {
-                        saida += "|" + Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getDesenho() + ".b";
-                    } else {
-                        saida += "|" + Tabuleiro.getInstance().getPosicao(idPosicao).getPeca().getDesenho() + ".p";
-                    }
-                }
-            }
-            saida += "|";
-            saida += " " + countLinha + "\n";
-            saida += " ---------------------------------\n";
-        }
-        saida += " 1 2 3 4 5 6 7 8\n";
-        return saida;
-    }
-
-    @Override
     protected Object clone() throws CloneNotSupportedException {
         Tabuleiro cloneMet;
 
@@ -186,4 +158,31 @@ public class Tabuleiro implements Cloneable {
         mapNomePosicao.get("48").setPeca(pecas.get(Cor.PRETO)[0]);
     }
 
+    @Override
+    public String toString() {
+        String saida = "";
+
+        saida += "    1   2   3   4   5   6   7   8\n";
+        saida += " ---------------------------------\n";
+        for (int countLinha = 8; countLinha > 0; countLinha--) {
+            saida += countLinha + " ";
+            for (int countColuna = 1; countColuna < 9; countColuna++) {
+                String idPosicao = "" + countColuna + countLinha;
+                if (!this.getPosicao(idPosicao).existePeca()) {
+                    saida += "|   ";
+                } else {
+                    if (this.getPosicao(idPosicao).getPeca().getCor() == Cor.BRANCO) {
+                        saida += "|" + this.getPosicao(idPosicao).getPeca().getDesenho() + ".b";
+                    } else {
+                        saida += "|" + this.getPosicao(idPosicao).getPeca().getDesenho() + ".p";
+                    }
+                }
+            }
+            saida += "|";
+            saida += " " + countLinha + "\n";
+            saida += " ---------------------------------\n";
+        }
+        saida += "    1   2   3   4   5   6   7   8\n";
+        return saida;
+    }
 }

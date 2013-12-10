@@ -7,7 +7,7 @@
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Jogador;
-import br.edu.ifes.poo1.xadrez.cgt.Controle;
+import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressao;
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class ControleGeral {
     
     private Impressao impressora = new Impressao();
-    private Controle controle = new Controle();
+    private JogoApl controle = new JogoApl();
     private boolean jogadaValida;
     
     public void exibirMenu(){
