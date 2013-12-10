@@ -5,9 +5,11 @@
  */
 package br.edu.ifes.poo1.xadrez.cgt;
 
-import br.edu.ifes.poo1.xadrez.cdp.Jogador;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 
 /**
@@ -16,60 +18,40 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  */
 public class JogoApl {
 
-    public void processaJogada(Jogador jogador) {
-        if (isDesistencia(jogador.getJogada())) {
-        } else {
-            if (isEmpate(jogador.getJogada())) {
-            } else {
-                if (isPontuacao(jogador.getJogada())) {
-                } else {
-                    if (isPromocao(jogador.getJogada())) {
-                    } else {
-                        if (isRoqueMaior(jogador.getJogada())) {
-                        } else {
-                            if (isRoqueMenor(jogador.getJogada())) {
-                            } else {
-                                fazJogada(jogador);
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-    }
-
-    public void fazJogada(Jogador jogador) {
-        processaPeca(jogador);
-
-
-    }
-
-    public void processaPeca(Jogador jogador) {
-
-        //Pego a posicao atual da peca, pego a peça, pego o tipo da peça e instancio a posicao desejada
-        Posicao posicaoAtual = Tabuleiro.getInstance().getPosicao("" + jogador.getJogada().charAt(0) + jogador.getJogada().charAt(1));
+    public void fazerJogada(Jogada jogada) {
+        Posicao posicaoAtual = jogada.getPosicaoInicial();
+        Posicao posicaoFinal = jogada.getPosicaoFinal();
         Peca peca = posicaoAtual.getPeca();
-        Posicao novaPosicao;
+        boolean isCaptura = jogada.getOperacao() == Operacao.CAPTURA;
 
-        //Se vai acontecer tentiva de captura na jogada
-        boolean captura = isCaptura(jogador.getJogada().charAt(2));
-
-        //Posicao desejada pelo o usuario
-        if (jogador.getJogada().charAt(2) == 'x') {
-            novaPosicao = Tabuleiro.getInstance().getPosicao("" + jogador.getJogada().charAt(3) + jogador.getJogada().charAt(4));
-        } else {
-            novaPosicao = Tabuleiro.getInstance().getPosicao("" + jogador.getJogada().charAt(2) + jogador.getJogada().charAt(3));
-        }
-
-        if (!captura && peca.validarMovimento(novaPosicao)
-                || captura && peca.validarMovimentoCaptura(novaPosicao)) {
-            novaPosicao.setPeca(peca);
+        if (!isCaptura && peca.validarMovimento(posicaoFinal)
+                || isCaptura && peca.validarMovimentoCaptura(posicaoFinal)) {
+            posicaoFinal.setPeca(peca);
         }
     }
+
+//    public void processaPeca(Jogador jogador) {
+//
+//        //Pego a posicao atual da peca, pego a peça, pego o tipo da peça e instancio a posicao desejada
+//        Posicao posicaoAtual = Tabuleiro.getInstance().getPosicao("" + jogador.getJogada().charAt(0) + jogador.getJogada().charAt(1));
+//        Peca peca = posicaoAtual.getPeca();
+//        Posicao novaPosicao;
+//
+//        //Se vai acontecer tentiva de captura na jogada
+//        boolean captura = isCaptura(jogador.getJogada().charAt(2));
+//
+//        //Posicao desejada pelo o usuario
+//        if (jogador.getJogada().charAt(2) == 'x') {
+//            novaPosicao = Tabuleiro.getInstance().getPosicao("" + jogador.getJogada().charAt(3) + jogador.getJogada().charAt(4));
+//        } else {
+//            novaPosicao = Tabuleiro.getInstance().getPosicao("" + jogador.getJogada().charAt(2) + jogador.getJogada().charAt(3));
+//        }
+//
+//        if (!captura && peca.validarMovimento(novaPosicao)
+//                || captura && peca.validarMovimentoCaptura(novaPosicao)) {
+//            novaPosicao.setPeca(peca);
+//        }
+//    }
 
     public boolean isCaptura(char jogada) {
         return jogada == 'x';

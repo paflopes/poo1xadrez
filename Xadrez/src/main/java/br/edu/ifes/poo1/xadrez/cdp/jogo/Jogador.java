@@ -3,31 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package br.edu.ifes.poo1.xadrez.cdp;
+package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 /**
  *
  * @author Lincoln
  */
 public class Jogador {
-    
+
     private String nome;
-    private String jogada;
-    private String jogadaAnterior;
+    private Jogada jogada;
+    private Jogada jogadaAnterior;
     private int pontos;
     private boolean vitoria;
     private String cor;
-    
+
     /**
      *
      */
-    public Jogador(){
-        pontos=0;
-        vitoria=false;        
+    public Jogador() {
+        pontos = 0;
+        vitoria = false;
     }
-    
-    
+
     /**
      * @return the nome
      */
@@ -43,30 +41,34 @@ public class Jogador {
     }
 
     /**
-     * @return the jogada
+     *
+     * @return A última jogada feita.
      */
-    public String getJogada() {
+    public Jogada getJogada() {
         return jogada;
     }
 
     /**
-     * @param jogada the jogada to set
+     *
+     * @param jogada A última jogada feita.
      */
-    public void setJogada(String jogada) {
+    public void setJogada(Jogada jogada) {
         this.jogada = jogada;
     }
 
     /**
-     * @return the jogadaAnterior
+     *
+     * @return A penúltima jogada
      */
-    public String getJogadaAnterior() {
+    public Jogada getJogadaAnterior() {
         return jogadaAnterior;
     }
 
     /**
-     * @param jogadaAnterior the jogadaAnterior to set
+     *
+     * @param jogadaAnterior A penúltima jogada
      */
-    public void setJogadaAnterior(String jogadaAnterior) {
+    public void setJogadaAnterior(Jogada jogadaAnterior) {
         this.jogadaAnterior = jogadaAnterior;
     }
 
@@ -111,6 +113,5 @@ public class Jogador {
     public void setCor(String cor) {
         this.cor = cor;
     }
-    
-    
+
 }
