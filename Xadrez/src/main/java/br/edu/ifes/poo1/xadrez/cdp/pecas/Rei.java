@@ -27,11 +27,19 @@ public class Rei extends PecaImpl {
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
 
-        return Math.abs(colunaAtual - colunaNova) <= 1 && Math.abs(linhaAtual - linhaNova) <= 1;
+        return !novaPosicao.existePeca() && Math.abs(colunaAtual - colunaNova) <= 1 && Math.abs(linhaAtual - linhaNova) <= 1;
     }
 
     @Override
     public boolean validarMovimentoCaptura(Posicao novaPosicao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char colunaAtual = this.getPosicao().getId().charAt(0);
+        char linhaAtual = this.getPosicao().getId().charAt(1);
+        char colunaNova = novaPosicao.getId().charAt(0);
+        char linhaNova = novaPosicao.getId().charAt(1);
+
+        //Tem que existir alguma peça na nova posição, além de serem de cores diferentes.
+        return novaPosicao.existePeca() && novaPosicao.getPeca().getCor() != this.getCor()
+                //O movimento tem que ser o mesmo que o de validar movimento.
+                && Math.abs(colunaAtual - colunaNova) <= 1 && Math.abs(linhaAtual - linhaNova) <= 1;
     }
 }
