@@ -5,6 +5,8 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
+
 /**
  *
  * @author Lincoln
@@ -16,7 +18,7 @@ public class Jogador {
     private Jogada jogadaAnterior;
     private int pontos;
     private boolean vitoria;
-    private String cor;
+    private Cor cor;
 
     /**
      *
@@ -103,14 +105,14 @@ public class Jogador {
     /**
      * @return the cor
      */
-    public String getCor() {
+    public Cor getCor() {
         return cor;
     }
 
     /**
      * @param cor the cor to set
      */
-    public void setCor(String cor) {
+    public void setCor(Cor cor) {
         this.cor = cor;
     }
 
