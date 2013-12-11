@@ -23,11 +23,12 @@ public class JogoApl {
         Peca peca = posicaoAtual.getPeca();
         boolean isCaptura = jogada.getOperacao() == Operacao.CAPTURA;
 
-        if (!isCaptura && peca.validarMovimento(posicaoFinal)
-                || isCaptura && peca.validarMovimentoCaptura(posicaoFinal)) {
+        if (!isCaptura && peca.validarMovimento(posicaoFinal)) {
+            posicaoFinal.setPeca(peca);
+        } else if (isCaptura && peca.validarMovimentoCaptura(posicaoFinal)) {
             posicaoFinal.setPeca(peca);
         } else {
-            throw new JogadaInvalidaException("Jogada Inválida");
+            throw new JogadaInvalidaException("Jogada inválida!");
         }
     }
 

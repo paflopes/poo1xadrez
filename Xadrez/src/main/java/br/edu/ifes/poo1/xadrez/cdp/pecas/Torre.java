@@ -28,7 +28,6 @@ public class Torre extends PecaImpl {
 
         if (!novaPosicao.existePeca()) {
             caminho = MovimentoPeca.caminhoReto(this.getPosicao(), novaPosicao);
-            System.out.println(MovimentoPeca.haPeca(caminho));
             return MovimentoPeca.isStraight(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho);
         }
 
