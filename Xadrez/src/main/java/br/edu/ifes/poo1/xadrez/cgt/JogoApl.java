@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.xadrez.cgt;
 
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 
@@ -16,7 +17,7 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
  */
 public class JogoApl {
 
-    public void fazerJogada(Jogada jogada) {
+    public void fazerJogada(Jogada jogada) throws JogadaInvalidaException {
         Posicao posicaoAtual = jogada.getPosicaoInicial();
         Posicao posicaoFinal = jogada.getPosicaoFinal();
         Peca peca = posicaoAtual.getPeca();
@@ -25,6 +26,8 @@ public class JogoApl {
         if (!isCaptura && peca.validarMovimento(posicaoFinal)
                 || isCaptura && peca.validarMovimentoCaptura(posicaoFinal)) {
             posicaoFinal.setPeca(peca);
+        } else {
+            throw new JogadaInvalidaException("Jogada Inválida");
         }
     }
 
