@@ -58,16 +58,6 @@ public class MovimentoPeca {
     }
 
     /**
-     * Verifica se há alguma peça na posição dada.
-     *
-     * @param idPosicao
-     * @return
-     */
-    public static boolean haPeca(String idPosicao) {
-        return Tabuleiro.getInstance().getPosicao(idPosicao).existePeca();
-    }
-
-    /**
      * Verifica se a reta está vazia ate uma posiçao antes da peca a ser
      * capturada
      *

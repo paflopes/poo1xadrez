@@ -4,7 +4,6 @@
  */
 package br.edu.ifes.poo1.xadrez.cih;
 
-import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 
