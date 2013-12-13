@@ -14,9 +14,10 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 public class PosicaoImpl implements Posicao {
 
     private final String id;
-    private Peca peca = null;
+    private Peca peca;
 
     public PosicaoImpl(String id) {
+        this.peca = null;
         this.id = id;
     }
 

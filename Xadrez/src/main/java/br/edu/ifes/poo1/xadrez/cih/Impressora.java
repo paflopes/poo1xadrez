@@ -6,13 +6,15 @@ package br.edu.ifes.poo1.xadrez.cih;
 
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
  * @author 20121bsi0236
  */
 public class Impressora {
-
+    
     private void imprimir(String nome) {
         System.out.println(nome);
     }
@@ -21,26 +23,76 @@ public class Impressora {
         System.out.println(objeto);
     }
 
+    /**
+     * Imprime o menu inicial do jogo.
+     */
     public void imprimirMenu() {
+        clearConsole();
         imprimir("Jogo de Xadrez");
         imprimir("1 - Nova partida");
         imprimir("2 - Dados das partidas");
         imprimir("3 - Sair");
     }
 
+    /**
+     * Pergunta se o jogador deseja jogar sozinho.
+     */
+    public void imprimirOpcaoJogarSozinho() {
+        clearConsole();
+        imprimir("Deseja jogar sozinho?");
+        imprimir("1 - Sim");
+        imprimir("2 - Não");
+    }
+
+    /**
+     * Pega a última opção digitada no console.
+     *
+     * @return O inteiro que representa a opção desejada.
+     */
+    public int getOpcao() {
+        Scanner scanner = new Scanner(System.in);
+        int opcao = scanner.nextInt();
+        
+        return opcao;
+    }
+    
     public void pedirNomeJogador(String cor) {
+        clearConsole();
         imprimir("Digite o nome do jogador com as peças de cor " + cor + ": ");
     }
-
+    
+    public void imprimirArgumentoInvalido() {
+        imprimir("Argumento inválido!!");
+        imprimir("Digite novamente:");
+    }
+    
     public void imprimirTabuleiro(Tabuleiro tabuleiro) {
+        clearConsole();
         imprimir(tabuleiro);
     }
-
+    
     public void pedirMovimento(Jogador jogador) {
-        imprimir("Digite o movimento " + jogador.getNome()+":");
+        imprimir("Digite o movimento " + jogador.getNome() + ":");
+    }
+    
+    public void imprimirPontos(Jogador jogador) {
+        clearConsole();
+        imprimir("Pontos do jogador " + jogador.getNome() + ": " + jogador.getPontos());
     }
 
-    public void imprimiPontos(Jogador jogador) {
-        imprimir("Pontos do jogador " + jogador.getNome() + ": " + jogador.getPontos());
+    /**
+     * Limpa o console onde o jogo é exibido. Funciona no Windows, Linux e Mac.
+     */
+    private void clearConsole() {
+        try {
+            String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                Runtime.getRuntime().exec("cls");
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (IOException exception) {
+            System.out.println("");
+        }
     }
 }

@@ -1,80 +1,50 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//
-//package br.edu.ifes.poo1.xadrez.cci;
-//
-//import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
-//import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
-//import br.edu.ifes.poo1.xadrez.cih.Impressao;
-//import java.util.Scanner;
-//
-///**
-// *
-// * @author Lincoln
-// */
-//public class ControleGeral {
-//    
-//    private Impressao impressora = new Impressao();
-//    private JogoApl controle = new JogoApl();
-//    private boolean jogadaValida;
-//    
-//    public void exibirMenu(){
-//           
-//        impressora.imprimiMenu();
-//        Scanner scanner = new Scanner(System.in);
-//        int escolha = scanner.nextInt();
-//        if(escolha==1){
-//            Jogador jogadorBranco = cadastraJogador("branca");
-//            Jogador jogadorPreto = cadastraJogador("preta");
-//
-//            while(true){
-//                impressora.imprimiTabuleiro();
-//                jogadorBranco.setJogada(pedeJogada(jogadorBranco));
-//                controle.processaJogada(jogadorBranco);
-//                
-//                
-//                
-//                
-//            
-//            
-//            }
-//
-//
-//        }		
-//
-//
-//
-//    }
-//    
-//    public String pedeJogada(Jogador jogador){
-//        impressora.imprimiPedidoMovimento(jogador);
-//        Scanner scanner = new Scanner(System.in);
-//        return scanner.nextLine();
-//    }
-//    
-//    public Jogador cadastraJogador(String cor) {	
-//        impressora.imprimiPedidoNomeJogador(cor);
-//        Jogador jogador = new Jogador();
-//        Scanner scanner = new Scanner(System.in);
-//        String nome = scanner.nextLine();
-//        jogador.setNome(nome);
-//        jogador.setCor(cor);
-//        return jogador;
-//
-//    }    
-//    
-//    
-//    
-//    
-//}
-//
-//
-//
-//
-//    
-//
-//    
-//
+package br.edu.ifes.poo1.xadrez.cci;
+
+import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
+import br.edu.ifes.poo1.xadrez.cih.Impressora;
+
+/**
+ *
+ * @author Lincoln
+ */
+public class ControleGeral {
+
+    private final Impressora impressora;
+    private final JogoApl apl;
+
+    public ControleGeral(Impressora impressora, JogoApl apl) {
+        this.impressora = impressora;
+        this.apl = apl;
+    }
+
+    public void iniciarPartida() {
+        this.impressora.imprimirMenu();
+        int escolha = this.impressora.getOpcao();
+
+        if (escolha == 1) {
+            this.impressora.imprimirOpcaoJogarSozinho();
+            int opcao = this.impressora.getOpcao();
+            while (true) {
+                if (opcao == 1) {
+                    //Cadastrar ZEUS.
+                } else if (opcao == 2) {
+                    //Cadastrar os dois jogadores.
+                } else {
+                    impressora.imprimirArgumentoInvalido();
+                }
+            }
+        }
+
+        while (escolha != 3) {
+            switch (escolha) {
+                case 1:
+
+            }
+        }
+
+    }
+
+    public void mostrarDados() {
+
+    }
+}

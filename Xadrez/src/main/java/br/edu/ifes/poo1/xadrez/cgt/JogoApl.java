@@ -6,16 +6,26 @@
 package br.edu.ifes.poo1.xadrez.cgt;
 
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Lincoln
  */
 public class JogoApl {
+
+    private final List<DadoJogo> dadosJogo;
+
+    public JogoApl() {
+        this.dadosJogo = new ArrayList<>();
+    }
 
     public void fazerJogada(Jogada jogada) throws JogadaInvalidaException {
         Posicao posicaoAtual = jogada.getPosicaoInicial();
@@ -31,39 +41,15 @@ public class JogoApl {
         }
     }
 
-    public boolean isCaptura(char jogada) {
-        return jogada == 'x';
+    public void salvarDado(DadoJogo dado) {
+        this.dadosJogo.add(dado);
     }
 
-    public boolean isXeque(char jogada) {
-        return jogada == '+';
+    public List<DadoJogo> getDados() {
+        return this.dadosJogo;
     }
 
-    public boolean isXequeMate(char jogada) {
-        return jogada == '#';
-    }
-
-    public boolean isRoqueMenor(String jogada) {
-        return jogada.equals("O-O");
-    }
-
-    public boolean isRoqueMaior(String jogada) {
-        return jogada.equals("O-O-O");
-    }
-
-    public boolean isEmpate(String jogada) {
-        return jogada.equals("empate");
-    }
-
-    public boolean isDesistencia(String jogada) {
-        return jogada.equals("desistir");
-    }
-
-    public boolean isPromocao(String jogada) {
-        return jogada.charAt(2) == '=';
-    }
-
-    public boolean isPontuacao(String jogada) {
-        return jogada.equals("pontos");
+    public Posicao getPosicao(String idPosicao) {
+        return Tabuleiro.getInstance().getPosicao(idPosicao);
     }
 }

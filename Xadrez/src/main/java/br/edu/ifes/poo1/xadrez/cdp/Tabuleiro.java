@@ -13,13 +13,13 @@ import java.util.Map;
  *
  * @author phillipe
  */
-public class Tabuleiro implements Cloneable {
+public class Tabuleiro {
 
-    private Map<String, Posicao> mapNomePosicao = new HashMap<>();
+    private final Map<String, Posicao> mapNomePosicao;
     private static Tabuleiro instance = new Tabuleiro();
-    private Tabuleiro clone;
 
     public Tabuleiro() {
+        this.mapNomePosicao = new HashMap<>();
         criarPosicoes();
         criarPeoes();
         criarTorres();
@@ -55,23 +55,22 @@ public class Tabuleiro implements Cloneable {
         Tabuleiro.instance = new Tabuleiro();
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        Tabuleiro cloneMet;
-
-        cloneMet = (Tabuleiro) super.clone();
-        cloneMet.mapNomePosicao = new HashMap<>();
-
-        for (Map.Entry<String, Posicao> entrada : mapNomePosicao.entrySet()) {
-            Posicao posicao = entrada.getValue();
-            String idPosicao = entrada.getKey();
-
-            cloneMet.mapNomePosicao.put(idPosicao, (Posicao) posicao.clone());
-        }
-
-        return cloneMet;
-    }
-
+//    @Override
+//    protected Object clone() throws CloneNotSupportedException {
+//        Tabuleiro cloneMet;
+//
+//        cloneMet = (Tabuleiro) super.clone();
+//        cloneMet.mapNomePosicao = new HashMap<>();
+//
+//        for (Map.Entry<String, Posicao> entrada : mapNomePosicao.entrySet()) {
+//            Posicao posicao = entrada.getValue();
+//            String idPosicao = entrada.getKey();
+//
+//            cloneMet.mapNomePosicao.put(idPosicao, (Posicao) posicao.clone());
+//        }
+//
+//        return cloneMet;
+//    }
     private void criarPosicoes() {
         //Montando as posições no Tabuleiro;
         for (char coluna = '1'; coluna < '9'; coluna++) {
