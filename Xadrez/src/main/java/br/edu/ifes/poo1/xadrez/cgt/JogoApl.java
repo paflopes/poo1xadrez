@@ -10,6 +10,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.ArrayList;
@@ -51,5 +52,9 @@ public class JogoApl {
 
     public Posicao getPosicao(String idPosicao) {
         return Tabuleiro.getInstance().getPosicao(idPosicao);
+    }
+
+    public Tabuleiro getTabuleiro() {
+        return Tabuleiro.getInstance();
     }
 }

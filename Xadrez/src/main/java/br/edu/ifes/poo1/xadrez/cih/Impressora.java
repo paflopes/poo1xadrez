@@ -4,7 +4,7 @@
  */
 package br.edu.ifes.poo1.xadrez.cih;
 
-import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,11 +14,11 @@ import java.util.Scanner;
  * @author 20121bsi0236
  */
 public class Impressora {
-    
+
     private void imprimir(String nome) {
         System.out.println(nome);
     }
-    
+
     private void imprimir(Object objeto) {
         System.out.println(objeto);
     }
@@ -52,30 +52,47 @@ public class Impressora {
     public int getOpcao() {
         Scanner scanner = new Scanner(System.in);
         int opcao = scanner.nextInt();
-        
+
         return opcao;
     }
-    
+
+    /**
+     * Pega o que foi digitado no console.
+     *
+     * @return A string digitada no console.
+     */
+    public String getString() {
+        Scanner scanner = new Scanner(System.in);
+        String opcao = scanner.nextLine();
+
+        return opcao;
+    }
+
     public void pedirNomeJogador(String cor) {
         clearConsole();
         imprimir("Digite o nome do jogador com as peças de cor " + cor + ": ");
     }
-    
+
     public void imprimirArgumentoInvalido() {
         imprimir("Argumento inválido!!");
         imprimir("Digite novamente:");
     }
-    
+
+    public void imprimirJogadaInvalida() {
+        imprimir("Jogada inválida!!");
+        imprimir("Digite a jogada novamente:");
+    }
+
     public void imprimirTabuleiro(Tabuleiro tabuleiro) {
         clearConsole();
         imprimir(tabuleiro);
     }
-    
-    public void pedirMovimento(Jogador jogador) {
+
+    public void pedirMovimento(JogadorHumano jogador) {
         imprimir("Digite o movimento " + jogador.getNome() + ":");
     }
-    
-    public void imprimirPontos(Jogador jogador) {
+
+    public void imprimirPontos(JogadorHumano jogador) {
         clearConsole();
         imprimir("Pontos do jogador " + jogador.getNome() + ": " + jogador.getPontos());
     }
