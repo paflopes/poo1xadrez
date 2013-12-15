@@ -1,14 +1,13 @@
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorVirtual;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -88,29 +87,36 @@ public class ControleGeral {
         return jogador;
     }
 
-    private void jogada(Jogador jogador) {
-        impressora.imprimirTabuleiro(apl.getTabuleiro());
-        jogador.setJogada(pedeJogada(jogador));
-        processaJogada(jogador);
+    public Jogada pedeJogada(JogadorHumano jogador) {
+        impressora.pedirMovimento(jogador);
+        String jogadaStr = impressora.getString();
+        Jogada jogada = new Jogada();
 
-        while (!jogador.getJogada().equals("valida") && !jogador.getJogada().equals("desistir")) {
-
-            if (!jogador.getJogada().equals("pontos") && !jogador.getJogada().equals("empate")) {
-                impressora.imprimiJogadaInvalida();
-            }
-            if (jogador.getJogada().equals("empate")) {
-                impressora.imprimiPedidoEmpate();
-                Scanner scanner = new Scanner(System.in);
-                String escolha = scanner.nextLine();
-                if (escolha.equals("S") || escolha.equals("s")) {
-                    impressora.imprimiEmpate();
-                    break;
-                }
-            }
-            jogador.setJogada(pedeJogada(jogador));
-            processaJogada(jogador);
-        }
-        jogador.setVitoria(controle.isXequeMate(jogador.getJogada().charAt(4)));
+        return null;
     }
 
+//    private void jogada(Jogador jogador) {
+//        impressora.imprimirTabuleiro(apl.getTabuleiro());
+//        jogador.setJogada(pedeJogada(jogador));
+//        processaJogada(jogador);
+//
+//        while (!jogador.getJogada().equals("valida") && !jogador.getJogada().equals("desistir")) {
+//
+//            if (!jogador.getJogada().equals("pontos") && !jogador.getJogada().equals("empate")) {
+//                impressora.imprimiJogadaInvalida();
+//            }
+//            if (jogador.getJogada().equals("empate")) {
+//                impressora.imprimiPedidoEmpate();
+//                Scanner scanner = new Scanner(System.in);
+//                String escolha = scanner.nextLine();
+//                if (escolha.equals("S") || escolha.equals("s")) {
+//                    impressora.imprimiEmpate();
+//                    break;
+//                }
+//            }
+//            jogador.setJogada(pedeJogada(jogador));
+//            processaJogada(jogador);
+//        }
+//        jogador.setVitoria(controle.isXequeMate(jogador.getJogada().charAt(4)));
+//    }
 }
