@@ -6,6 +6,7 @@ import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorVirtual;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
 
@@ -32,6 +33,7 @@ public class ControleGeral {
             while (escolha != 3) {
                 switch (escolha) {
                     case 1:
+                        //Cadastra os jogadores e verifica se é um jogo a dois ou contra a máquina.
                         Jogador jogadorPreto;
                         Jogador jogadorBranco;
 
@@ -50,7 +52,18 @@ public class ControleGeral {
 
                         //Inicia a partida.
                         for (;;) {
-                            //Faz
+                            impressora.pedirMovimento((JogadorHumano) jogadorBranco);
+                            String jogadaStr = impressora.getString();
+
+                            if (jogadaStr.matches("")) {
+
+                            } else if (jogadaStr.equals("empate")) {
+
+                            }
+
+                            ((JogadorHumano) jogadorBranco).setJogada(criaJogada(jogadaStr));
+
+                            //Faz a jogada.
                             while (true) {
                                 try {
                                     this.apl.fazerJogada(jogadorBranco.getJogada());
@@ -87,36 +100,48 @@ public class ControleGeral {
         return jogador;
     }
 
-    public Jogada pedeJogada(JogadorHumano jogador) {
-        impressora.pedirMovimento(jogador);
-        String jogadaStr = impressora.getString();
+    public Jogada criaJogada(String jogadaStr) {
         Jogada jogada = new Jogada();
 
-        return null;
+        //Definimos a operação da jogada.
+        jogada.setOperacao(identificaOperacao(jogadaStr));
+
+        //Salva a posição inicial e final na jogada.
+        jogadaStr = jogadaStr.replaceAll("\\D", "");
+        jogada.setPosicaoInicial(apl.getPosicao("" + jogadaStr.charAt(0) + jogadaStr.charAt(1)));
+        jogada.setPosicaoFinal(apl.getPosicao("" + jogadaStr.charAt(2) + jogadaStr.charAt(3)));
+
+        return jogada;
     }
 
-//    private void jogada(Jogador jogador) {
-//        impressora.imprimirTabuleiro(apl.getTabuleiro());
-//        jogador.setJogada(pedeJogada(jogador));
-//        processaJogada(jogador);
-//
-//        while (!jogador.getJogada().equals("valida") && !jogador.getJogada().equals("desistir")) {
-//
-//            if (!jogador.getJogada().equals("pontos") && !jogador.getJogada().equals("empate")) {
-//                impressora.imprimiJogadaInvalida();
-//            }
-//            if (jogador.getJogada().equals("empate")) {
-//                impressora.imprimiPedidoEmpate();
-//                Scanner scanner = new Scanner(System.in);
-//                String escolha = scanner.nextLine();
-//                if (escolha.equals("S") || escolha.equals("s")) {
-//                    impressora.imprimiEmpate();
-//                    break;
-//                }
-//            }
-//            jogador.setJogada(pedeJogada(jogador));
-//            processaJogada(jogador);
-//        }
-//        jogador.setVitoria(controle.isXequeMate(jogador.getJogada().charAt(4)));
-//    }
+    /**
+     * Define a operação da jogada.
+     *
+     * @param jogada O comando da jogada.
+     * @return A operação identificada.
+     */
+    public Operacao identificaOperacao(String jogada) {
+        Operacao operacao = null;
+
+        if (jogada.contains("x")) {
+            operacao = Operacao.CAPTURA;
+        } else if (jogada.contains("=")) {
+            operacao = Operacao.PROMOCAO;
+        } else if (jogada.contains("O-O-O")) {
+            operacao = Operacao.RMAIOR;
+        } else if (jogada.contains("O-O")) {
+            operacao = Operacao.RMENOR;
+        } else if (jogada.contains("+")) {
+            operacao = Operacao.XEQUE;
+        } else if (jogada.contains("#")) {
+            operacao = Operacao.XMATE;
+        } else if (jogada.length() == 4 && jogada.matches("[0-9]+")) {
+            operacao = Operacao.MOVIMENTO;
+        } else {
+            throw new IllegalArgumentException("Argumento Inválido!");
+        }
+
+        return operacao;
+    }
+
 }
