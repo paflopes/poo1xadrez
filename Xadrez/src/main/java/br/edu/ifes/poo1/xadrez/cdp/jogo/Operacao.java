@@ -11,5 +11,5 @@ package br.edu.ifes.poo1.xadrez.cdp.jogo;
  */
 public enum Operacao {
 
-    MOVIMENTO, CAPTURA;
+    MOVIMENTO, CAPTURA, PROMOCAO, RMAIOR, RMENOR, XEQUE, XMATE;
 }
