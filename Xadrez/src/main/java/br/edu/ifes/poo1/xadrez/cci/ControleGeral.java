@@ -52,9 +52,10 @@ public class ControleGeral {
                         }
                         jogadorBranco = this.cadastraJogador(Cor.BRANCO);
 
-                        //Inicia a partida.
-                        this.iniciarJogada(jogadorBranco);
-                        this.iniciarJogada(jogadorPreto);
+                    //Inicia a partida.
+                        
+//                        this.iniciarJogada(jogadorBranco);
+//                        this.iniciarJogada(jogadorPreto);
                     case 2:
                         //imprimir dados.
                         break;
@@ -69,31 +70,21 @@ public class ControleGeral {
         }
     }
 
-    public void iniciarJogada(Jogador jogador) {
-        for (;;) {
-            impressora.pedirMovimento((JogadorHumano) jogador);
-            String jogadaStr = impressora.getString();
+    public void iniciarJogada(Jogador jogador) throws JogadaInvalidaException {
 
-            if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
-                if (jogadaStr.equals("desistir")) {
-                    return;
-                } else if (jogadaStr.equals("empate")) {
-
-                }
-            }
-
-            ((JogadorHumano) jogador).setJogada(criaJogada(jogadaStr));
-
-            //Faz a jogada.
-            while (true) {
-                try {
-                    this.apl.fazerJogada(jogador.getJogada());
-                    break;
-                } catch (JogadaInvalidaException ex) {
-                    impressora.imprimirJogadaInvalida();
-                }
-            }
-        }
+        
+//        impressora.pedirMovimento((JogadorHumano) jogador);
+//        String jogadaStr = impressora.getString();
+//
+//        if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
+//            if (jogadaStr.equals("desistir") || jogadaStr.equals("empate")) {
+//                return;
+//            }
+//        }
+//
+//        ((JogadorHumano) jogador).setJogada(criaJogada(jogadaStr));
+//
+//        this.apl.fazerJogada(jogador);
 
     }
 
@@ -147,11 +138,27 @@ public class ControleGeral {
             operacao = Operacao.XMATE;
         } else if (jogada.length() == 4 && jogada.matches("[0-9]+")) {
             operacao = Operacao.MOVIMENTO;
-        } else {
-            throw new IllegalArgumentException("Argumento Inválido!");
         }
 
         return operacao;
     }
 
+    /**
+     * Verifica se a string que o usuário digitou é válida.
+     *
+     * @param entrada A entrada a ser verificada.
+     * @return {@code true} se for válido ou {@code false} se não for válido.
+     */
+    public boolean validarEntrada(String entrada) {
+        // Se a entrada for só de caracteres.
+        if (entrada.matches("\\D+")) {
+            return entrada.equals("desistir") || entrada.equals("empate")
+                    || entrada.equals("O-O") || entrada.equals("O-O-O");
+        } else if (entrada.matches("[1-8]{4}") || entrada.matches("[1-8]{2}x[1-8]{2}")
+                || entrada.matches("[1-8]{4}(\\+|#)") || entrada.matches("([1-8]1|[1-8]8)=(D|T|B|C)")) {
+            return true;
+        }
+
+        return false;
+    }
 }

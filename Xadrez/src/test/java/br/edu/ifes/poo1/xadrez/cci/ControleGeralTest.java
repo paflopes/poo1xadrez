@@ -56,4 +56,35 @@ public class ControleGeralTest {
         Assert.assertEquals(Operacao.CAPTURA, jogada.getOperacao());
     }
 
+    @Test
+    public void testValidarEntrada() {
+        Assert.assertTrue(controle.validarEntrada("desistir"));
+        Assert.assertTrue(controle.validarEntrada("empate"));
+        Assert.assertTrue(controle.validarEntrada("O-O"));
+        Assert.assertTrue(controle.validarEntrada("O-O-O"));
+        Assert.assertFalse(controle.validarEntrada("abacate"));
+        Assert.assertFalse(controle.validarEntrada("testw1"));
+        Assert.assertFalse(controle.validarEntrada("o-o-o"));
+
+        Assert.assertTrue(controle.validarEntrada("1234"));
+        Assert.assertTrue(controle.validarEntrada("2845"));
+        Assert.assertFalse(controle.validarEntrada("23451"));
+        Assert.assertFalse(controle.validarEntrada("2340"));
+        Assert.assertFalse(controle.validarEntrada("5495"));
+
+        Assert.assertTrue(controle.validarEntrada("12x34"));
+        Assert.assertFalse(controle.validarEntrada("22c34"));
+
+        Assert.assertTrue(controle.validarEntrada("1234+"));
+        Assert.assertTrue(controle.validarEntrada("1234#"));
+        Assert.assertFalse(controle.validarEntrada("2234$"));
+
+        Assert.assertTrue(controle.validarEntrada("31=D"));
+        Assert.assertTrue(controle.validarEntrada("81=C"));
+        Assert.assertTrue(controle.validarEntrada("48=T"));
+        Assert.assertTrue(controle.validarEntrada("78=B"));
+        Assert.assertFalse(controle.validarEntrada("74=B"));
+        Assert.assertFalse(controle.validarEntrada("41=F"));
+
+    }
 }

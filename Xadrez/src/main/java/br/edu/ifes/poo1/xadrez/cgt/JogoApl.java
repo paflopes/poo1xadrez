@@ -28,7 +28,8 @@ public class JogoApl {
         this.dadosJogo = new ArrayList<>();
     }
 
-    public void fazerJogada(Jogada jogada) throws JogadaInvalidaException {
+    public void fazerJogada(Jogador jogador) throws JogadaInvalidaException {
+        Jogada jogada = jogador.getJogada();
         Posicao posicaoAtual = jogada.getPosicaoInicial();
         Posicao posicaoFinal = jogada.getPosicaoFinal();
         Peca peca = posicaoAtual.getPeca();
