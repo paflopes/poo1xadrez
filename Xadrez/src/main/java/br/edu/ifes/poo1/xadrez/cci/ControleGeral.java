@@ -9,6 +9,8 @@ import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorVirtual;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,27 +35,8 @@ public class ControleGeral {
             while (escolha != 3) {
                 switch (escolha) {
                     case 1:
-                        //Cadastra os jogadores e verifica se é um jogo a dois ou contra a máquina.
-                        Jogador jogadorPreto;
-                        Jogador jogadorBranco;
-
-                        this.impressora.imprimirOpcaoJogarSozinho();
-                        int opcao = this.impressora.getOpcao();
-
-                        //Verificamos qual a opção que o usuário escolheu.
-                        //1 para jogar sozinho e 2 para jogar contra outro humano.
-                        if (opcao == 1) {
-                            jogadorPreto = new JogadorVirtual();
-                        } else if (opcao == 2) {
-                            jogadorPreto = this.cadastraJogador(Cor.PRETO);
-                        } else {
-                            impressora.imprimirArgumentoInvalido();
-                            break;
-                        }
-                        jogadorBranco = this.cadastraJogador(Cor.BRANCO);
-
+                        this.iniciarPartida();
                     //Inicia a partida.
-                        
 //                        this.iniciarJogada(jogadorBranco);
 //                        this.iniciarJogada(jogadorPreto);
                     case 2:
@@ -70,22 +53,61 @@ public class ControleGeral {
         }
     }
 
-    public void iniciarJogada(Jogador jogador) throws JogadaInvalidaException {
+    public void iniciarPartida() {
+        //Cadastra os jogadores e verifica se é um jogo a dois ou contra a máquina.
+        Jogador jogadorPreto;
+        Jogador jogadorBranco;
 
-        
-//        impressora.pedirMovimento((JogadorHumano) jogador);
-//        String jogadaStr = impressora.getString();
-//
-//        if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
-//            if (jogadaStr.equals("desistir") || jogadaStr.equals("empate")) {
-//                return;
-//            }
-//        }
-//
-//        ((JogadorHumano) jogador).setJogada(criaJogada(jogadaStr));
-//
-//        this.apl.fazerJogada(jogador);
+        this.impressora.imprimirOpcaoJogarSozinho();
+        int opcao = this.impressora.getOpcao();
 
+        //Verificamos qual a opção que o usuário escolheu.
+        //1 para jogar sozinho e 2 para jogar contra outro humano.
+        if (opcao == 1) {
+            jogadorPreto = new JogadorVirtual();
+        } else if (opcao == 2) {
+            jogadorPreto = this.cadastraJogador(Cor.PRETO);
+        } else {
+            impressora.imprimirArgumentoInvalido();
+            return;
+        }
+        jogadorBranco = this.cadastraJogador(Cor.BRANCO);
+
+        for (;;) {
+            while (true) {
+                try {
+                    this.iniciarJogada((JogadorHumano) jogadorBranco);
+                    break;
+                } catch (JogadaInvalidaException ex) {
+                    impressora.imprimirJogadaInvalida();
+                }
+            }
+            while (true) {
+            }
+
+        }
+    }
+
+    public void iniciarJogada(JogadorHumano jogador) throws JogadaInvalidaException {
+        impressora.pedirMovimento(jogador.getNome());
+        String jogadaStr = impressora.getString();
+
+        //Validando o comando
+        while (!this.validarEntrada(jogadaStr)) {
+            impressora.imprimirArgumentoInvalido();
+            impressora.pedirMovimento(jogador.getNome());
+            jogadaStr = impressora.getString();
+        }
+
+        if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
+            if (jogadaStr.equals("desistir") || jogadaStr.equals("empate")) {
+                return;
+            }
+        }
+
+        ((JogadorHumano) jogador).setJogada(criaJogada(jogadaStr));
+
+        this.apl.fazerJogada(jogador);
     }
 
     public void mostrarDados() {

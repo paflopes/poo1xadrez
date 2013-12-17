@@ -80,7 +80,6 @@ public class Impressora {
 
     public void imprimirJogadaInvalida() {
         imprimir("Jogada inválida!!");
-        imprimir("Digite a jogada novamente:");
     }
 
     public void imprimirTabuleiro(Tabuleiro tabuleiro) {
@@ -88,8 +87,8 @@ public class Impressora {
         imprimir(tabuleiro);
     }
 
-    public void pedirMovimento(JogadorHumano jogador) {
-        imprimir("Digite o movimento " + jogador.getNome() + ":");
+    public void pedirMovimento(String nomeJogador) {
+        imprimir("Digite o movimento " + nomeJogador + ":");
     }
 
     public void imprimirPontos(JogadorHumano jogador) {
