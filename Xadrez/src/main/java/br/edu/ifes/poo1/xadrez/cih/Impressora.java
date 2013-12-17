@@ -6,7 +6,9 @@ package br.edu.ifes.poo1.xadrez.cih;
 
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -111,4 +113,17 @@ public class Impressora {
             System.out.println("");
         }
     }
+    
+    public void imprimiDados(ArrayList<DadoJogo> listaDadoJogo){
+        imprimir("Nomes:                        Pontos:");
+        for(int contador = 0;contador < listaDadoJogo.size(); contador++){
+            System.out.println(listaDadoJogo.get(contador).getNome());
+            for(int espaco = 30 - listaDadoJogo.get(contador).getNome().length(); espaco>0; espaco--){
+                System.out.println(" ");
+            }        
+            imprimir(listaDadoJogo.get(contador).getPontos());
+        }
+    }
+    
+    
 }

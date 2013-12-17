@@ -5,6 +5,8 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lincoln
@@ -46,4 +48,27 @@ public class DadoJogo {
         this.pontos = pontos;
     }
 
+    public void setListaDados(JogadorHumano jogador, ArrayList<DadoJogo> listaDadoJogo) {
+        boolean achouNaListaa = false;        
+        for(int contador = 0; contador< listaDadoJogo.size(); contador++){
+            if(listaDadoJogo.get(contador).getNome().equals(jogador.getNome())){
+                if(jogador.isVitoria()){
+                    listaDadoJogo.get(contador).setPontos(listaDadoJogo.get(contador).getPontos() + 1);
+                }
+                achouNaListaa = true;
+            }
+        }
+        
+        if(achouNaListaa == false){
+            DadoJogo dados = new DadoJogo();
+            dados.setNome(jogador.getNome());
+            if(jogador.isVitoria()){
+                dados.setPontos(1);
+            }
+            listaDadoJogo.add(dados);
+        }     
+        
+    }
+
 }
+
