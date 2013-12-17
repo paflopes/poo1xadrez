@@ -82,7 +82,22 @@ public class ControleGeral {
                     impressora.imprimirJogadaInvalida();
                 }
             }
-            while (true) {
+
+            if (opcao == 1) {
+                try {
+                    this.apl.fazerJogada(jogadorPreto);
+                } catch (JogadaInvalidaException ex) {
+                    Logger.getLogger(ControleGeral.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (opcao == 2) {
+                while (true) {
+                    try {
+                        this.iniciarJogada((JogadorHumano) jogadorBranco);
+                        break;
+                    } catch (JogadaInvalidaException ex) {
+                        impressora.imprimirJogadaInvalida();
+                    }
+                }
             }
 
         }
