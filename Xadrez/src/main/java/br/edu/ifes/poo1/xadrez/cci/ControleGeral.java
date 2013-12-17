@@ -24,7 +24,7 @@ public class ControleGeral {
         this.apl = apl;
     }
 
-    public void iniciarPartida() {
+    public void iniciarPrograma() {
         this.impressora.imprimirMenu();
         int escolha = this.impressora.getOpcao();
 
@@ -40,6 +40,8 @@ public class ControleGeral {
                         this.impressora.imprimirOpcaoJogarSozinho();
                         int opcao = this.impressora.getOpcao();
 
+                        //Verificamos qual a opção que o usuário escolheu.
+                        //1 para jogar sozinho e 2 para jogar contra outro humano.
                         if (opcao == 1) {
                             jogadorPreto = new JogadorVirtual();
                         } else if (opcao == 2) {
@@ -51,28 +53,8 @@ public class ControleGeral {
                         jogadorBranco = this.cadastraJogador(Cor.BRANCO);
 
                         //Inicia a partida.
-                        for (;;) {
-                            impressora.pedirMovimento((JogadorHumano) jogadorBranco);
-                            String jogadaStr = impressora.getString();
-
-                            if (jogadaStr.matches("")) {
-
-                            } else if (jogadaStr.equals("empate")) {
-
-                            }
-
-                            ((JogadorHumano) jogadorBranco).setJogada(criaJogada(jogadaStr));
-
-                            //Faz a jogada.
-                            while (true) {
-                                try {
-                                    this.apl.fazerJogada(jogadorBranco.getJogada());
-                                    break;
-                                } catch (JogadaInvalidaException ex) {
-                                    impressora.imprimirJogadaInvalida();
-                                }
-                            }
-                        }
+                        this.iniciarJogada(jogadorBranco);
+                        this.iniciarJogada(jogadorPreto);
                     case 2:
                         //imprimir dados.
                         break;
@@ -83,8 +65,36 @@ public class ControleGeral {
             //Se a escolha for inválida, então tentamos reiniciar a partida.
         } else {
             impressora.imprimirArgumentoInvalido();
-            this.iniciarPartida();
+            this.iniciarPrograma();
         }
+    }
+
+    public void iniciarJogada(Jogador jogador) {
+        for (;;) {
+            impressora.pedirMovimento((JogadorHumano) jogador);
+            String jogadaStr = impressora.getString();
+
+            if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
+                if (jogadaStr.equals("desistir")) {
+                    return;
+                } else if (jogadaStr.equals("empate")) {
+
+                }
+            }
+
+            ((JogadorHumano) jogador).setJogada(criaJogada(jogadaStr));
+
+            //Faz a jogada.
+            while (true) {
+                try {
+                    this.apl.fazerJogada(jogador.getJogada());
+                    break;
+                } catch (JogadaInvalidaException ex) {
+                    impressora.imprimirJogadaInvalida();
+                }
+            }
+        }
+
     }
 
     public void mostrarDados() {
