@@ -21,9 +21,9 @@ public class ControleGeral {
     private final Impressora impressora;
     private final JogoApl apl;
 
-    public ControleGeral(Impressora impressora, JogoApl apl) {
-        this.impressora = impressora;
-        this.apl = apl;
+    public ControleGeral() {
+        this.impressora = new Impressora();
+        this.apl = new JogoApl();
     }
 
     public void iniciarPrograma() {
@@ -160,10 +160,12 @@ public class ControleGeral {
         //Definimos a operação da jogada.
         jogada.setOperacao(identificaOperacao(jogadaStr));
 
-        //Salva a posição inicial e final na jogada.
-        jogadaStr = jogadaStr.replaceAll("\\D", "");
-        jogada.setPosicaoInicial(apl.getPosicao("" + jogadaStr.charAt(0) + jogadaStr.charAt(1)));
-        jogada.setPosicaoFinal(apl.getPosicao("" + jogadaStr.charAt(2) + jogadaStr.charAt(3)));
+        if (jogada.getOperacao() != Operacao.RMAIOR && jogada.getOperacao() != Operacao.RMENOR) {
+            //Salva a posição inicial e final na jogada.
+            jogadaStr = jogadaStr.replaceAll("\\D", "");
+            jogada.setPosicaoInicial(apl.getPosicao("" + jogadaStr.charAt(0) + jogadaStr.charAt(1)));
+            jogada.setPosicaoFinal(apl.getPosicao("" + jogadaStr.charAt(2) + jogadaStr.charAt(3)));
+        }
 
         return jogada;
     }
@@ -189,7 +191,7 @@ public class ControleGeral {
             operacao = Operacao.XEQUE;
         } else if (jogada.contains("#")) {
             operacao = Operacao.XMATE;
-        } else if (jogada.length() == 4 && jogada.matches("[0-9]+")) {
+        } else if (jogada.matches("[1-8]{4}")) {
             operacao = Operacao.MOVIMENTO;
         }
 

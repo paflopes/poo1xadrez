@@ -15,7 +15,7 @@ import br.edu.ifes.poo1.xadrez.cih.Impressora;
 public class Main {
 
     public static void main(String[] args) {
-        ControleGeral controle = new ControleGeral(new Impressora(), new JogoApl());
+        ControleGeral controle = new ControleGeral();
 
         controle.iniciarPrograma();
     }

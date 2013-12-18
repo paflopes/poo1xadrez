@@ -29,18 +29,57 @@ public class MovimentoPeca {
         return ((colunaAtual - colunaNova) == 0) || ((linhaAtual - linhaNova) == 0);
     }
 
-    public static boolean isEnPassant(Posicao posicao) {
+    public static boolean isEnPassant(Posicao posicaoAtual, Posicao novaPosicao) {
 
         return false;
     }
 
-    public static boolean isRoqueMaior(Posicao posicao) {
+    /**
+     * Verifica se é um RoqueMaior.
+     *
+     * @param posicaoAtual É a posição inicial do rei.
+     * @return {@code true} se é um roque maior ou {@code false} caso contrário.
+     */
+    public static boolean isRoqueMaior(Posicao posicaoAtual) {
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunhaAtual = posicaoAtual.getId().charAt(0);
+        Posicao posicaoTorre = Tabuleiro.getInstance().getPosicao("1" + linhaAtual);
+        List<String> caminho = new ArrayList<>();
 
-        return false;
+        for (int nCaminho = 1; nCaminho < 3; nCaminho++) {
+            caminho.add("" + ((char) (colunhaAtual - nCaminho)) + linhaAtual);
+        }
+
+        return (posicaoAtual.existePeca()
+                && !posicaoAtual.getPeca().jaMovimentou()
+                && posicaoAtual.getPeca().getNome() == NomePeca.REI)
+                && !MovimentoPeca.haPeca(caminho)
+                && posicaoTorre.existePeca()
+                && !posicaoTorre.getPeca().jaMovimentou();
     }
 
-    public static boolean isRoqueMenor(Posicao posicao) {
-        return false;
+    /**
+     * Verifica se é um roque menor.
+     *
+     * @param posicaoAtual A posição inicial do Rei.
+     * @return {@code true} se é um roque maior ou {@code false} caso contrário.
+     */
+    public static boolean isRoqueMenor(Posicao posicaoAtual) {
+        char linhaAtual = posicaoAtual.getId().charAt(1);
+        char colunhaAtual = posicaoAtual.getId().charAt(0);
+        Posicao posicaoTorre = Tabuleiro.getInstance().getPosicao("8" + linhaAtual);
+        List<String> caminho = new ArrayList<>();
+
+        for (int nCaminho = 1; nCaminho < 3; nCaminho++) {
+            caminho.add("" + ((char) (colunhaAtual + nCaminho)) + linhaAtual);
+        }
+
+        return (posicaoAtual.existePeca()
+                && !posicaoAtual.getPeca().jaMovimentou()
+                && posicaoAtual.getPeca().getNome() == NomePeca.REI)
+                && !MovimentoPeca.haPeca(caminho)
+                && posicaoTorre.existePeca()
+                && !posicaoTorre.getPeca().jaMovimentou();
     }
 
     /**

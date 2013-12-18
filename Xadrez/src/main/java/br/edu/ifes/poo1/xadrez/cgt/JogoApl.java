@@ -5,6 +5,8 @@
  */
 package br.edu.ifes.poo1.xadrez.cgt;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
@@ -32,16 +34,69 @@ public class JogoApl {
         Jogada jogada = jogador.getJogada();
         Posicao posicaoAtual = jogada.getPosicaoInicial();
         Posicao posicaoFinal = jogada.getPosicaoFinal();
-        Peca peca = posicaoAtual.getPeca();
-        boolean isCaptura = jogada.getOperacao() == Operacao.CAPTURA;
+        Operacao operacao = jogada.getOperacao();
+        Peca peca;
 
-        if (((!isCaptura && peca.validarMovimento(posicaoFinal))
-                || (isCaptura && peca.validarMovimentoCaptura(posicaoFinal)))
-                && peca.getCor() == jogador.getCor()) {
-            posicaoFinal.setPeca(peca);
+        // Se o jogador não tiver uma posição atual definida, então a posição do Rei é dada.
+        if (posicaoAtual == null) {
+            if (jogador.getCor() == Cor.BRANCO) {
+                posicaoAtual = this.getPosicao("51");
+            } else {
+                posicaoAtual = this.getPosicao("58");
+            }
+        }
+
+        peca = posicaoAtual.getPeca();
+
+        if (posicaoAtual.existePeca() && peca.getCor() == jogador.getCor()) {
+            switch (operacao) {
+                case MOVIMENTO:
+                    if (peca.validarMovimento(posicaoFinal)) {
+                        posicaoFinal.setPeca(peca);
+                    } else {
+                        throw new JogadaInvalidaException("Jogada Inválida!");
+                    }
+                    break;
+                case CAPTURA:
+                    if (peca.validarMovimentoCaptura(posicaoFinal)) {
+                        posicaoFinal.setPeca(peca);
+                    } else {
+                        throw new JogadaInvalidaException("Jogada Inválida!");
+                    }
+                    break;
+                case RMAIOR:
+                    if (MovimentoPeca.isRoqueMaior(posicaoAtual)) {
+                        char linhaAtual = posicaoAtual.getId().charAt(1);
+                        Peca rei = posicaoAtual.getPeca();
+                        Peca torre = this.getPosicao("1" + linhaAtual).getPeca();
+                        this.getPosicao("3" + linhaAtual).setPeca(rei);
+                        this.getPosicao("4" + linhaAtual).setPeca(torre);
+                    } else {
+                        throw new JogadaInvalidaException("Jogada Inválida!");
+                    }
+                    break;
+                case RMENOR:
+                    if (MovimentoPeca.isRoqueMenor(posicaoAtual)) {
+                        char linhaAtual = posicaoAtual.getId().charAt(1);
+                        Peca rei = posicaoAtual.getPeca();
+                        Peca torre = this.getPosicao("8" + linhaAtual).getPeca();
+                        this.getPosicao("7" + linhaAtual).setPeca(rei);
+                        this.getPosicao("6" + linhaAtual).setPeca(torre);
+                    } else {
+                        throw new JogadaInvalidaException("Jogada Inválida!");
+                    }
+                    break;
+                case PROMOCAO:
+                    break;
+                case XEQUE:
+                    break;
+                case XMATE:
+                    break;
+            }
         } else {
             throw new JogadaInvalidaException("Jogada inválida!");
         }
+
     }
 
     public void salvarDado(DadoJogo dado) {
