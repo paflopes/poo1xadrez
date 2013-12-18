@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.xadrez.cdp;
 
 import java.util.ArrayList;
 import java.util.List;
+import sun.awt.SunGraphicsCallback;
 
 public class MovimentoPeca {
 
@@ -33,8 +34,12 @@ public class MovimentoPeca {
         return false;
     }
 
-    public static boolean isRoque(Posicao posicao) {
+    public static boolean isRoqueMaior(Posicao posicao) {
 
+        return false;
+    }
+
+    public static boolean isRoqueMenor(Posicao posicao) {
         return false;
     }
 

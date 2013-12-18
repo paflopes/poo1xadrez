@@ -37,11 +37,6 @@ public class ControleGeralTest {
         Assert.assertEquals(Operacao.XMATE, controle.identificaOperacao("4523#"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testIdentificaOperacaoArgInvalido() {
-        controle.identificaOperacao("fdsa");
-    }
-
     @Test
     public void testCriaJogada() {
         Jogada jogada = controle.criaJogada("1122");

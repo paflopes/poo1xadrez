@@ -35,10 +35,10 @@ public class ControleGeral {
             while (escolha != 3) {
                 switch (escolha) {
                     case 1:
-                        this.iniciarPartida();
-                    //Inicia a partida.
-//                        this.iniciarJogada(jogadorBranco);
-//                        this.iniciarJogada(jogadorPreto);
+                        try {
+                            this.iniciarPartida();
+                        } catch (PartidaEncerradaException ex) {
+                        }
                     case 2:
                         //imprimir dados.
                         break;
@@ -53,7 +53,12 @@ public class ControleGeral {
         }
     }
 
-    public void iniciarPartida() {
+    /**
+     * Inicia uma partida.
+     *
+     * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException
+     */
+    public void iniciarPartida() throws PartidaEncerradaException {
         //Cadastra os jogadores e verifica se é um jogo a dois ou contra a máquina.
         Jogador jogadorPreto;
         Jogador jogadorBranco;
@@ -61,19 +66,22 @@ public class ControleGeral {
         this.impressora.imprimirOpcaoJogarSozinho();
         int opcao = this.impressora.getOpcao();
 
-        //Verificamos qual a opção que o usuário escolheu.
-        //1 para jogar sozinho e 2 para jogar contra outro humano.
+        // Verificamos qual a opção que o usuário escolheu.
+        // 1 para jogar sozinho e 2 para jogar contra outro humano.
+        while (opcao != 1 && opcao != 2) {
+            impressora.imprimirArgumentoInvalido();
+            opcao = impressora.getOpcao();
+        }
+
         if (opcao == 1) {
             jogadorPreto = new JogadorVirtual();
-        } else if (opcao == 2) {
-            jogadorPreto = this.cadastraJogador(Cor.PRETO);
         } else {
-            impressora.imprimirArgumentoInvalido();
-            return;
+            jogadorPreto = this.cadastraJogador(Cor.PRETO);
         }
         jogadorBranco = this.cadastraJogador(Cor.BRANCO);
 
         for (;;) {
+            impressora.imprimirTabuleiro(this.apl.getTabuleiro());
             while (true) {
                 try {
                     this.iniciarJogada((JogadorHumano) jogadorBranco);
@@ -83,6 +91,7 @@ public class ControleGeral {
                 }
             }
 
+            impressora.imprimirTabuleiro(this.apl.getTabuleiro());
             if (opcao == 1) {
                 try {
                     this.apl.fazerJogada(jogadorPreto);
@@ -92,31 +101,38 @@ public class ControleGeral {
             } else if (opcao == 2) {
                 while (true) {
                     try {
-                        this.iniciarJogada((JogadorHumano) jogadorBranco);
+                        this.iniciarJogada((JogadorHumano) jogadorPreto);
                         break;
                     } catch (JogadaInvalidaException ex) {
                         impressora.imprimirJogadaInvalida();
                     }
                 }
             }
-
         }
     }
 
-    public void iniciarJogada(JogadorHumano jogador) throws JogadaInvalidaException {
+    /**
+     * Inicia a jogada de um player humano.
+     *
+     * @param jogador O jogador a efetuar a o jogada
+     * @throws JogadaInvalidaException É lançada quando a jogada não é bem
+     * sucedida.
+     */
+    public void iniciarJogada(JogadorHumano jogador) throws JogadaInvalidaException, PartidaEncerradaException {
         impressora.pedirMovimento(jogador.getNome());
         String jogadaStr = impressora.getString();
 
-        //Validando o comando
+        // Valida o comando dado pelo jogador.
         while (!this.validarEntrada(jogadaStr)) {
             impressora.imprimirArgumentoInvalido();
             impressora.pedirMovimento(jogador.getNome());
             jogadaStr = impressora.getString();
         }
 
+        // Verifica se é desistência ou empate.
         if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
             if (jogadaStr.equals("desistir") || jogadaStr.equals("empate")) {
-                return;
+                throw new PartidaEncerradaException("Partida encerrada!");
             }
         }
 
