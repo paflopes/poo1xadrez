@@ -23,7 +23,7 @@ public class ControleGeralTest {
 
     @Before
     public void before() {
-        this.controle = new ControleGeral(new Impressora(), new JogoApl());
+        this.controle = new ControleGeral();
     }
 
     @Test
