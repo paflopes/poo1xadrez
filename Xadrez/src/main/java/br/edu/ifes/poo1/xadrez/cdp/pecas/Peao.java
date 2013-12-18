@@ -18,9 +18,26 @@ import java.util.List;
  */
 public class Peao extends PecaImpl {
 
+    private boolean moveuUmaVez = false;
+
     public Peao(Cor cor) {
         super(cor, NomePeca.PEAO);
         this.setDesenho("P");
+    }
+
+    /**
+     * Diz se o peão se moveu apenas uma vez.
+     *
+     * @return
+     */
+    public boolean moveuUmaVez() {
+        return moveuUmaVez;
+    }
+
+    @Override
+    public void setPosicao(Posicao posicao) {
+        this.moveuUmaVez = !this.jaMovimentou();
+        super.setPosicao(posicao);
     }
 
     @Override

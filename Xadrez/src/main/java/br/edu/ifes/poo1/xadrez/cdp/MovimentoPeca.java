@@ -5,10 +5,9 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
-import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peao;
 import java.util.ArrayList;
 import java.util.List;
-import sun.awt.SunGraphicsCallback;
 
 public class MovimentoPeca {
 
@@ -30,28 +29,28 @@ public class MovimentoPeca {
         return ((colunaAtual - colunaNova) == 0) || ((linhaAtual - linhaNova) == 0);
     }
 
-    public static boolean isEnPassant(Posicao posicaoAtual, Posicao novaPosicao, Jogador jogadorBranco, Jogador jogadorPreto) {
-        char colunaAtual = posicaoAtual.getId().charAt(0);
-        char linhaAtual = posicaoAtual.getId().charAt(1);
-        char colunaNova = novaPosicao.getId().charAt(0);
-        char linhaNova = novaPosicao.getId().charAt(1);
-        
-              
-        return (Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).getPeca().getCor() == Cor.BRANCO 
-                && linhaAtual == '5' 
-                && Math.abs(colunaNova - colunaAtual) == 1                 
-                && jogadorPreto.getJogada().getPosicaoFinal().getId().equals(novaPosicao.getId())             
-                && jogadorPreto.getJogada().getPosicaoFinal().getPeca().getNome() == NomePeca.PEAO
-                && saltoDuploPeao(jogadorPreto.getJogada().getPosicaoInicial(),jogadorPreto.getJogada().getPosicaoFinal())
-                ) ||
-                (Tabuleiro.getInstance().getPosicao(posicaoAtual.getId()).getPeca().getCor() == Cor.PRETO 
-                && linhaAtual == '4' 
-                && Math.abs(colunaNova - colunaAtual) == 1                 
-                && jogadorBranco.getJogada().getPosicaoFinal().getId().equals(novaPosicao.getId())             
-                && jogadorBranco.getJogada().getPosicaoFinal().getPeca().getNome() == NomePeca.PEAO
-                && saltoDuploPeao(jogadorBranco.getJogada().getPosicaoInicial(),jogadorBranco.getJogada().getPosicaoFinal())
-                );               
-                
+    public static boolean isEnPassant(Posicao posicaoAtual, Posicao novaPosicao) {
+        Peao peaoAtual = (Peao) posicaoAtual.getPeca();
+        Posicao posicaoCaptura = null;
+        boolean andouDuasCasas = false;
+        char novaColuna = novaPosicao.getId().charAt(0);
+        char novaLinha = novaPosicao.getId().charAt(1);
+
+        switch (peaoAtual.getCor()) {
+            case BRANCO:
+                posicaoCaptura = Tabuleiro.getInstance().getPosicao("" + novaColuna + ((char) (novaLinha - 1)));
+                andouDuasCasas = posicaoCaptura.getId().charAt(1) == '5';
+                break;
+            case PRETO:
+                posicaoCaptura = Tabuleiro.getInstance().getPosicao("" + novaColuna + ((char) (novaLinha + 1)));
+                andouDuasCasas = posicaoCaptura.getId().charAt(1) == '4';
+                break;
+        }
+
+        return posicaoCaptura.existePeca()
+                && posicaoCaptura.getPeca().getNome() == NomePeca.PEAO
+                && ((Peao) posicaoCaptura.getPeca()).moveuUmaVez()
+                && andouDuasCasas;
     }
 
     /**
@@ -230,15 +229,14 @@ public class MovimentoPeca {
 
         return caminho;
     }
-    
-    public static boolean saltoDuploPeao(Posicao posicaoAtual, Posicao novaPosicao){
+
+    public static boolean saltoDuploPeao(Posicao posicaoAtual, Posicao novaPosicao) {
         char colunaAtual = posicaoAtual.getId().charAt(0);
         char linhaAtual = posicaoAtual.getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
-        
-        
-        return Math.abs(linhaAtual - linhaNova)==2 && linhaAtual==linhaNova;
+
+        return Math.abs(linhaAtual - linhaNova) == 2 && linhaAtual == linhaNova;
     }
-    
+
 }

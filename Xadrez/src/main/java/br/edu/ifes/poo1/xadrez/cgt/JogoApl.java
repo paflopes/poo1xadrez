@@ -60,6 +60,20 @@ public class JogoApl {
                 case CAPTURA:
                     if (peca.validarMovimentoCaptura(posicaoFinal)) {
                         posicaoFinal.setPeca(peca);
+                    } else if (MovimentoPeca.isEnPassant(posicaoAtual, posicaoFinal)) {
+                        char colunaFinal = posicaoFinal.getId().charAt(0);
+                        char linhaFinal = 0;
+                        switch (posicaoAtual.getPeca().getCor()) {
+                            case BRANCO:
+                                linhaFinal = (char) (posicaoFinal.getId().charAt(1) - 1);
+                                break;
+                            case PRETO:
+                                linhaFinal = (char) (posicaoFinal.getId().charAt(1) + 1);
+                                break;
+                        }
+                        posicaoFinal.setPeca(peca);
+                        posicaoFinal = Tabuleiro.getInstance().getPosicao("" + colunaFinal + linhaFinal);
+                        posicaoFinal.setPeca(null);
                     } else {
                         throw new JogadaInvalidaException("Jogada Inválida!");
                     }
@@ -113,5 +127,9 @@ public class JogoApl {
 
     public Tabuleiro getTabuleiro() {
         return Tabuleiro.getInstance();
+    }
+
+    public void reiniciarTabuleiro() {
+        Tabuleiro.getInstance().restaurarTabuleiro();
     }
 }

@@ -63,6 +63,7 @@ public class ControleGeral {
         Jogador jogadorPreto;
         Jogador jogadorBranco;
 
+        this.apl.reiniciarTabuleiro();
         this.impressora.imprimirOpcaoJogarSozinho();
         int opcao = this.impressora.getOpcao();
 
