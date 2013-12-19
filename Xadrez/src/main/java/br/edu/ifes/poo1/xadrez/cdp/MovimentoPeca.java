@@ -53,6 +53,15 @@ public class MovimentoPeca {
                 && andouDuasCasas;
     }
 
+    public static boolean isXeque() {
+        
+        return false;
+    }
+
+    public static boolean isXequeMate() {
+        return false;
+    }
+
     /**
      * Verifica se é um RoqueMaior.
      *

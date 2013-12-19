@@ -60,6 +60,7 @@ public class JogoApl {
                 case CAPTURA:
                     if (peca.validarMovimentoCaptura(posicaoFinal)) {
                         posicaoFinal.setPeca(peca);
+                        //Caso a captura seja um enPassant.
                     } else if (MovimentoPeca.isEnPassant(posicaoAtual, posicaoFinal)) {
                         char colunaFinal = posicaoFinal.getId().charAt(0);
                         char linhaFinal = 0;
@@ -101,6 +102,7 @@ public class JogoApl {
                     }
                     break;
                 case PROMOCAO:
+                    
                     break;
                 case XEQUE:
                     break;
