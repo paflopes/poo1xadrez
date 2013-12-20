@@ -247,5 +247,51 @@ public class MovimentoPeca {
 
         return Math.abs(linhaAtual - linhaNova) == 2 && linhaAtual == linhaNova;
     }
+    
+    public static boolean impedirXMATE(Posicao posicaoAtual, Posicao posicaoFinal){
+        if(tentarInterceptarXMATE(posicaoAtual, posicaoFinal)){
+            
+        }
+        
+        return false;
+    }
+    
+    private static boolean tentarInterceptarXMATE(Posicao posicaoAtual, Posicao posicaoFinal){
+                    
+        //Percorro o tabuleiro todo analisando cada peça da cor do rei que está tomando o Xeque Mate
+        for (char coluna = '1'; coluna < '9'; coluna++) {
+            for (char linha = '1'; linha < '9'; linha++) {
+                //Para cada peça, vejo se a cor é igual a do rei e se essa peça consegue capturar a peça que está dando Xeque Mate no rei
+                //ou se uma peça pode interceptar a peça que vai capturar o rei (não soube fazer)
+                if((Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().getCor() == posicaoFinal.getPeca().getCor()
+                        && Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().validarMovimentoCaptura(posicaoAtual))
+                        //Aqui nesse outro criterio tem que ver se uma peça pode entrar na frente do rei pra evitar o Xeque Mate, porém nao sei como fazer
+                        ){
+                    
+                    
+                    
+                    return true;
+                }
+            }
+        }        
+        return false;
+    }
+    
+    //Rei escapar de XEQUE MATE andando
+    private static boolean reiEscaparMovimento(Posicao posicaoAtual, Posicao posicaoFinal){
+        PosicaoImpl posicaoAuxRei = new PosicaoImpl(posicaoFinal.getId());
+        for (char coluna = '1'; coluna < '9'; coluna++) {
+            for (char linha = '1'; linha < '9'; linha++) {
+                
+            //Analisar o rei andando para todas as direçoes, se ele nao tomar nenhum XEQUE ele pode fugir andando
+
+                
+                
+            }
+        }
+        
+        
+        return false;
+    }
 
 }
