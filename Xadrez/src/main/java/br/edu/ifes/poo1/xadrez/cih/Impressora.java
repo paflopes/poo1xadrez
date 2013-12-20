@@ -8,7 +8,7 @@ import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -114,7 +114,11 @@ public class Impressora {
         }
     }
     
-    public void imprimiDados(ArrayList<DadoJogo> listaDadoJogo){
+    public void imprimiEmpate(){
+        imprimir("Deseja aceitar o empate? S/N");
+    }
+    
+    public void imprimirDados(List<DadoJogo> listaDadoJogo){
         imprimir("Nomes:                        Pontos:");
         for(int contador = 0;contador < listaDadoJogo.size(); contador++){
             System.out.println(listaDadoJogo.get(contador).getNome());

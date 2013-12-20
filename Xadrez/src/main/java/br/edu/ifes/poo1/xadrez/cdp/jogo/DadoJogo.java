@@ -5,7 +5,7 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -48,7 +48,7 @@ public class DadoJogo {
         this.pontos = pontos;
     }
 
-    public void setListaDados(JogadorHumano jogador, ArrayList<DadoJogo> listaDadoJogo) {
+    public static void setListaDados(JogadorHumano jogador, List<DadoJogo> listaDadoJogo) {
         boolean achouNaListaa = false;        
         for(int contador = 0; contador< listaDadoJogo.size(); contador++){
             if(listaDadoJogo.get(contador).getNome().equals(jogador.getNome())){
