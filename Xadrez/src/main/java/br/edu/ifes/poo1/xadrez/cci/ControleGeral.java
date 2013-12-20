@@ -1,6 +1,7 @@
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
@@ -9,6 +10,7 @@ import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorVirtual;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -132,8 +134,19 @@ public class ControleGeral {
 
         // Verifica se é desistência ou empate.
         if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
-            if (jogadaStr.equals("desistir") || jogadaStr.equals("empate")) {
+            if (jogadaStr.equals("desistir")){ 
+                
                 throw new PartidaEncerradaException("Partida encerrada!");
+            }else if(jogadaStr.equals("empate")){
+                impressora.imprimiEmpate();
+                Scanner scanner = new Scanner(System.in);
+                String escolha = scanner.nextLine();
+                switch(escolha){
+                    case("S"):{
+                        throw new PartidaEncerradaException("Partida encerrada!");
+                    }
+                }
+                        
             }
         }
 
@@ -143,7 +156,7 @@ public class ControleGeral {
     }
 
     public void mostrarDados() {
-
+        impressora.imprimirDados(apl.getDados());
     }
 
     public Jogador cadastraJogador(Cor cor) {
