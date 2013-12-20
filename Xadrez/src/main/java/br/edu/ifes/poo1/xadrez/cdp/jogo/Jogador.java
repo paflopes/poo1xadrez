@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
  *
@@ -19,4 +20,5 @@ public interface Jogador {
 
     public Cor getCor();
 
+    public void atualizaPontosJogador(Posicao novaPosicao);
 }

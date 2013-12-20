@@ -6,6 +6,7 @@
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
  *
@@ -37,4 +38,10 @@ public class JogadorVirtual implements Jogador {
         return this.nome;
     }
 
+    @Override
+    public void atualizaPontosJogador(Posicao novaPosicao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

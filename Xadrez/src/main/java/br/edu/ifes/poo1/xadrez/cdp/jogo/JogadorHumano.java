@@ -117,6 +117,7 @@ public class JogadorHumano implements Jogador {
         return cor;
     }
     
+    @Override
     //Atualiza os pontos do jogador de acordo com o tipo da peça capturada
     public void atualizaPontosJogador(Posicao novaPosicao){
     
