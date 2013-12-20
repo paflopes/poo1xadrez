@@ -79,6 +79,7 @@ public class JogoApl {
                         posicaoFinal.setPeca(peca);
                         posicaoFinal = Tabuleiro.getInstance().getPosicao("" + colunaFinal + linhaFinal);
                         posicaoFinal.setPeca(null);
+                        jogador.atualizaPontosJogador(posicaoFinal);
                     } else {
                         throw new JogadaInvalidaException("Jogada Inválida!");
                     }
