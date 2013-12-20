@@ -20,6 +20,7 @@ public class Torre extends PecaImpl {
     public Torre(Cor cor) {
         super(cor, NomePeca.TORRE);
         this.setDesenho("T");
+        this.setValor(5);
     }
 
     @Override

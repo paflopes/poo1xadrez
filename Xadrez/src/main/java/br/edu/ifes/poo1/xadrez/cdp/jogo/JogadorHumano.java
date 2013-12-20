@@ -6,6 +6,9 @@
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 
 /**
  *
@@ -112,6 +115,12 @@ public class JogadorHumano implements Jogador {
     @Override
     public Cor getCor() {
         return cor;
+    }
+    
+    //Atualiza os pontos do jogador de acordo com o tipo da peça capturada
+    public void atualizaPontosJogador(Posicao novaPosicao){
+    
+        this.setPontos(this.getPontos()+ novaPosicao.getPeca().getValor());
     }
 
 }

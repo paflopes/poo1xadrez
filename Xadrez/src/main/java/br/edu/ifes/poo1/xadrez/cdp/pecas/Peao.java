@@ -23,6 +23,7 @@ public class Peao extends PecaImpl {
     public Peao(Cor cor) {
         super(cor, NomePeca.PEAO);
         this.setDesenho("P");
+        this.setValor(1);
     }
 
     /**

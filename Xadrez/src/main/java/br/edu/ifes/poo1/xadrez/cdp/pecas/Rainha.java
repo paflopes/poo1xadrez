@@ -20,6 +20,7 @@ public class Rainha extends PecaImpl {
     public Rainha(Cor cor) {
         super(cor, NomePeca.RAINHA);
         this.setDesenho("D");
+        this.setValor(9);
     }
 
     @Override

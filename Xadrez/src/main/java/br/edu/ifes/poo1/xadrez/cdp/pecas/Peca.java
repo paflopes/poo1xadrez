@@ -21,6 +21,13 @@ public interface Peca extends Cloneable {
 
     public void setPosicaoInicial(Posicao posicao);
     
+    
+    /*
+    * Retorna o valor de cada peça
+    */
+    
+    public int getValor();
+   
     /**
      *
      * @return A cor da peça.

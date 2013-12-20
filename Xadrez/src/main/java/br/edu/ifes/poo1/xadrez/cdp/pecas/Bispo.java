@@ -20,6 +20,7 @@ public class Bispo extends PecaImpl {
     public Bispo(Cor cor) {
         super(cor, NomePeca.BISPO);
         this.setDesenho("B");
+        this.setValor(3);
     }
 
     @Override

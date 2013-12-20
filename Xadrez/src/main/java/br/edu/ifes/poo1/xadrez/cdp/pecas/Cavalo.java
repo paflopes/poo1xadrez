@@ -18,6 +18,7 @@ public class Cavalo extends PecaImpl {
     public Cavalo(Cor cor) {
         super(cor, NomePeca.CAVALO);
         this.setDesenho("C");
+        this.setValor(3);
     }
 
     @Override

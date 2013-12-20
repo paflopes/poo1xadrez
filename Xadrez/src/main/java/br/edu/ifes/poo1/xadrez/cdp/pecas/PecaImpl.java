@@ -15,6 +15,7 @@ import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
  */
 public abstract class PecaImpl implements Peca {
 
+    private int valor;
     private final Cor cor;
     private Posicao posicao;
     private String desenho;
@@ -87,6 +88,20 @@ public abstract class PecaImpl implements Peca {
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    /**
+     * @return the valor
+     */
+    public int getValor() {
+        return valor;
+    }
+
+    /**
+     * @param valor the valor to set
+     */
+    public void setValor(int valor) {
+        this.valor = valor;
     }
 
 }
