@@ -16,9 +16,8 @@ import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 public class Cavalo extends PecaImpl {
 
     public Cavalo(Cor cor) {
-        super(cor, NomePeca.CAVALO);
+        super(cor, NomePeca.CAVALO, 3);
         this.setDesenho("C");
-        this.setValor(3);
     }
 
     @Override

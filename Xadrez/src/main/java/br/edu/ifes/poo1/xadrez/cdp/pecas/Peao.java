@@ -21,9 +21,8 @@ public class Peao extends PecaImpl {
     private boolean moveuUmaVez = false;
 
     public Peao(Cor cor) {
-        super(cor, NomePeca.PEAO);
+        super(cor, NomePeca.PEAO, 1);
         this.setDesenho("P");
-        this.setValor(1);
     }
 
     /**

@@ -6,9 +6,7 @@
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
-import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 
 /**
  *

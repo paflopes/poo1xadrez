@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,7 +17,7 @@ import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 public class Rei extends PecaImpl {
 
     public Rei(Cor cor) {
-        super(cor, NomePeca.REI);
+        super(cor, NomePeca.REI, 0);
         this.setDesenho("R");
     }
 

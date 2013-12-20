@@ -18,9 +18,8 @@ import java.util.List;
 public class Torre extends PecaImpl {
 
     public Torre(Cor cor) {
-        super(cor, NomePeca.TORRE);
+        super(cor, NomePeca.TORRE, 5);
         this.setDesenho("T");
-        this.setValor(5);
     }
 
     @Override

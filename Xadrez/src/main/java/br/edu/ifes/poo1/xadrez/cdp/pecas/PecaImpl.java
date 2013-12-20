@@ -15,16 +15,17 @@ import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
  */
 public abstract class PecaImpl implements Peca {
 
-    private int valor;
+    private final int valor;
     private final Cor cor;
     private Posicao posicao;
     private String desenho;
     private final NomePeca nome;
     private boolean seMovimentou;
 
-    public PecaImpl(Cor cor, NomePeca nome) {
+    public PecaImpl(Cor cor, NomePeca nome, int valor) {
         this.cor = cor;
         this.nome = nome;
+        this.valor = valor;
     }
 
     @Override
@@ -39,7 +40,7 @@ public abstract class PecaImpl implements Peca {
             this.seMovimentou = true;
         }
     }
-    
+
     @Override
     public void setPosicaoInicial(Posicao posicao) {
         this.posicao = posicao;
@@ -93,15 +94,8 @@ public abstract class PecaImpl implements Peca {
     /**
      * @return the valor
      */
+    @Override
     public int getValor() {
         return valor;
     }
-
-    /**
-     * @param valor the valor to set
-     */
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
-
 }

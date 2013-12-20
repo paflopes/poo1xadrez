@@ -18,9 +18,8 @@ import java.util.List;
 public class Rainha extends PecaImpl {
 
     public Rainha(Cor cor) {
-        super(cor, NomePeca.RAINHA);
+        super(cor, NomePeca.RAINHA, 9);
         this.setDesenho("D");
-        this.setValor(9);
     }
 
     @Override

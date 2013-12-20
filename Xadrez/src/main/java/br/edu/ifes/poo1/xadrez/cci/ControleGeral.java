@@ -118,6 +118,7 @@ public class ControleGeral {
      * @param jogador O jogador a efetuar a o jogada
      * @throws JogadaInvalidaException É lançada quando a jogada não é bem
      * sucedida.
+     * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException Quando a partida é encerrada.
      */
     public void iniciarJogada(JogadorHumano jogador) throws JogadaInvalidaException, PartidaEncerradaException {
         impressora.pedirMovimento(jogador.getNome());
