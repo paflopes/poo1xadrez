@@ -5,7 +5,9 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
+import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 
 /**
  *
@@ -16,6 +18,19 @@ public class Jogada {
     Posicao posicaoInicial;
     Posicao posicaoFinal;
     Operacao operacao;
+    Class pecaDesejada;
+
+    public Peca getPecaDesejada(Cor cor) {
+        try {
+            return (Peca) pecaDesejada.getConstructor(Cor.class).newInstance(cor);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void setPecaDesejada(Class pecaDesejada) {
+        this.pecaDesejada = pecaDesejada;
+    }
 
     public Posicao getPosicaoInicial() {
         return posicaoInicial;
