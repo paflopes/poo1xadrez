@@ -6,8 +6,11 @@
 package br.edu.ifes.poo1.xadrez.cdp;
 
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peao;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MovimentoPeca {
 
@@ -53,18 +56,48 @@ public class MovimentoPeca {
                 && andouDuasCasas;
     }
 
+    /**
+     * Verifica se o rei ficará em xeque com essa movimentação.
+     *
+     * @param posicaoAtual Posicao atual da peça.
+     * @param posicaoFinal Movimento que deixará o rei em xeque.
+     * @return {@code true} se for xeque ou {@code false} caso contrário.
+     */
     public static boolean isXeque(Posicao posicaoAtual, Posicao posicaoFinal) {
-        
-        return posicaoAtual.getPeca().validarMovimentoCaptura(posicaoFinal);
+        Cor corAtual = posicaoAtual.getPeca().getCor();
+        // Cor do adversário. Serve para achar a posição do rei adversário.
+        Cor corAdversaria;
+        // Serve para vermos se a peça colocará o rei em perigo caso se movimente.
+        Peca copiaPecaAtual;
+        boolean reiEmPerigo;
+
+        try {
+            copiaPecaAtual = (Peca) posicaoAtual.getPeca().clone();
+        } catch (CloneNotSupportedException ex) {
+            return false;
+        }
+
+        if (posicaoFinal.existePeca()) {
+            return false;
+        }
+
+        if (corAtual == Cor.BRANCO) {
+            corAdversaria = Cor.PRETO;
+        } else {
+            corAdversaria = Cor.BRANCO;
+        }
+
+        Posicao posicaoRei = Tabuleiro.getInstance().getPosicaoRei(corAdversaria);
+        posicaoFinal.setPeca(copiaPecaAtual);
+        reiEmPerigo = copiaPecaAtual.validarMovimentoCaptura(posicaoRei);
+        posicaoFinal.setPeca(null);
+
+        return posicaoAtual.getPeca().validarMovimento(posicaoFinal)
+                && reiEmPerigo;
     }
 
     public static boolean isXequeMate(Posicao posicaoAtual, Posicao posicaoFinal) {
-        if(tentarInterceptarXMATE(posicaoAtual, posicaoFinal)
-            || reiEscaparMovimento(posicaoFinal)){
-            
-        }
-        
-        return false;
+        return reiEscaparMovimento(posicaoFinal);
     }
 
     /**
@@ -244,74 +277,61 @@ public class MovimentoPeca {
         return caminho;
     }
 
-    public static boolean saltoDuploPeao(Posicao posicaoAtual, Posicao novaPosicao) {
-        char colunaAtual = posicaoAtual.getId().charAt(0);
-        char linhaAtual = posicaoAtual.getId().charAt(1);
-        char colunaNova = novaPosicao.getId().charAt(0);
-        char linhaNova = novaPosicao.getId().charAt(1);
+    /**
+     * Tenta ver se o Rei consegue escapar.
+     *
+     * @param posicaoDoRei A posição em que o rei se encontra.
+     * @return
+     */
+    private static boolean reiEscaparMovimento(Posicao posicaoDoRei) {
 
-        return Math.abs(linhaAtual - linhaNova) == 2 && linhaAtual == linhaNova;
-    }
-    
-    
-    //Função para tentar interceptar o XMATE colocando uma peça no caminho ou capturando a peça que da XMATE
-    private static boolean tentarInterceptarXMATE(Posicao posicaoAtual, Posicao posicaoFinal){          
-        
-        return false;
-    }
-    
-    //Rei escapar de XEQUE MATE andando
-    private static boolean reiEscaparMovimento(Posicao posicaoDoRei){
-                
         /*
-        *Phillipe, a logica funciona, se quiser achar uma forma mais eficiente e achar que esta na classe errada, por favor arrume.
+         *Phillipe, a logica funciona, se quiser achar uma forma mais eficiente e achar que esta na classe errada, por favor arrume.
          */
-
-        return tentarMovimentoRei(posicaoDoRei, 0, 1)   || //Movimento para o norte
-               tentarMovimentoRei(posicaoDoRei, 1, 1)   || //Movimento para o nordeste
-               tentarMovimentoRei(posicaoDoRei, 1, 0)   || //Movimento para o leste
-               tentarMovimentoRei(posicaoDoRei, 1, -1)  || //Movimento para o suldeste
-               tentarMovimentoRei(posicaoDoRei, 0, -1)  || //Movimento para o sul
-               tentarMovimentoRei(posicaoDoRei, -1, -1) || //Movimento para o sudoeste
-               tentarMovimentoRei(posicaoDoRei, -1, 0)  || //Movimento para o oeste
-               tentarMovimentoRei(posicaoDoRei, -1, +1);   //Movimento para o noroeste
+        return tentarMovimentoRei(posicaoDoRei, 0, 1) || //Movimento para o norte
+                tentarMovimentoRei(posicaoDoRei, 1, 1) || //Movimento para o nordeste
+                tentarMovimentoRei(posicaoDoRei, 1, 0) || //Movimento para o leste
+                tentarMovimentoRei(posicaoDoRei, 1, -1) || //Movimento para o suldeste
+                tentarMovimentoRei(posicaoDoRei, 0, -1) || //Movimento para o sul
+                tentarMovimentoRei(posicaoDoRei, -1, -1) || //Movimento para o sudoeste
+                tentarMovimentoRei(posicaoDoRei, -1, 0) || //Movimento para o oeste
+                tentarMovimentoRei(posicaoDoRei, -1, +1);   //Movimento para o noroeste
 
     }
-    
+
     //Verifica se é possivel movimentar o Rei para fugir de um Xeque
-    private static boolean tentarMovimentoRei(Posicao posicaoDoRei, int colunaAdd, int linhaAdd){
-        
+    private static boolean tentarMovimentoRei(Posicao posicaoDoRei, int colunaAdd, int linhaAdd) {
+
         char colunaAux = posicaoDoRei.getId().charAt(0);
         char linhaAux = posicaoDoRei.getId().charAt(1);
-        
+
         //Se eu não puder movimentar ou capturar a casa ao lado pra sair do xeque eu retorno um false
-        if(!(posicaoDoRei.getPeca().validarMovimento(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
-           || posicaoDoRei.getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd))))){
+        if (!(posicaoDoRei.getPeca().validarMovimento(Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)))
+                || posicaoDoRei.getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd))))) {
             return false;
-        }else{
-            
+        } else {
+
             //Aloco um peão da cor do rei na posição desejada só para testar se alguma peça consegue capturar ele
             Peao peaoAux = new Peao(posicaoDoRei.getPeca().getCor());
-            Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)).setPeca(peaoAux);
+            Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)).setPeca(peaoAux);
             boolean noXeque = true;
-            
+
             //Percorre todo o tabuleiro
             for (char coluna = '1'; coluna < '9'; coluna++) {
                 for (char linha = '1'; linha < '9'; linha++) {
-                    
+
                     //Se uma peca do tabuleiro estiver dando XEQUE na posicao desejada e essa peca que 
                     //está dando XEQUE tem que ser de cor diferente da do rei.
-                    if(Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
-                       && Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().getCor() != posicaoDoRei.getPeca().getCor())  {
+                    if (Tabuleiro.getInstance().getPosicao("" + coluna + linha).getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)))
+                            && Tabuleiro.getInstance().getPosicao("" + coluna + linha).getPeca().getCor() != posicaoDoRei.getPeca().getCor()) {
                         noXeque = false;
                     }
                 }
             }
             //Retiro o peão da posicao que coloquei para testar
-            Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)).setPeca(null);
+            Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)).setPeca(null);
             return noXeque;
         }
-        
+
     }
-    
 }

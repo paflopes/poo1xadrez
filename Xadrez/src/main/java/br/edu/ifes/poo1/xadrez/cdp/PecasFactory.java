@@ -25,7 +25,7 @@ public class PecasFactory {
      * @param nomePeca Nome da classe desejada. Ex.: "Cavalo", "Peao".
      * @return Um mapa com um vetor da peça desejada relacionado a uma cor.
      */
-    public static Map<Cor, Peca[]> getPecas(int quantidade, String nomePeca) {
+    public static Map<Cor, Peca[]> getPecas(int quantidade, Class nomePeca) {
         Map<Cor, Peca[]> pecas;
         pecas = criarMapPecas(quantidade);
         try {
@@ -44,16 +44,12 @@ public class PecasFactory {
      * Cavalo.
      * @throws java.lang.ClassNotFoundException
      */
-    private static void instanciarPecas(Map<Cor, Peca[]> pecas, String nomePeca) throws Exception {
+    private static void instanciarPecas(Map<Cor, Peca[]> pecas, Class nomePeca) throws Exception {
         Peca[] pecasBrancas = pecas.get(Cor.BRANCO);
         Peca[] pecasPretas = pecas.get(Cor.PRETO);
         //Instanciando a classe recebida por parâmetro.
-        String nomePacote = "br.edu.ifes.poo1.xadrez.cdp.pecas.";
-        Class c = Class.forName(nomePacote + nomePeca);
-        Constructor ctor = c.getDeclaredConstructor(Cor.class);
-        //Criando os Objetos para serem clonados.
-        Peca pecaPreta = (Peca) ctor.newInstance(Cor.PRETO);
-        Peca pecaBranca = (Peca) ctor.newInstance(Cor.BRANCO);
+        Peca pecaPreta = (Peca) nomePeca.getDeclaredConstructor(Cor.class).newInstance(Cor.PRETO);
+        Peca pecaBranca = (Peca) nomePeca.getDeclaredConstructor(Cor.class).newInstance(Cor.BRANCO);
 
         for (int nPeca = 0; nPeca < pecasBrancas.length; nPeca++) {
             pecasBrancas[nPeca] = (Peca) pecaBranca.clone();

@@ -88,7 +88,11 @@ public abstract class PecaImpl implements Peca {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        PecaImpl clone = (PecaImpl) super.clone();
+
+        clone.posicao = null;
+
+        return clone;
     }
 
     /**

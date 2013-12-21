@@ -59,6 +59,10 @@ public class JogoApl {
                     }
                     break;
                 case CAPTURA:
+                    if (posicaoFinal.existePeca() && posicaoFinal.getPeca().getNome() == NomePeca.REI) {
+                        throw new JogadaInvalidaException("Jogada Inválida!");
+                    }
+
                     if (peca.validarMovimentoCaptura(posicaoFinal)) {
 
                         //Atualiza os pontos pela captura

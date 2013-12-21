@@ -5,7 +5,13 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Bispo;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Cavalo;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Rainha;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Rei;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +54,22 @@ public class Tabuleiro {
         return this.mapNomePosicao.get(id);
     }
 
+    public Posicao getPosicaoRei(Cor cor) {
+        Posicao posicaoRei = null;
+
+        for (Map.Entry<String, Posicao> entry : mapNomePosicao.entrySet()) {
+            String string = entry.getKey();
+            Posicao posicao = entry.getValue();
+
+            if (posicao.existePeca() && posicao.getPeca().getNome() == NomePeca.REI
+                    && posicao.getPeca().getCor() == cor) {
+                posicaoRei = posicao;
+            }
+        }
+
+        return posicaoRei;
+    }
+
     /**
      * Restaura o Tabuleiro para seu estado inicial.
      */
@@ -71,6 +93,7 @@ public class Tabuleiro {
 //
 //        return cloneMet;
 //    }
+    
     private void criarPosicoes() {
         //Montando as posições no Tabuleiro;
         for (char coluna = '1'; coluna < '9'; coluna++) {
@@ -91,7 +114,7 @@ public class Tabuleiro {
     //Funções de criação das peças. São utilizadas no construtor da Classe.    
     private void criarPeoes() {
         //Criando os peoes;
-        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(16, "Peao");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(16, Peao.class);
 
         //Salvando nas posições do Tabuleiro.
         salvarPeoes('2', pecas.get(Cor.BRANCO));
@@ -112,7 +135,7 @@ public class Tabuleiro {
     }
 
     private void criarTorres() {
-        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Torre");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, Torre.class);
 
         //Salvando as torres
         mapNomePosicao.get("11").setPeca(pecas.get(Cor.BRANCO)[0]);
@@ -122,7 +145,7 @@ public class Tabuleiro {
     }
 
     private void criarBispos() {
-        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Bispo");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, Bispo.class);
 
         //Salvando os bispos
         mapNomePosicao.get("31").setPeca(pecas.get(Cor.BRANCO)[0]);
@@ -132,7 +155,7 @@ public class Tabuleiro {
     }
 
     private void criarCavalos() {
-        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, "Cavalo");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(4, Cavalo.class);
 
         //Salvando os cavalos
         mapNomePosicao.get("21").setPeca(pecas.get(Cor.BRANCO)[0]);
@@ -142,7 +165,7 @@ public class Tabuleiro {
     }
 
     private void criarReis() {
-        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rei");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, Rei.class);
 
         //Salvando os bispos
         mapNomePosicao.get("51").setPeca(pecas.get(Cor.BRANCO)[0]);
@@ -150,7 +173,7 @@ public class Tabuleiro {
     }
 
     private void criarRainhas() {
-        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, "Rainha");
+        Map<Cor, Peca[]> pecas = PecasFactory.getPecas(2, Rainha.class);
 
         //Salvando os bispos
         mapNomePosicao.get("41").setPeca(pecas.get(Cor.BRANCO)[0]);
