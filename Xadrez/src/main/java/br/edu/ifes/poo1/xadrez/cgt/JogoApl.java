@@ -7,9 +7,7 @@ package br.edu.ifes.poo1.xadrez.cgt;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
-import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.PosicaoImpl;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
@@ -113,12 +111,15 @@ public class JogoApl {
                     break;
                 case XEQUE:
                                  
-                    if(!peca.validarMovimentoCaptura(posicaoFinal)){
+                    if(!MovimentoPeca.isXeque(posicaoAtual, posicaoFinal)){
                         throw new JogadaInvalidaException("Jogada inválida!");
-                    }                    
+                    }       
+                                        
                     break;
                 case XMATE:
-                    
+                    if(MovimentoPeca.isXequeMate(posicaoAtual, posicaoFinal)){
+                        jogador.setVitoria(true);
+                    }
                     
                     
                     

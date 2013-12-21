@@ -53,12 +53,17 @@ public class MovimentoPeca {
                 && andouDuasCasas;
     }
 
-    public static boolean isXeque() {
+    public static boolean isXeque(Posicao posicaoAtual, Posicao posicaoFinal) {
         
-        return false;
+        return posicaoAtual.getPeca().validarMovimentoCaptura(posicaoFinal);
     }
 
-    public static boolean isXequeMate() {
+    public static boolean isXequeMate(Posicao posicaoAtual, Posicao posicaoFinal) {
+        if(tentarInterceptarXMATE(posicaoAtual, posicaoFinal)
+            || reiEscaparMovimento(posicaoFinal)){
+            
+        }
+        
         return false;
     }
 
@@ -248,32 +253,10 @@ public class MovimentoPeca {
         return Math.abs(linhaAtual - linhaNova) == 2 && linhaAtual == linhaNova;
     }
     
-    public static boolean impedirXMATE(Posicao posicaoAtual, Posicao posicaoFinal){
-        if(tentarInterceptarXMATE(posicaoAtual, posicaoFinal)){
-            
-        }
-        
-        return false;
-    }
     
-    private static boolean tentarInterceptarXMATE(Posicao posicaoAtual, Posicao posicaoFinal){
-                    
-        //Percorro o tabuleiro todo analisando cada peça da cor do rei que está tomando o Xeque Mate
-        for (char coluna = '1'; coluna < '9'; coluna++) {
-            for (char linha = '1'; linha < '9'; linha++) {
-                //Para cada peça, vejo se a cor é igual a do rei e se essa peça consegue capturar a peça que está dando Xeque Mate no rei
-                //ou se uma peça pode interceptar a peça que vai capturar o rei (não soube fazer)
-                if((Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().getCor() == posicaoFinal.getPeca().getCor()
-                        && Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().validarMovimentoCaptura(posicaoAtual))
-                        //Aqui nesse outro criterio tem que ver se uma peça pode entrar na frente do rei pra evitar o Xeque Mate, porém nao sei como fazer
-                        ){
-                    
-                    
-                    
-                    return true;
-                }
-            }
-        }        
+    //Função para tentar interceptar o XMATE colocando uma peça no caminho ou capturando a peça que da XMATE
+    private static boolean tentarInterceptarXMATE(Posicao posicaoAtual, Posicao posicaoFinal){          
+        
         return false;
     }
     
@@ -301,26 +284,34 @@ public class MovimentoPeca {
         char colunaAux = posicaoDoRei.getId().charAt(0);
         char linhaAux = posicaoDoRei.getId().charAt(1);
         
-        //Percorre todo o tabuleiro
-        for (char coluna = '1'; coluna < '9'; coluna++) {
-            for (char linha = '1'; linha < '9'; linha++) {
-                
-                //Se uma peca do tabuleiro estiver dando XEQUE na posicao desejada e essa peca que 
-                //está dando XEQUE tem que ser de cor diferente da do rei.
-                if(Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
+        //Se eu não puder movimentar ou capturar a casa ao lado pra sair do xeque eu retorno um false
+        if(!(posicaoDoRei.getPeca().validarMovimento(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
+           || posicaoDoRei.getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd))))){
+            return false;
+        }else{
+            
+            //Aloco um peão da cor do rei na posição desejada só para testar se alguma peça consegue capturar ele
+            Peao peaoAux = new Peao(posicaoDoRei.getPeca().getCor());
+            Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)).setPeca(peaoAux);
+            boolean noXeque = true;
+            
+            //Percorre todo o tabuleiro
+            for (char coluna = '1'; coluna < '9'; coluna++) {
+                for (char linha = '1'; linha < '9'; linha++) {
+                    
+                    //Se uma peca do tabuleiro estiver dando XEQUE na posicao desejada e essa peca que 
+                    //está dando XEQUE tem que ser de cor diferente da do rei.
+                    if(Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
                        && Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().getCor() != posicaoDoRei.getPeca().getCor())  {
-                    return false;
+                        noXeque = false;
+                    }
                 }
             }
+            //Retiro o peão da posicao que coloquei para testar
+            Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)).setPeca(null);
+            return noXeque;
         }
         
-        //Se caso nao encontrou nenhuma peça que da xeque na posicao, verifico se ele pode ir ou capturar aquela posicao
-        if(posicaoDoRei.getPeca().validarMovimento(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
-           || posicaoDoRei.getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))){
-            return true;
-        }
-        //Se nao posso ir retorno falso
-        return false;
     }
     
 }

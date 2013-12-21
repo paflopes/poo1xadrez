@@ -39,6 +39,11 @@ public class JogadorVirtual implements Jogador {
     }
 
     @Override
+    public void setVitoria(boolean vitoria) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
     public void atualizaPontosJogador(Posicao novaPosicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -103,6 +103,7 @@ public class JogadorHumano implements Jogador {
     /**
      * @param vitoria the vitoria to set
      */
+    @Override
     public void setVitoria(boolean vitoria) {
         this.vitoria = vitoria;
     }

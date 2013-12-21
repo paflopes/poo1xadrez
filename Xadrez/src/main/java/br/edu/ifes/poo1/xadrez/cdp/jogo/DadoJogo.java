@@ -50,6 +50,9 @@ public class DadoJogo {
 
     public static void setListaDados(JogadorHumano jogador, List<DadoJogo> listaDadoJogo) {
         boolean achouNaListaa = false;        
+        if(jogador.getNome().equals("ZEUS")){
+            return;
+        }        
         for(int contador = 0; contador< listaDadoJogo.size(); contador++){
             if(listaDadoJogo.get(contador).getNome().equals(jogador.getNome())){
                 if(jogador.isVitoria()){

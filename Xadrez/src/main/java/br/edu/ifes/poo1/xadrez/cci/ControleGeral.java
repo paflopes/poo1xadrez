@@ -41,8 +41,9 @@ public class ControleGeral {
                             this.iniciarPartida();
                         } catch (PartidaEncerradaException ex) {
                         }
+                        break;
                     case 2:
-                        //imprimir dados.
+                        impressora.imprimirDados(apl.getDados());
                         break;
                 }
                 impressora.imprimirMenu();
@@ -87,7 +88,7 @@ public class ControleGeral {
             impressora.imprimirTabuleiro(this.apl.getTabuleiro());
             while (true) {
                 try {
-                    this.iniciarJogada((JogadorHumano) jogadorBranco);
+                    this.iniciarJogada((JogadorHumano) jogadorBranco, (JogadorHumano) jogadorPreto);
                     break;
                 } catch (JogadaInvalidaException ex) {
                     impressora.imprimirJogadaInvalida();
@@ -104,7 +105,7 @@ public class ControleGeral {
             } else if (opcao == 2) {
                 while (true) {
                     try {
-                        this.iniciarJogada((JogadorHumano) jogadorPreto);
+                        this.iniciarJogada((JogadorHumano) jogadorPreto, (JogadorHumano) jogadorBranco);
                         break;
                     } catch (JogadaInvalidaException ex) {
                         impressora.imprimirJogadaInvalida();
@@ -117,19 +118,20 @@ public class ControleGeral {
     /**
      * Inicia a jogada de um player humano.
      *
-     * @param jogador O jogador a efetuar a o jogada
+     * @param jogadorAtual O jogador a efetuar a o jogada
+     * @param jogadorProx O jogador que jogara na proxima jogada, necessario para desistencia
      * @throws JogadaInvalidaException É lançada quando a jogada não é bem
      * sucedida.
      * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException Quando a partida é encerrada.
      */
-    public void iniciarJogada(JogadorHumano jogador) throws JogadaInvalidaException, PartidaEncerradaException {
-        impressora.pedirMovimento(jogador.getNome());
+    public void iniciarJogada(JogadorHumano jogadorAtual, JogadorHumano jogadorProx) throws JogadaInvalidaException, PartidaEncerradaException {
+        impressora.pedirMovimento(jogadorAtual.getNome());
         String jogadaStr = impressora.getString();
 
         // Valida o comando dado pelo jogador.
         while (!this.validarEntrada(jogadaStr)) {
             impressora.imprimirArgumentoInvalido();
-            impressora.pedirMovimento(jogador.getNome());
+            impressora.pedirMovimento(jogadorAtual.getNome());
             jogadaStr = impressora.getString();
         }
 
@@ -137,13 +139,23 @@ public class ControleGeral {
         if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
             if (jogadaStr.equals("desistir")){ 
                 
+                if(!jogadorProx.getNome().equals("ZEUS")){
+                jogadorProx.setVitoria(true);
+                }
+                DadoJogo.setListaDados(jogadorAtual, apl.getDados());
+                DadoJogo.setListaDados(jogadorProx, apl.getDados());
+                impressora.imprimiFimJogo();
                 throw new PartidaEncerradaException("Partida encerrada!");
+                
             }else if(jogadaStr.equals("empate")){
-                impressora.imprimiEmpate();
+                impressora.imprimiPedidoEmpate();
                 Scanner scanner = new Scanner(System.in);
                 String escolha = scanner.nextLine();
+                System.out.println("teste1");
                 switch(escolha){
                     case("S"):{
+                        impressora.imprimiEmpate();
+                        impressora.imprimiFimJogo();
                         throw new PartidaEncerradaException("Partida encerrada!");
                     }
                 }
@@ -151,9 +163,16 @@ public class ControleGeral {
             }
         }
 
-        ((JogadorHumano) jogador).setJogada(criaJogada(jogadaStr));
+        ((JogadorHumano) jogadorAtual).setJogada(criaJogada(jogadaStr));
 
-        this.apl.fazerJogada(jogador);
+        this.apl.fazerJogada(jogadorAtual);
+        
+        if(jogadorAtual.isVitoria()){
+            DadoJogo.setListaDados(jogadorAtual, apl.getDados());
+            DadoJogo.setListaDados(jogadorProx, apl.getDados());
+            impressora.imprimiFimJogo();
+            throw new PartidaEncerradaException("Partida encerrada!");
+        }
     }
 
     public void mostrarDados() {
