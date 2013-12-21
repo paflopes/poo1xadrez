@@ -7,6 +7,7 @@ package br.edu.ifes.poo1.xadrez.cgt;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
+import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
@@ -59,11 +60,11 @@ public class JogoApl {
                     break;
                 case CAPTURA:
                     if (peca.validarMovimentoCaptura(posicaoFinal)) {
-                        
+
                         //Atualiza os pontos pela captura
                         jogador.atualizaPontosJogador(posicaoFinal);
                         posicaoFinal.setPeca(peca);
-                        
+
                         //Caso a captura seja um enPassant.
                     } else if (MovimentoPeca.isEnPassant(posicaoAtual, posicaoFinal)) {
                         char colunaFinal = posicaoFinal.getId().charAt(0);
@@ -107,22 +108,30 @@ public class JogoApl {
                     }
                     break;
                 case PROMOCAO:
-                    
+                    boolean pecaPreta = peca.getCor() == Cor.PRETO
+                            && peca.getNome() == NomePeca.PEAO && peca.getPosicao().getId().matches("[1-8]1");
+                    boolean pecaBranca = peca.getCor() == Cor.BRANCO
+                            && peca.getNome() == NomePeca.PEAO && peca.getPosicao().getId().matches("[1-8]8");
+
+                    if (pecaBranca || pecaPreta) {
+                        posicaoAtual.setPeca(jogada.getPecaDesejada(jogador.getCor()));
+                    } else {
+                        throw new JogadaInvalidaException(("Jogada Inválida!"));
+                    }
+
                     break;
+
                 case XEQUE:
-                                 
-                    if(!MovimentoPeca.isXeque(posicaoAtual, posicaoFinal)){
+                    if (!MovimentoPeca.isXeque(posicaoAtual, posicaoFinal)) {
                         throw new JogadaInvalidaException("Jogada inválida!");
-                    }       
-                                        
+                    }
+
                     break;
                 case XMATE:
-                    if(MovimentoPeca.isXequeMate(posicaoAtual, posicaoFinal)){
+                    if (MovimentoPeca.isXequeMate(posicaoAtual, posicaoFinal)) {
                         jogador.setVitoria(true);
                     }
-                    
-                    
-                    
+
                     break;
             }
         } else {

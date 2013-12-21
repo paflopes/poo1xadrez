@@ -8,6 +8,10 @@ import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorVirtual;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Bispo;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Cavalo;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Rainha;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
 import java.util.Scanner;
@@ -119,10 +123,12 @@ public class ControleGeral {
      * Inicia a jogada de um player humano.
      *
      * @param jogadorAtual O jogador a efetuar a o jogada
-     * @param jogadorProx O jogador que jogara na proxima jogada, necessario para desistencia
+     * @param jogadorProx O jogador que jogara na proxima jogada, necessario
+     * para desistencia
      * @throws JogadaInvalidaException É lançada quando a jogada não é bem
      * sucedida.
-     * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException Quando a partida é encerrada.
+     * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException Quando a
+     * partida é encerrada.
      */
     public void iniciarJogada(JogadorHumano jogadorAtual, JogadorHumano jogadorProx) throws JogadaInvalidaException, PartidaEncerradaException {
         impressora.pedirMovimento(jogadorAtual.getNome());
@@ -137,37 +143,35 @@ public class ControleGeral {
 
         // Verifica se é desistência ou empate.
         if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
-            if (jogadaStr.equals("desistir")){ 
-                
-                if(!jogadorProx.getNome().equals("ZEUS")){
-                jogadorProx.setVitoria(true);
-                }
-                DadoJogo.setListaDados(jogadorAtual, apl.getDados());
-                DadoJogo.setListaDados(jogadorProx, apl.getDados());
-                impressora.imprimiFimJogo();
-                throw new PartidaEncerradaException("Partida encerrada!");
-                
-            }else if(jogadaStr.equals("empate")){
-                impressora.imprimiPedidoEmpate();
-                Scanner scanner = new Scanner(System.in);
-                String escolha = scanner.nextLine();
-                System.out.println("teste1");
-                switch(escolha){
-                    case("S"):{
-                        impressora.imprimiEmpate();
-                        impressora.imprimiFimJogo();
-                        throw new PartidaEncerradaException("Partida encerrada!");
+            switch (jogadaStr) {
+                case "desistir":
+                    if (!jogadorProx.getNome().equals("ZEUS")) {
+                        jogadorProx.setVitoria(true);
                     }
-                }
-                        
+                    DadoJogo.setListaDados(jogadorAtual, apl.getDados());
+                    DadoJogo.setListaDados(jogadorProx, apl.getDados());
+                    impressora.imprimiFimJogo();
+                    throw new PartidaEncerradaException("Partida encerrada!");
+                case "empate":
+                    impressora.imprimiPedidoEmpate();
+                    Scanner scanner = new Scanner(System.in);
+                    String escolha = scanner.nextLine();
+                    System.out.println("teste1");
+                    switch (escolha) {
+                        case ("S"): {
+                            impressora.imprimiEmpate();
+                            impressora.imprimiFimJogo();
+                            throw new PartidaEncerradaException("Partida encerrada!");
+                        }
+                    }
             }
         }
 
         ((JogadorHumano) jogadorAtual).setJogada(criaJogada(jogadaStr));
 
         this.apl.fazerJogada(jogadorAtual);
-        
-        if(jogadorAtual.isVitoria()){
+
+        if (jogadorAtual.isVitoria()) {
             DadoJogo.setListaDados(jogadorAtual, apl.getDados());
             DadoJogo.setListaDados(jogadorProx, apl.getDados());
             impressora.imprimiFimJogo();
@@ -194,11 +198,34 @@ public class ControleGeral {
         //Definimos a operação da jogada.
         jogada.setOperacao(identificaOperacao(jogadaStr));
 
+        if (jogada.getOperacao() == Operacao.PROMOCAO) {
+            char tipoPeca = jogadaStr.charAt(3);
+
+            switch (tipoPeca) {
+                case 'D':
+                    jogada.setPecaDesejada(Rainha.class);
+                    break;
+                case 'T':
+                    jogada.setPecaDesejada(Torre.class);
+                    break;
+                case 'B':
+                    jogada.setPecaDesejada(Bispo.class);
+                    break;
+                case 'C':
+                    jogada.setPecaDesejada(Cavalo.class);
+                    break;
+            }
+
+        }
+
         if (jogada.getOperacao() != Operacao.RMAIOR && jogada.getOperacao() != Operacao.RMENOR) {
             //Salva a posição inicial e final na jogada.
             jogadaStr = jogadaStr.replaceAll("\\D", "");
             jogada.setPosicaoInicial(apl.getPosicao("" + jogadaStr.charAt(0) + jogadaStr.charAt(1)));
-            jogada.setPosicaoFinal(apl.getPosicao("" + jogadaStr.charAt(2) + jogadaStr.charAt(3)));
+
+            if (jogada.getOperacao() != Operacao.PROMOCAO) {
+                jogada.setPosicaoFinal(apl.getPosicao("" + jogadaStr.charAt(2) + jogadaStr.charAt(3)));
+            }
         }
 
         return jogada;
