@@ -278,20 +278,49 @@ public class MovimentoPeca {
     }
     
     //Rei escapar de XEQUE MATE andando
-    private static boolean reiEscaparMovimento(Posicao posicaoAtual, Posicao posicaoFinal){
-        PosicaoImpl posicaoAuxRei = new PosicaoImpl(posicaoFinal.getId());
+    private static boolean reiEscaparMovimento(Posicao posicaoDoRei){
+                
+        /*
+        *Phillipe, a logica funciona, se quiser achar uma forma mais eficiente e achar que esta na classe errada, por favor arrume.
+         */
+
+        return tentarMovimentoRei(posicaoDoRei, 0, 1)   || //Movimento para o norte
+               tentarMovimentoRei(posicaoDoRei, 1, 1)   || //Movimento para o nordeste
+               tentarMovimentoRei(posicaoDoRei, 1, 0)   || //Movimento para o leste
+               tentarMovimentoRei(posicaoDoRei, 1, -1)  || //Movimento para o suldeste
+               tentarMovimentoRei(posicaoDoRei, 0, -1)  || //Movimento para o sul
+               tentarMovimentoRei(posicaoDoRei, -1, -1) || //Movimento para o sudoeste
+               tentarMovimentoRei(posicaoDoRei, -1, 0)  || //Movimento para o oeste
+               tentarMovimentoRei(posicaoDoRei, -1, +1);   //Movimento para o noroeste
+
+    }
+    
+    //Verifica se é possivel movimentar o Rei para fugir de um Xeque
+    private static boolean tentarMovimentoRei(Posicao posicaoDoRei, int colunaAdd, int linhaAdd){
+        
+        char colunaAux = posicaoDoRei.getId().charAt(0);
+        char linhaAux = posicaoDoRei.getId().charAt(1);
+        
+        //Percorre todo o tabuleiro
         for (char coluna = '1'; coluna < '9'; coluna++) {
             for (char linha = '1'; linha < '9'; linha++) {
                 
-            //Analisar o rei andando para todas as direçoes, se ele nao tomar nenhum XEQUE ele pode fugir andando
-
-                
-                
+                //Se uma peca do tabuleiro estiver dando XEQUE na posicao desejada e essa peca que 
+                //está dando XEQUE tem que ser de cor diferente da do rei.
+                if(Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
+                       && Tabuleiro.getInstance().getPosicao("" +coluna +linha).getPeca().getCor() != posicaoDoRei.getPeca().getCor())  {
+                    return false;
+                }
             }
         }
         
-        
+        //Se caso nao encontrou nenhuma peça que da xeque na posicao, verifico se ele pode ir ou capturar aquela posicao
+        if(posicaoDoRei.getPeca().validarMovimento(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))
+           || posicaoDoRei.getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao(""+(colunaAux + colunaAdd) +(linhaAux + linhaAdd)))){
+            return true;
+        }
+        //Se nao posso ir retorno falso
         return false;
     }
-
+    
 }
