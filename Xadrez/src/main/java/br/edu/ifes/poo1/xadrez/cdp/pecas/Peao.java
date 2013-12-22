@@ -47,7 +47,7 @@ public class Peao extends PecaImpl {
         char colunaNova = novaPosicao.getId().charAt(0);
         char linhaNova = novaPosicao.getId().charAt(1);
         List<String> caminho = new ArrayList<>();
-        int linhasAndadas = Math.abs(linhaNova - linhaAtual);
+        int linhasAndadas = linhaNova - linhaAtual;
 
         /**
          * Defino o caminho da peça.
@@ -65,10 +65,21 @@ public class Peao extends PecaImpl {
          * peão anda duas ou uma casa, caso contrário.
          */
         if (this.jaMovimentou()) {
-            return (linhasAndadas == 1 && colunaAtual == colunaNova && !novaPosicao.existePeca());
+            switch (this.getCor()) {
+                case BRANCO:
+                    return (linhasAndadas == 1 && colunaAtual == colunaNova && !novaPosicao.existePeca());
+                case PRETO:
+                    return (linhasAndadas == -1 && colunaAtual == colunaNova && !novaPosicao.existePeca());
+            }
         } else {
-            return ((linhasAndadas == 2 || linhasAndadas == 1) && colunaAtual == colunaNova && !MovimentoPeca.haPeca(caminho));
+            switch (this.getCor()) {
+                case BRANCO:
+                    return ((linhasAndadas == 2 || linhasAndadas == 1) && colunaAtual == colunaNova && !MovimentoPeca.haPeca(caminho));
+                case PRETO:
+                    return ((linhasAndadas == -2 || linhasAndadas == -1) && colunaAtual == colunaNova && !MovimentoPeca.haPeca(caminho));
+            }
         }
+        return false;
     }
 
     @Override

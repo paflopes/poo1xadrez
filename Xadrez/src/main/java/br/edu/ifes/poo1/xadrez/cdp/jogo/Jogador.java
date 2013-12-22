@@ -19,8 +19,10 @@ public interface Jogador {
     public Jogada getJogada();
 
     public void setVitoria(boolean vitoria);
-    
+
     public Cor getCor();
+
+    public boolean isVitoria();
 
     public void atualizaPontosJogador(Posicao novaPosicao);
 }

@@ -96,6 +96,7 @@ public class JogadorHumano implements Jogador {
     /**
      * @return the vitoria
      */
+    @Override
     public boolean isVitoria() {
         return vitoria;
     }
@@ -115,12 +116,12 @@ public class JogadorHumano implements Jogador {
     public Cor getCor() {
         return cor;
     }
-    
+
     @Override
     //Atualiza os pontos do jogador de acordo com o tipo da peça capturada
-    public void atualizaPontosJogador(Posicao novaPosicao){
-    
-        this.setPontos(this.getPontos()+ novaPosicao.getPeca().getValor());
+    public void atualizaPontosJogador(Posicao novaPosicao) {
+
+        this.setPontos(this.getPontos() + novaPosicao.getPeca().getValor());
     }
 
 }

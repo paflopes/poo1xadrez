@@ -48,7 +48,7 @@ public class DadoJogo {
         this.pontos = pontos;
     }
 
-    public static void setListaDados(JogadorHumano jogador, List<DadoJogo> listaDadoJogo) {
+    public static void setListaDados(Jogador jogador, List<DadoJogo> listaDadoJogo) {
         boolean achouNaListaa = false;        
         if(jogador.getNome().equals("ZEUS")){
             return;

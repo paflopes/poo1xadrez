@@ -78,6 +78,15 @@ public class Tabuleiro {
     }
 
     /**
+     * Pega todas as posições do tabuleiro.
+     *
+     * @return Um mapa, com o endereço e sua posição associada.
+     */
+    public Map<String, Posicao> getPosicoes() {
+        return this.mapNomePosicao;
+    }
+
+    /**
      * Pega todas as peças da cor adversária.
      *
      * @param cor A cor das peças.

@@ -92,7 +92,7 @@ public class ControleGeral {
             impressora.imprimirTabuleiro(this.apl.getTabuleiro());
             while (true) {
                 try {
-                    this.iniciarJogada((JogadorHumano) jogadorBranco, (JogadorHumano) jogadorPreto);
+                    this.iniciarJogada((JogadorHumano) jogadorBranco, jogadorPreto);
                     break;
                 } catch (JogadaInvalidaException ex) {
                     impressora.imprimirJogadaInvalida();
@@ -130,7 +130,7 @@ public class ControleGeral {
      * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException Quando a
      * partida é encerrada.
      */
-    public void iniciarJogada(JogadorHumano jogadorAtual, JogadorHumano jogadorProx) throws JogadaInvalidaException, PartidaEncerradaException {
+    public void iniciarJogada(JogadorHumano jogadorAtual, Jogador jogadorProx) throws JogadaInvalidaException, PartidaEncerradaException {
         impressora.pedirMovimento(jogadorAtual.getNome());
         String jogadaStr = impressora.getString();
 
@@ -153,15 +153,19 @@ public class ControleGeral {
                     impressora.imprimiFimJogo();
                     throw new PartidaEncerradaException("Partida encerrada!");
                 case "empate":
-                    impressora.imprimiPedidoEmpate();
-                    Scanner scanner = new Scanner(System.in);
-                    String escolha = scanner.nextLine();
-                    System.out.println("teste1");
-                    switch (escolha) {
-                        case ("S"): {
-                            impressora.imprimiEmpate();
-                            impressora.imprimiFimJogo();
-                            throw new PartidaEncerradaException("Partida encerrada!");
+                    String escolha = "";
+                    while (!escolha.equals("S") && !escolha.equals("N")) {
+                        impressora.imprimiPedidoEmpate();
+                        Scanner scanner = new Scanner(System.in);
+                        escolha = scanner.nextLine();
+                        switch (escolha) {
+                            case ("S"):
+                                impressora.imprimiEmpate();
+                                impressora.imprimiFimJogo();
+                                throw new PartidaEncerradaException("Partida encerrada!");
+                            case ("N"):
+                                iniciarJogada(jogadorAtual, jogadorProx);
+                                return;
                         }
                     }
             }

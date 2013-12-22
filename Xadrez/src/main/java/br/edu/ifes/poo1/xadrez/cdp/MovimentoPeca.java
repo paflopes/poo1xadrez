@@ -33,27 +33,37 @@ public class MovimentoPeca {
     }
 
     public static boolean isEnPassant(Posicao posicaoAtual, Posicao novaPosicao) {
-        Peao peaoAtual = (Peao) posicaoAtual.getPeca();
+        Peao peaoAtual;
         Posicao posicaoCaptura = null;
         boolean andouDuasCasas = false;
         char novaColuna = novaPosicao.getId().charAt(0);
         char novaLinha = novaPosicao.getId().charAt(1);
 
+        // Verificamos se a peça que está tentando capturar é um Peão
+        // e se está andando apenas uma coluna.
+        if (posicaoAtual.getPeca().getNome() != NomePeca.PEAO
+                || Math.abs(novaColuna - posicaoAtual.getId().charAt(0)) == 1) {
+            return false;
+        }
+
+        peaoAtual = (Peao) posicaoAtual.getPeca();
+
         switch (peaoAtual.getCor()) {
             case BRANCO:
                 posicaoCaptura = Tabuleiro.getInstance().getPosicao("" + novaColuna + ((char) (novaLinha - 1)));
-                andouDuasCasas = posicaoCaptura.getId().charAt(1) == '5';
+                andouDuasCasas = posicaoCaptura != null && posicaoCaptura.getId().charAt(1) == '5';
                 break;
             case PRETO:
                 posicaoCaptura = Tabuleiro.getInstance().getPosicao("" + novaColuna + ((char) (novaLinha + 1)));
-                andouDuasCasas = posicaoCaptura.getId().charAt(1) == '4';
+                andouDuasCasas = posicaoCaptura != null && posicaoCaptura.getId().charAt(1) == '4';
                 break;
         }
 
-        return posicaoCaptura.existePeca()
+        return andouDuasCasas
+                && !novaPosicao.existePeca()
+                && posicaoCaptura.existePeca()
                 && posicaoCaptura.getPeca().getNome() == NomePeca.PEAO
-                && ((Peao) posicaoCaptura.getPeca()).moveuUmaVez()
-                && andouDuasCasas;
+                && ((Peao) posicaoCaptura.getPeca()).moveuUmaVez();
     }
 
     /**
