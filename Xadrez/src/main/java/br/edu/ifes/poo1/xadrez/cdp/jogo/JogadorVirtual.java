@@ -38,10 +38,9 @@ public class JogadorVirtual implements Jogador {
         Map<String, Posicao> posicoes = tab.getPosicoes();
         List<Peca> pecas = tab.getPecas(this.cor);
 
-        for (Peca peca : pecas) {
-            for (Map.Entry<String, Posicao> entry : posicoes.entrySet()) {
-                Posicao posicao = entry.getValue();
-
+        for (Map.Entry<String, Posicao> entry : posicoes.entrySet()) {
+            Posicao posicao = entry.getValue();
+            for (Peca peca : pecas) {
                 //Verificamos se é um movimento possível.
                 if (peca.validarMovimento(posicao) && !MovimentoPeca.isXeque(peca.getPosicao(), posicao)) {
                     jogada.setOperacao(Operacao.MOVIMENTO);
