@@ -99,7 +99,76 @@ public class MovimentoPeca {
     }
 
     public static boolean isXequeMate(Posicao posicaoAtual, Posicao posicaoFinal) {
-        return reiEscaparMovimento(posicaoFinal);
+        Cor corAdversario;
+        Posicao posicaoRei;
+        List<Posicao> posicoesEscape;
+        List<Peca> pecas;
+
+        if (!isXeque(posicaoAtual, posicaoFinal)) {
+            return false;
+        }
+
+        if (posicaoAtual.getPeca().getCor() == Cor.BRANCO) {
+            corAdversario = Cor.PRETO;
+        } else {
+            corAdversario = Cor.BRANCO;
+        }
+
+        posicaoRei = Tabuleiro.getInstance().getPosicaoRei(corAdversario);
+        posicoesEscape = posicoesEscapeRei(posicaoRei);
+        pecas = Tabuleiro.getInstance().getPecas(posicaoAtual.getPeca().getCor());
+
+        for (Peca peca : pecas) {
+            for (Posicao posicaoEscape : posicoesEscape) {
+                if (peca.validarMovimento(posicaoEscape) || peca.validarMovimentoCaptura(posicaoEscape)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Acha todas as posições que um rei pode escapar, pelo movimento ou pela
+     * captura de alguma outra peça.
+     *
+     * @param posicaoRei A posição que o rei se encontra.
+     * @return Uma lista com as possíveis posições.
+     */
+    private static List<Posicao> posicoesEscapeRei(Posicao posicaoRei) {
+        List<Posicao> posicoesRei = new ArrayList<>();
+        Peca rei = posicaoRei.getPeca();
+        List<String> idPosicoesPossiveis = new ArrayList<>();
+        char colunaAtual = posicaoRei.getId().charAt(0);
+        char linhaAtual = posicaoRei.getId().charAt(1);
+
+        //Norte
+        idPosicoesPossiveis.add("" + colunaAtual + ((char) (linhaAtual + 1)));
+        //Sul
+        idPosicoesPossiveis.add("" + colunaAtual + ((char) (linhaAtual - 1)));
+        //Leste
+        idPosicoesPossiveis.add("" + ((char) (colunaAtual + 1)) + linhaAtual);
+        //Oeste
+        idPosicoesPossiveis.add("" + ((char) (colunaAtual - 1)) + linhaAtual);
+        //Noroeste
+        idPosicoesPossiveis.add("" + ((char) (colunaAtual - 1)) + ((char) (linhaAtual + 1)));
+        //Nordeste
+        idPosicoesPossiveis.add("" + ((char) (colunaAtual + 1)) + ((char) (linhaAtual + 1)));
+        //Sudoeste
+        idPosicoesPossiveis.add("" + ((char) (colunaAtual - 1)) + ((char) (linhaAtual - 1)));
+        //Sudeste
+        idPosicoesPossiveis.add("" + ((char) (colunaAtual - 1)) + ((char) (linhaAtual - 1)));
+
+        for (String idPosicao : idPosicoesPossiveis) {
+            Posicao posicaoPossivel = Tabuleiro.getInstance().getPosicao(idPosicao);
+            if (posicaoPossivel != null
+                    && (rei.validarMovimento(posicaoPossivel) || rei.validarMovimentoCaptura(posicaoPossivel))) {
+                posicoesRei.add(posicaoPossivel);
+            }
+        }
+
+        return posicoesRei;
     }
 
     /**
@@ -279,67 +348,4 @@ public class MovimentoPeca {
         return caminho;
     }
 
-    /**
-     * Tenta ver se o Rei consegue escapar.
-     *
-     * @param posicaoDoRei A posição em que o rei se encontra.
-     * @return
-     */
-    private static boolean reiEscaparMovimento(Posicao posicaoDoRei) {
-        
-        /*
-         *Phillipe, a logica funciona, se quiser achar uma forma mais eficiente e achar que esta na classe errada, por favor arrume.
-         */
-         return tentarMovimentoRei(posicaoDoRei, 0, 1) || //Movimento para o norte
-                tentarMovimentoRei(posicaoDoRei, 1, 1) || //Movimento para o nordeste
-                tentarMovimentoRei(posicaoDoRei, 1, 0) || //Movimento para o leste
-                tentarMovimentoRei(posicaoDoRei, 1, -1) || //Movimento para o suldeste
-                tentarMovimentoRei(posicaoDoRei, 0, -1) || //Movimento para o sul
-                tentarMovimentoRei(posicaoDoRei, -1, -1) || //Movimento para o sudoeste
-                tentarMovimentoRei(posicaoDoRei, -1, 0) || //Movimento para o oeste
-                tentarMovimentoRei(posicaoDoRei, -1, +1);   //Movimento para o noroeste
-
-    }
-
-    /**
-     * Verifica se é possivel movimentar o Rei para fugir de um Xeque
-     * @param posicaoDoRei A posição atual do Rei.
-     * @param colunaAdd Quantidade de colunas que se deseja andar.
-     * @param linhaAdd Quantidade de linhas que se deseja andar.
-     * @return 
-     */
-    private static boolean tentarMovimentoRei(Posicao posicaoDoRei, int colunaAdd, int linhaAdd) {
-        
-        char colunaAux = posicaoDoRei.getId().charAt(0);
-        char linhaAux = posicaoDoRei.getId().charAt(1);
-
-        //Se eu não puder movimentar ou capturar a casa ao lado pra sair do xeque eu retorno um false
-        if (!(posicaoDoRei.getPeca().validarMovimento(Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)))
-                || posicaoDoRei.getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd))))) {
-            return false;
-        } else {
-
-            //Aloco um peão da cor do rei na posição desejada só para testar se alguma peça consegue capturar ele
-            Peao peaoAux = new Peao(posicaoDoRei.getPeca().getCor());
-            Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)).setPeca(peaoAux);
-            boolean noXeque = true;
-
-            //Percorre todo o tabuleiro
-            for (char coluna = '1'; coluna < '9'; coluna++) {
-                for (char linha = '1'; linha < '9'; linha++) {
-
-                    //Se uma peca do tabuleiro estiver dando XEQUE na posicao desejada e essa peca que 
-                    //está dando XEQUE tem que ser de cor diferente da do rei.
-                    if (Tabuleiro.getInstance().getPosicao("" + coluna + linha).getPeca().validarMovimentoCaptura(Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)))
-                            && Tabuleiro.getInstance().getPosicao("" + coluna + linha).getPeca().getCor() != posicaoDoRei.getPeca().getCor()) {
-                        noXeque = false;
-                    }
-                }
-            }
-            //Retiro o peão da posicao que coloquei para testar
-            Tabuleiro.getInstance().getPosicao("" + (colunaAux + colunaAdd) + (linhaAux + linhaAdd)).setPeca(null);
-            return noXeque;
-        }
-
-    }
 }

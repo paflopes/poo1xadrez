@@ -12,7 +12,9 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Rainha;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Rei;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,11 +56,16 @@ public class Tabuleiro {
         return this.mapNomePosicao.get(id);
     }
 
+    /**
+     * Pega a posição que tem o rei de dada cor.
+     *
+     * @param cor A cor do rei.
+     * @return A posição que tem o rei.
+     */
     public Posicao getPosicaoRei(Cor cor) {
         Posicao posicaoRei = null;
 
         for (Map.Entry<String, Posicao> entry : mapNomePosicao.entrySet()) {
-            String string = entry.getKey();
             Posicao posicao = entry.getValue();
 
             if (posicao.existePeca() && posicao.getPeca().getNome() == NomePeca.REI
@@ -68,6 +75,26 @@ public class Tabuleiro {
         }
 
         return posicaoRei;
+    }
+
+    /**
+     * Pega todas as peças da cor adversária.
+     *
+     * @param cor A cor das peças.
+     * @return Uma lista com todas as peças da cor dada.
+     */
+    public List<Peca> getPecas(Cor cor) {
+        List<Peca> pecas = new ArrayList<>();
+
+        for (Map.Entry<String, Posicao> entry : mapNomePosicao.entrySet()) {
+            Posicao posicao = entry.getValue();
+
+            if (posicao.existePeca() && posicao.getPeca().getCor() == cor) {
+                pecas.add(posicao.getPeca());
+            }
+        }
+
+        return pecas;
     }
 
     /**
@@ -93,7 +120,6 @@ public class Tabuleiro {
 //
 //        return cloneMet;
 //    }
-    
     private void criarPosicoes() {
         //Montando as posições no Tabuleiro;
         for (char coluna = '1'; coluna < '9'; coluna++) {
