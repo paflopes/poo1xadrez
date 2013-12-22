@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.poo1.xadrez.cdp;
 
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.Map;
 import org.junit.Assert;
@@ -21,7 +22,7 @@ public class TestPecasFactory {
 
     @Before
     public void before() {
-        this.pecas = PecasFactory.getPecas(16, "Peao");
+        this.pecas = PecasFactory.getPecas(16, Peao.class);
     }
 
     @Test

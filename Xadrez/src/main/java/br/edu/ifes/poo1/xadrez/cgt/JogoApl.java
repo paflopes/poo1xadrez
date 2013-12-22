@@ -24,13 +24,13 @@ import java.util.List;
  * @author Lincoln
  */
 public class JogoApl {
-
+    
     private final List<DadoJogo> dadosJogo;
-
+    
     public JogoApl() {
         this.dadosJogo = new ArrayList<>();
     }
-
+    
     public void fazerJogada(Jogador jogador) throws JogadaInvalidaException {
         Jogada jogada = jogador.getJogada();
         Posicao posicaoAtual = jogada.getPosicaoInicial();
@@ -46,13 +46,13 @@ public class JogoApl {
                 posicaoAtual = this.getPosicao("58");
             }
         }
-
+        
         peca = posicaoAtual.getPeca();
-
+        
         if (posicaoAtual.existePeca() && peca.getCor() == jogador.getCor()) {
             switch (operacao) {
                 case MOVIMENTO:
-                    if (peca.validarMovimento(posicaoFinal)) {
+                    if (peca.validarMovimento(posicaoFinal) && !MovimentoPeca.isXeque(posicaoAtual, posicaoFinal)) {
                         posicaoFinal.setPeca(peca);
                     } else {
                         throw new JogadaInvalidaException("Jogada Inválida!");
@@ -62,7 +62,7 @@ public class JogoApl {
                     if (posicaoFinal.existePeca() && posicaoFinal.getPeca().getNome() == NomePeca.REI) {
                         throw new JogadaInvalidaException("Jogada Inválida!");
                     }
-
+                    
                     if (peca.validarMovimentoCaptura(posicaoFinal)) {
 
                         //Atualiza os pontos pela captura
@@ -116,50 +116,52 @@ public class JogoApl {
                             && peca.getNome() == NomePeca.PEAO && peca.getPosicao().getId().matches("[1-8]1");
                     boolean pecaBranca = peca.getCor() == Cor.BRANCO
                             && peca.getNome() == NomePeca.PEAO && peca.getPosicao().getId().matches("[1-8]8");
-
+                    
                     if (pecaBranca || pecaPreta) {
                         posicaoAtual.setPeca(jogada.getPecaDesejada(jogador.getCor()));
                     } else {
                         throw new JogadaInvalidaException(("Jogada Inválida!"));
                     }
-
+                    
                     break;
-
+                
                 case XEQUE:
-                    if (!MovimentoPeca.isXeque(posicaoAtual, posicaoFinal)) {
+                    if (!MovimentoPeca.isXeque(posicaoAtual, posicaoFinal) || MovimentoPeca.isXequeMate(posicaoAtual, posicaoFinal)) {
                         throw new JogadaInvalidaException("Jogada inválida!");
                     }
-
+                    
+                    posicaoFinal.setPeca(peca);
+                    
                     break;
                 case XMATE:
                     if (MovimentoPeca.isXequeMate(posicaoAtual, posicaoFinal)) {
                         jogador.setVitoria(true);
                     }
-
+                    
                     break;
             }
         } else {
             throw new JogadaInvalidaException("Jogada inválida!");
         }
-
+        
     }
-
+    
     public void salvarDado(DadoJogo dado) {
         this.dadosJogo.add(dado);
     }
-
+    
     public List<DadoJogo> getDados() {
         return this.dadosJogo;
     }
-
+    
     public Posicao getPosicao(String idPosicao) {
         return Tabuleiro.getInstance().getPosicao(idPosicao);
     }
-
+    
     public Tabuleiro getTabuleiro() {
         return Tabuleiro.getInstance();
     }
-
+    
     public void reiniciarTabuleiro() {
         Tabuleiro.getInstance().restaurarTabuleiro();
     }

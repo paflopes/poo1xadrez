@@ -87,11 +87,13 @@ public class MovimentoPeca {
             corAdversaria = Cor.BRANCO;
         }
 
+        // Aqui verifico se o rei está em perigo.
         Posicao posicaoRei = Tabuleiro.getInstance().getPosicaoRei(corAdversaria);
         posicaoFinal.setPeca(copiaPecaAtual);
         reiEmPerigo = copiaPecaAtual.validarMovimentoCaptura(posicaoRei);
         posicaoFinal.setPeca(null);
 
+        // Se o movimento for válido e o rei estiver em perigo na nova posição, então é um Xeque.
         return posicaoAtual.getPeca().validarMovimento(posicaoFinal)
                 && reiEmPerigo;
     }
@@ -284,11 +286,11 @@ public class MovimentoPeca {
      * @return
      */
     private static boolean reiEscaparMovimento(Posicao posicaoDoRei) {
-
+        
         /*
          *Phillipe, a logica funciona, se quiser achar uma forma mais eficiente e achar que esta na classe errada, por favor arrume.
          */
-        return tentarMovimentoRei(posicaoDoRei, 0, 1) || //Movimento para o norte
+         return tentarMovimentoRei(posicaoDoRei, 0, 1) || //Movimento para o norte
                 tentarMovimentoRei(posicaoDoRei, 1, 1) || //Movimento para o nordeste
                 tentarMovimentoRei(posicaoDoRei, 1, 0) || //Movimento para o leste
                 tentarMovimentoRei(posicaoDoRei, 1, -1) || //Movimento para o suldeste
@@ -299,9 +301,15 @@ public class MovimentoPeca {
 
     }
 
-    //Verifica se é possivel movimentar o Rei para fugir de um Xeque
+    /**
+     * Verifica se é possivel movimentar o Rei para fugir de um Xeque
+     * @param posicaoDoRei A posição atual do Rei.
+     * @param colunaAdd Quantidade de colunas que se deseja andar.
+     * @param linhaAdd Quantidade de linhas que se deseja andar.
+     * @return 
+     */
     private static boolean tentarMovimentoRei(Posicao posicaoDoRei, int colunaAdd, int linhaAdd) {
-
+        
         char colunaAux = posicaoDoRei.getId().charAt(0);
         char linhaAux = posicaoDoRei.getId().charAt(1);
 
