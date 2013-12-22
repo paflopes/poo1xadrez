@@ -133,6 +133,8 @@ public class JogoApl {
                 case XMATE:
                     if (MovimentoPeca.isXequeMate(posicaoAtual, posicaoFinal)) {
                         jogador.setVitoria(true);
+                    } else  {
+                        throw new JogadaInvalidaException("Jogada inválida!");
                     }
 
                     break;
