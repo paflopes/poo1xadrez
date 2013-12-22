@@ -183,10 +183,6 @@ public class ControleGeral {
         }
     }
 
-    public void mostrarDados() {
-        impressora.imprimirDados(apl.getDados());
-    }
-
     public Jogador cadastraJogador(Cor cor) {
         impressora.pedirNomeJogador(cor.toString());
         JogadorHumano jogador = new JogadorHumano(cor);

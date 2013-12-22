@@ -143,10 +143,6 @@ public class JogoApl {
 
     }
 
-    public void salvarDado(DadoJogo dado) {
-        this.dadosJogo.add(dado);
-    }
-
     public List<DadoJogo> getDados() {
         return this.dadosJogo;
     }
