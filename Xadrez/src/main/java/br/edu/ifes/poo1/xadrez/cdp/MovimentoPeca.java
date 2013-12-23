@@ -113,6 +113,7 @@ public class MovimentoPeca {
         Posicao posicaoRei;
         List<Posicao> posicoesEscape;
         List<Peca> pecas;
+        boolean isXequeMate = true;
 
         if (!isXeque(posicaoAtual, posicaoFinal)) {
             return false;
@@ -128,15 +129,17 @@ public class MovimentoPeca {
         posicoesEscape = posicoesEscapeRei(posicaoRei);
         pecas = Tabuleiro.getInstance().getPecas(posicaoAtual.getPeca().getCor());
 
-        for (Peca peca : pecas) {
-            for (Posicao posicaoEscape : posicoesEscape) {
+        for (Posicao posicaoEscape : posicoesEscape) {
+            boolean posicaoAmeacada = false;
+            for (Peca peca : pecas) {
                 if (peca.validarMovimento(posicaoEscape) || peca.validarMovimentoCaptura(posicaoEscape)) {
-                    return false;
+                    posicaoAmeacada = posicaoAmeacada || true;
                 }
             }
+            isXequeMate = isXequeMate && posicaoAmeacada;
         }
 
-        return true;
+        return isXequeMate;
     }
 
     /**
