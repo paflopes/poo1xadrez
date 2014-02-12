@@ -34,24 +34,24 @@ public class ControleGeral {
 
     public void iniciarPrograma() {
         this.impressora.imprimirMenu();
-        int escolha = this.impressora.getOpcao();
+        String escolha = this.impressora.getString();
 
         //Verifica se a escolha é válida.
-        if (escolha == 1 || escolha == 2 || escolha == 3) {
-            while (escolha != 3) {
+        if (escolha.matches("[1-3]")) {
+            while (!escolha.equals("3")) {
                 switch (escolha) {
-                    case 1:
+                    case "1":
                         try {
                             this.iniciarPartida();
                         } catch (PartidaEncerradaException ex) {
                         }
                         break;
-                    case 2:
+                    case "2":
                         impressora.imprimirDados(apl.getDados());
                         break;
                 }
                 impressora.imprimirMenu();
-                escolha = impressora.getOpcao();
+                escolha = impressora.getString();
             }
             //Se a escolha for inválida, então tentamos reiniciar a partida.
         } else {
@@ -72,16 +72,16 @@ public class ControleGeral {
 
         this.apl.reiniciarTabuleiro();
         this.impressora.imprimirOpcaoJogarSozinho();
-        int opcao = this.impressora.getOpcao();
+        String opcao = this.impressora.getString();
 
         // Verificamos qual a opção que o usuário escolheu.
         // 1 para jogar sozinho e 2 para jogar contra outro humano.
-        while (opcao != 1 && opcao != 2) {
+        while (!(opcao.equals("1") && opcao.equals("2"))) {
             impressora.imprimirArgumentoInvalido();
-            opcao = impressora.getOpcao();
+            opcao = impressora.getString();
         }
 
-        if (opcao == 1) {
+        if (opcao.equals("1")) {
             jogadorPreto = new JogadorVirtual();
         } else {
             jogadorPreto = this.cadastraJogador(Cor.PRETO);
@@ -100,13 +100,13 @@ public class ControleGeral {
             }
 
             impressora.imprimirTabuleiro(this.apl.getTabuleiro());
-            if (opcao == 1) {
+            if (opcao.equals("1")) {
                 try {
                     this.apl.fazerJogada(jogadorPreto);
                 } catch (JogadaInvalidaException ex) {
                     Logger.getLogger(ControleGeral.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else if (opcao == 2) {
+            } else if (opcao.equals("2")) {
                 while (true) {
                     try {
                         this.iniciarJogada((JogadorHumano) jogadorPreto, (JogadorHumano) jogadorBranco);
