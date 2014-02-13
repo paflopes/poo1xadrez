@@ -1,6 +1,7 @@
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
@@ -12,8 +13,10 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Bispo;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Cavalo;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Rainha;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
+import br.edu.ifes.poo1.xadrez.cgd.Persistencia;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +35,7 @@ public class ControleGeral {
         this.apl = new JogoApl();
     }
 
-    public void iniciarPrograma() {
+    public void iniciarPrograma() throws ClassNotFoundException {
         this.impressora.imprimirMenu();
         String escolha = this.impressora.getString();
 
@@ -47,6 +50,11 @@ public class ControleGeral {
                         }
                         break;
                     case "2":
+                        Persistencia<ArrayList<Partida>> persintencia = new Persistencia<ArrayList<Partida>>();
+                        ArrayList<Partida> listPartidas = persintencia.loadPartidas();
+                            
+                        break;
+                    case "3":
                         impressora.imprimirDados(apl.getDados());
                         break;
                 }
@@ -141,7 +149,7 @@ public class ControleGeral {
             jogadaStr = impressora.getString();
         }
 
-        // Verifica se é desistência ou empate.
+        // Verifica se é desistência, empate ou se ele solicita ver os pontos.
         if (jogadaStr.matches("\\D+") && (!jogadaStr.equals("O-O-O") || !jogadaStr.equals("O-O"))) {
             switch (jogadaStr) {
                 case "desistir":
@@ -168,6 +176,10 @@ public class ControleGeral {
                                 return;
                         }
                     }
+                case "pontos":
+                    impressora.imprimirPontos(jogadorAtual);
+                    iniciarJogada(jogadorAtual, jogadorProx);
+                    return;
             }
         }
 
@@ -269,7 +281,8 @@ public class ControleGeral {
         // Se a entrada for só de caracteres.
         if (entrada.matches("\\D+")) {
             return entrada.equals("desistir") || entrada.equals("empate")
-                    || entrada.equals("O-O") || entrada.equals("O-O-O");
+                    || entrada.equals("O-O") || entrada.equals("O-O-O")
+                    || entrada.equals("pontos");
         } else if (entrada.matches("[1-8]{4}") || entrada.matches("[1-8]{2}x[1-8]{2}")
                 || entrada.matches("[1-8]{4}(\\+|#)") || entrada.matches("([1-8]1|[1-8]8)=(D|T|B|C)")) {
             return true;

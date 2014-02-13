@@ -32,9 +32,10 @@ public class Impressora {
     public void imprimirMenu() {
         clearConsole();
         imprimir("Jogo de Xadrez");
-        imprimir("1 - Nova partida");
-        imprimir("2 - Dados das partidas");
-        imprimir("3 - Sair");
+        imprimir("1 - Iniciar uma nova partida");
+        imprimir("2 - Retomar uma partida");
+        imprimir("3 - Dados das partidas");
+        imprimir("4 - Sair");
     }
 
     /**

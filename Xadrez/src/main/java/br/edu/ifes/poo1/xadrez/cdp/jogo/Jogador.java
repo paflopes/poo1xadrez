@@ -7,12 +7,13 @@ package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import java.io.Serializable;
 
 /**
  *
  * @author phillipe
  */
-public interface Jogador {
+public interface Jogador extends Serializable{
 
     public String getNome();
 
