@@ -4,11 +4,13 @@
  */
 package br.edu.ifes.poo1.xadrez.cih;
 
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -142,5 +144,27 @@ public class Impressora {
         }
     }
     
+    public void imprimirPartidas(ArrayList<Partida> listPartidas){
+     
+        int contador = 0, contadorAux = 1;
+        while(contador<listPartidas.size()){
+            if(listPartidas.get(contador).isFinalizada() == false){
+                imprimir("Partida "+contadorAux);
+                imprimir("Jogador branco: "+listPartidas.get(contador).getJogadorBranco().getNome()+" Jogador preto: "+listPartidas.get(contador).getJogadorPreto().getNome());
+            }
+            contador++;        
+        }
+       
+    }
+    
+    public void imprimiErroSaida(){
+        imprimir("Salve primeiro para sair.");
+    }
+    
+    public void imprimirJogoSalvo(){
+        imprimir("Jogo salvo com sucesso.");
+    }
     
 }
+
+                

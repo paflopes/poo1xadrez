@@ -14,7 +14,7 @@ import br.edu.ifes.poo1.xadrez.cih.Impressora;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, PartidaEncerradaException {
         ControleGeral controle = new ControleGeral();
 
         controle.iniciarPrograma();

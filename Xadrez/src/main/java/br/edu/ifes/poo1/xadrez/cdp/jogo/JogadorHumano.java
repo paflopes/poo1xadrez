@@ -20,7 +20,8 @@ public class JogadorHumano implements Jogador {
     private int pontos;
     private boolean vitoria;
     private final Cor cor;
-
+    private boolean save = false;
+    
     /**
      *
      * @param cor A cor do Jogador.
@@ -122,6 +123,14 @@ public class JogadorHumano implements Jogador {
     public void atualizaPontosJogador(Posicao novaPosicao) {
 
         this.setPontos(this.getPontos() + novaPosicao.getPeca().getValor());
+    }
+    
+    public void setSave(boolean save){
+        this.save = save;
+    }
+    
+    public boolean getSave(){
+        return save;
     }
 
 }

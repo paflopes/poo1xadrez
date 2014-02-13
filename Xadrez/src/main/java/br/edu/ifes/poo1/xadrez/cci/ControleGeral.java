@@ -17,6 +17,7 @@ import br.edu.ifes.poo1.xadrez.cgd.Persistencia;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,13 +30,14 @@ public class ControleGeral {
 
     private final Impressora impressora;
     private final JogoApl apl;
-
+    private Partida partida = null;
+    
     public ControleGeral() {
         this.impressora = new Impressora();
         this.apl = new JogoApl();
     }
 
-    public void iniciarPrograma() throws ClassNotFoundException {
+    public void iniciarPrograma() throws ClassNotFoundException, PartidaEncerradaException {
         this.impressora.imprimirMenu();
         String escolha = this.impressora.getString();
 
@@ -45,14 +47,25 @@ public class ControleGeral {
                 switch (escolha) {
                     case "1":
                         try {
-                            this.iniciarPartida();
+                            partida = new Partida();
+                            partida.setInicio(new Date());
+                            this.iniciarPartida(partida);
                         } catch (PartidaEncerradaException ex) {
                         }
                         break;
                     case "2":
                         Persistencia<ArrayList<Partida>> persintencia = new Persistencia<ArrayList<Partida>>();
                         ArrayList<Partida> listPartidas = persintencia.loadPartidas();
-                            
+                        impressora.imprimirPartidas(listPartidas);
+                        escolha = impressora.getString();
+                        if(escolha.matches("[1 -"+partida.getPartidasNaoFinalizadas(listPartidas)+"]")){
+                            partida = listPartidas.get(Integer.parseInt(escolha.trim()));
+                            this.iniciarPartida(partida);
+                        }else{
+                            impressora.imprimirArgumentoInvalido();
+                            this.iniciarPrograma();
+                        }
+                        
                         break;
                     case "3":
                         impressora.imprimirDados(apl.getDados());
@@ -73,10 +86,8 @@ public class ControleGeral {
      *
      * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException
      */
-    public void iniciarPartida() throws PartidaEncerradaException {
+    public void iniciarPartida(Partida partida) throws PartidaEncerradaException {
         //Cadastra os jogadores e verifica se é um jogo a dois ou contra a máquina.
-        Jogador jogadorPreto;
-        Jogador jogadorBranco;
 
         this.apl.reiniciarTabuleiro();
         this.impressora.imprimirOpcaoJogarSozinho();
@@ -90,17 +101,17 @@ public class ControleGeral {
         }
 
         if (opcao.equals("1")) {
-            jogadorPreto = new JogadorVirtual();
+            partida.setJogadorPreto(new JogadorVirtual());
         } else {
-            jogadorPreto = this.cadastraJogador(Cor.PRETO);
+            partida.setJogadorPreto(this.cadastraJogador(Cor.PRETO));
         }
-        jogadorBranco = this.cadastraJogador(Cor.BRANCO);
+        partida.setJogadorBranco(this.cadastraJogador(Cor.BRANCO));
 
         for (;;) {
             impressora.imprimirTabuleiro(this.apl.getTabuleiro());
             while (true) {
                 try {
-                    this.iniciarJogada((JogadorHumano) jogadorBranco, jogadorPreto);
+                    this.iniciarJogada((JogadorHumano) partida.getJogadorBranco(), partida.getJogadorPreto());
                     break;
                 } catch (JogadaInvalidaException ex) {
                     impressora.imprimirJogadaInvalida();
@@ -110,14 +121,14 @@ public class ControleGeral {
             impressora.imprimirTabuleiro(this.apl.getTabuleiro());
             if (opcao.equals("1")) {
                 try {
-                    this.apl.fazerJogada(jogadorPreto);
+                    this.apl.fazerJogada(partida.getJogadorPreto());
                 } catch (JogadaInvalidaException ex) {
                     Logger.getLogger(ControleGeral.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (opcao.equals("2")) {
                 while (true) {
                     try {
-                        this.iniciarJogada((JogadorHumano) jogadorPreto, (JogadorHumano) jogadorBranco);
+                        this.iniciarJogada((JogadorHumano) partida.getJogadorPreto(), (JogadorHumano) partida.getJogadorBranco());
                         break;
                     } catch (JogadaInvalidaException ex) {
                         impressora.imprimirJogadaInvalida();
@@ -141,12 +152,13 @@ public class ControleGeral {
     public void iniciarJogada(JogadorHumano jogadorAtual, Jogador jogadorProx) throws JogadaInvalidaException, PartidaEncerradaException {
         impressora.pedirMovimento(jogadorAtual.getNome());
         String jogadaStr = impressora.getString();
-
+        
         // Valida o comando dado pelo jogador.
         while (!this.validarEntrada(jogadaStr)) {
             impressora.imprimirArgumentoInvalido();
             impressora.pedirMovimento(jogadorAtual.getNome());
             jogadaStr = impressora.getString();
+            
         }
 
         // Verifica se é desistência, empate ou se ele solicita ver os pontos.
@@ -180,6 +192,23 @@ public class ControleGeral {
                     impressora.imprimirPontos(jogadorAtual);
                     iniciarJogada(jogadorAtual, jogadorProx);
                     return;
+                   
+                case "salvar":
+                    impressora.imprimirJogoSalvo();
+                    jogadorAtual.setSave(true);
+                    
+                    iniciarJogada(jogadorAtual, jogadorProx);
+                    return;
+                    
+                case "sair":
+                    if(jogadorAtual.getSave()){
+                        impressora.imprimiFimJogo();
+                        throw new PartidaEncerradaException("Partida encerrada!");            
+                    }else{
+                        impressora.imprimiErroSaida();
+                        iniciarJogada(jogadorAtual, jogadorProx);
+                        return;
+                    }
             }
         }
 
@@ -282,7 +311,8 @@ public class ControleGeral {
         if (entrada.matches("\\D+")) {
             return entrada.equals("desistir") || entrada.equals("empate")
                     || entrada.equals("O-O") || entrada.equals("O-O-O")
-                    || entrada.equals("pontos");
+                    || entrada.equals("pontos") || entrada.equals("salvar")
+                    || entrada.equals("sair");
         } else if (entrada.matches("[1-8]{4}") || entrada.matches("[1-8]{2}x[1-8]{2}")
                 || entrada.matches("[1-8]{4}(\\+|#)") || entrada.matches("([1-8]1|[1-8]8)=(D|T|B|C)")) {
             return true;
