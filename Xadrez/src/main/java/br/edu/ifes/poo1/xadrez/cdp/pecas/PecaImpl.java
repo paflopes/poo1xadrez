@@ -9,12 +9,13 @@ import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
+import java.io.Serializable;
 
 /**
  *
  * @author phillipe
  */
-public abstract class PecaImpl implements Peca {
+public abstract class PecaImpl implements Peca, Serializable {
 
     private final int valor;
     private final Cor cor;

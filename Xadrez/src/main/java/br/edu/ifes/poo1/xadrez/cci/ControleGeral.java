@@ -31,7 +31,7 @@ public class ControleGeral {
     private final JogoApl apl;
     private static Partida partida = null;
     private Persistencia<Jogos> persintencia = new Persistencia<Jogos>();
-    private Jogos jogos;
+    private Jogos jogos = null;
     
     
     public ControleGeral() throws ClassNotFoundException {
@@ -218,9 +218,7 @@ public class ControleGeral {
                    
                 case "salvar":                    
                     jogadorAtual.setSave(true);  
-                    System.out.println("1");
                     this.jogos.getListPartidas().add(partida);
-                    System.out.println("2");
                     this.persintencia.save(this.jogos);
                     impressora.imprimirJogoSalvo();
                     iniciarJogada(jogadorAtual, jogadorProx);
