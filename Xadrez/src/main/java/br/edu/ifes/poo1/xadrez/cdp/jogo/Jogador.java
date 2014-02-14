@@ -26,4 +26,6 @@ public interface Jogador extends Serializable{
     public boolean isVitoria();
 
     public void atualizaPontosJogador(Posicao novaPosicao);
+    
+    public void setSave(boolean save);
 }

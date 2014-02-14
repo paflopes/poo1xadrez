@@ -44,5 +44,12 @@ public class JogadorImpl implements Jogador  {
     public void atualizaPontosJogador(Posicao novaPosicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setSave(boolean save) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }

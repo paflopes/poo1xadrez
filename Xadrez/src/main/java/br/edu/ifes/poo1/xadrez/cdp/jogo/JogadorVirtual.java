@@ -102,4 +102,10 @@ public class JogadorVirtual implements Jogador {
         return this.vitoria;
     }
 
+    @Override
+    public void setSave(boolean save) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }

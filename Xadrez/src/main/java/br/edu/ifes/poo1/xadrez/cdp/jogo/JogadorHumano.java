@@ -125,6 +125,7 @@ public class JogadorHumano implements Jogador {
         this.setPontos(this.getPontos() + novaPosicao.getPeca().getValor());
     }
     
+    @Override
     public void setSave(boolean save){
         this.save = save;
     }

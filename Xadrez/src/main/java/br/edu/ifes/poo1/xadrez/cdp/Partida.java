@@ -17,13 +17,21 @@ import java.util.Date;
  */
 public class Partida implements Serializable {
   
-    
     private boolean finalizada = false;
     private Jogador jogadorBranco;
     private Jogador jogadorPreto;
     private Tabuleiro tabuleiro;
     private Date inicio;
     private Date fim;
+    private String vencedor;
+
+    public String getVencedor() {
+        return vencedor;
+    }
+
+    public void setVencedor(String vencedor) {
+        this.vencedor = vencedor;
+    }
 
     public Date getInicio() {
         return inicio;
@@ -74,13 +82,23 @@ public class Partida implements Serializable {
     }
     
     public int getPartidasNaoFinalizadas(ArrayList<Partida> listPartidas){
-        int numeroPartidas=0;
+        
+        int numeroPartidas = 0;
         for(int contador = 0; contador<listPartidas.size(); contador++){
-            if(listPartidas.get(contador).isFinalizada() == false){
+            if(listPartidas.get(contador).isFinalizada()){
+                listPartidas.add(listPartidas.get(contador));
+                listPartidas.remove(contador);
+            }else{
                 numeroPartidas++;
             }
         }
         return numeroPartidas;
     }
     
+    public void recomeçarPartida(){
+        this.jogadorBranco.setSave(false);
+        if(!jogadorPreto.getNome().equals("ZEUS")){
+            this.jogadorPreto.setSave(false);
+        }
+    }
 }

@@ -146,7 +146,7 @@ public class Impressora {
     
     public void imprimirPartidas(ArrayList<Partida> listPartidas){
      
-        int contador = 0, contadorAux = 1;
+        int contador = 0, contadorAux = 0;
         while(contador<listPartidas.size()){
             if(listPartidas.get(contador).isFinalizada() == false){
                 imprimir("Partida "+contadorAux);
@@ -165,6 +165,9 @@ public class Impressora {
         imprimir("Jogo salvo com sucesso.");
     }
     
+    public void imprimirSemPartidas(){
+        imprimir("Não existe nenhuma partida para ser retomada.");
+    }
 }
 
                 
