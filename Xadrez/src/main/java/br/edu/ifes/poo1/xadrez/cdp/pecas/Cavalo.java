@@ -8,6 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Cavalo extends PecaImpl {
     }
 
     @Override
-    public boolean validarMovimento(Posicao novaPosicao) {
+    public boolean validarMovimento(Posicao novaPosicao, Partida partida) {
         char colunaAtual = this.getPosicao().getId().charAt(0);
         char linhaAtual = this.getPosicao().getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);
@@ -35,7 +36,7 @@ public class Cavalo extends PecaImpl {
     }
 
     @Override
-    public boolean validarMovimentoCaptura(Posicao novaPosicao) {
+    public boolean validarMovimentoCaptura(Posicao novaPosicao, Partida partida) {
         char colunaAtual = this.getPosicao().getId().charAt(0);
         char linhaAtual = this.getPosicao().getId().charAt(1);
         char colunaNova = novaPosicao.getId().charAt(0);

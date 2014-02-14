@@ -9,8 +9,6 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MovimentoPeca {
 
@@ -32,7 +30,7 @@ public class MovimentoPeca {
         return ((colunaAtual - colunaNova) == 0) || ((linhaAtual - linhaNova) == 0);
     }
 
-    public static boolean isEnPassant(Posicao posicaoAtual, Posicao novaPosicao) {
+    public static boolean isEnPassant(Posicao posicaoAtual, Posicao novaPosicao, Partida partida) {
         Peao peaoAtual;
         Posicao posicaoCaptura = null;
         boolean andouDuasCasas = false;
@@ -50,11 +48,11 @@ public class MovimentoPeca {
 
         switch (peaoAtual.getCor()) {
             case BRANCO:
-                posicaoCaptura = Tabuleiro.getInstance().getPosicao("" + novaColuna + ((char) (novaLinha - 1)));
+                posicaoCaptura = partida.getTabuleiro().getPosicao("" + novaColuna + ((char) (novaLinha - 1)));
                 andouDuasCasas = posicaoCaptura != null && posicaoCaptura.getId().charAt(1) == '5';
                 break;
             case PRETO:
-                posicaoCaptura = Tabuleiro.getInstance().getPosicao("" + novaColuna + ((char) (novaLinha + 1)));
+                posicaoCaptura = partida.getTabuleiro().getPosicao("" + novaColuna + ((char) (novaLinha + 1)));
                 andouDuasCasas = posicaoCaptura != null && posicaoCaptura.getId().charAt(1) == '4';
                 break;
         }
@@ -73,7 +71,7 @@ public class MovimentoPeca {
      * @param posicaoFinal Movimento que deixará o rei em xeque.
      * @return {@code true} se for xeque ou {@code false} caso contrário.
      */
-    public static boolean isXeque(Posicao posicaoAtual, Posicao posicaoFinal) {
+    public static boolean isXeque(Posicao posicaoAtual, Posicao posicaoFinal, Partida partida) {
         Cor corAtual = posicaoAtual.getPeca().getCor();
         // Cor do adversário. Serve para achar a posição do rei adversário.
         Cor corAdversaria;
@@ -98,24 +96,24 @@ public class MovimentoPeca {
         }
 
         // Aqui verifico se o rei está em perigo.
-        Posicao posicaoRei = Tabuleiro.getInstance().getPosicaoRei(corAdversaria);
+        Posicao posicaoRei = partida.getTabuleiro().getPosicaoRei(corAdversaria);
         posicaoFinal.setPeca(copiaPecaAtual);
-        reiEmPerigo = copiaPecaAtual.validarMovimentoCaptura(posicaoRei);
+        reiEmPerigo = copiaPecaAtual.validarMovimentoCaptura(posicaoRei, partida);
         posicaoFinal.setPeca(null);
 
         // Se o movimento for válido e o rei estiver em perigo na nova posição, então é um Xeque.
-        return posicaoAtual.getPeca().validarMovimento(posicaoFinal)
+        return posicaoAtual.getPeca().validarMovimento(posicaoFinal, partida)
                 && reiEmPerigo;
     }
 
-    public static boolean isXequeMate(Posicao posicaoAtual, Posicao posicaoFinal) {
+    public static boolean isXequeMate(Posicao posicaoAtual, Posicao posicaoFinal, Partida partida) {
         Cor corAdversario;
         Posicao posicaoRei;
         List<Posicao> posicoesEscape;
         List<Peca> pecas;
         boolean isXequeMate = true;
 
-        if (!isXeque(posicaoAtual, posicaoFinal)) {
+        if (!isXeque(posicaoAtual, posicaoFinal, partida)) {
             return false;
         }
 
@@ -125,14 +123,14 @@ public class MovimentoPeca {
             corAdversario = Cor.BRANCO;
         }
 
-        posicaoRei = Tabuleiro.getInstance().getPosicaoRei(corAdversario);
-        posicoesEscape = posicoesEscapeRei(posicaoRei);
-        pecas = Tabuleiro.getInstance().getPecas(posicaoAtual.getPeca().getCor());
+        posicaoRei = partida.getTabuleiro().getPosicaoRei(corAdversario);
+        posicoesEscape = posicoesEscapeRei(posicaoRei, partida);
+        pecas = partida.getTabuleiro().getPecas(posicaoAtual.getPeca().getCor());
 
         for (Posicao posicaoEscape : posicoesEscape) {
             boolean posicaoAmeacada = false;
             for (Peca peca : pecas) {
-                if (peca.validarMovimento(posicaoEscape) || peca.validarMovimentoCaptura(posicaoEscape)) {
+                if (peca.validarMovimento(posicaoEscape, partida) || peca.validarMovimentoCaptura(posicaoEscape, partida)) {
                     posicaoAmeacada = posicaoAmeacada || true;
                 }
             }
@@ -149,7 +147,7 @@ public class MovimentoPeca {
      * @param posicaoRei A posição que o rei se encontra.
      * @return Uma lista com as possíveis posições.
      */
-    private static List<Posicao> posicoesEscapeRei(Posicao posicaoRei) {
+    private static List<Posicao> posicoesEscapeRei(Posicao posicaoRei, Partida partida) {
         List<Posicao> posicoesRei = new ArrayList<>();
         Peca rei = posicaoRei.getPeca();
         List<String> idPosicoesPossiveis = new ArrayList<>();
@@ -174,9 +172,9 @@ public class MovimentoPeca {
         idPosicoesPossiveis.add("" + ((char) (colunaAtual - 1)) + ((char) (linhaAtual - 1)));
 
         for (String idPosicao : idPosicoesPossiveis) {
-            Posicao posicaoPossivel = Tabuleiro.getInstance().getPosicao(idPosicao);
+            Posicao posicaoPossivel = partida.getTabuleiro().getPosicao(idPosicao);
             if (posicaoPossivel != null
-                    && (rei.validarMovimento(posicaoPossivel) || rei.validarMovimentoCaptura(posicaoPossivel))) {
+                    && (rei.validarMovimento(posicaoPossivel, partida) || rei.validarMovimentoCaptura(posicaoPossivel, partida))) {
                 posicoesRei.add(posicaoPossivel);
             }
         }
@@ -190,10 +188,10 @@ public class MovimentoPeca {
      * @param posicaoAtual É a posição inicial do rei.
      * @return {@code true} se é um roque maior ou {@code false} caso contrário.
      */
-    public static boolean isRoqueMaior(Posicao posicaoAtual) {
+    public static boolean isRoqueMaior(Posicao posicaoAtual, Partida partida) {
         char linhaAtual = posicaoAtual.getId().charAt(1);
         char colunhaAtual = posicaoAtual.getId().charAt(0);
-        Posicao posicaoTorre = Tabuleiro.getInstance().getPosicao("1" + linhaAtual);
+        Posicao posicaoTorre = partida.getTabuleiro().getPosicao("1" + linhaAtual);
         List<String> caminho = new ArrayList<>();
 
         for (int nCaminho = 1; nCaminho < 3; nCaminho++) {
@@ -203,7 +201,7 @@ public class MovimentoPeca {
         return (posicaoAtual.existePeca()
                 && !posicaoAtual.getPeca().jaMovimentou()
                 && posicaoAtual.getPeca().getNome() == NomePeca.REI)
-                && !MovimentoPeca.haPeca(caminho)
+                && !MovimentoPeca.haPeca(caminho, partida)
                 && posicaoTorre.existePeca()
                 && !posicaoTorre.getPeca().jaMovimentou();
     }
@@ -214,10 +212,10 @@ public class MovimentoPeca {
      * @param posicaoAtual A posição inicial do Rei.
      * @return {@code true} se é um roque maior ou {@code false} caso contrário.
      */
-    public static boolean isRoqueMenor(Posicao posicaoAtual) {
+    public static boolean isRoqueMenor(Posicao posicaoAtual, Partida partida) {
         char linhaAtual = posicaoAtual.getId().charAt(1);
         char colunhaAtual = posicaoAtual.getId().charAt(0);
-        Posicao posicaoTorre = Tabuleiro.getInstance().getPosicao("8" + linhaAtual);
+        Posicao posicaoTorre = partida.getTabuleiro().getPosicao("8" + linhaAtual);
         List<String> caminho = new ArrayList<>();
 
         for (int nCaminho = 1; nCaminho < 3; nCaminho++) {
@@ -227,7 +225,7 @@ public class MovimentoPeca {
         return (posicaoAtual.existePeca()
                 && !posicaoAtual.getPeca().jaMovimentou()
                 && posicaoAtual.getPeca().getNome() == NomePeca.REI)
-                && !MovimentoPeca.haPeca(caminho)
+                && !MovimentoPeca.haPeca(caminho, partida)
                 && posicaoTorre.existePeca()
                 && !posicaoTorre.getPeca().jaMovimentou();
     }
@@ -239,8 +237,8 @@ public class MovimentoPeca {
      * @return {@code true} se não houver peças em nenhuma das posições,
      * {@code false} caso contrário.
      */
-    public static boolean haPeca(List<String> caminho) {
-        Tabuleiro tab = Tabuleiro.getInstance();
+    public static boolean haPeca(List<String> caminho, Partida partida) {
+        Tabuleiro tab = partida.getTabuleiro();
 
         for (String idPosicao : caminho) {
             if (tab.getPosicao(idPosicao).existePeca() == true) {

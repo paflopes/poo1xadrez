@@ -8,6 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
 
 /**
  *
@@ -77,8 +78,8 @@ public abstract class PecaImpl implements Peca {
     }
 
     @Override
-    public boolean validarMovimentoCaptura(Posicao novaPosicao) {
-        return validarMovimento(novaPosicao);
+    public boolean validarMovimentoCaptura(Posicao novaPosicao, Partida partida) {
+        return validarMovimento(novaPosicao, partida);
     }
 
     @Override

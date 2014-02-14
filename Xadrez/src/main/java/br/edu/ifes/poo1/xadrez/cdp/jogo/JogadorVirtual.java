@@ -8,6 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp.jogo;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
@@ -31,10 +32,10 @@ public class JogadorVirtual implements Jogador {
     }
 
     @Override
-    public Jogada getJogada() {
+    public Jogada getJogada(Partida partida) {
         //Colocar aqui a "inteligencia artificial"
         Jogada jogada = new Jogada();
-        Tabuleiro tab = Tabuleiro.getInstance();
+        Tabuleiro tab = partida.getTabuleiro();
         Map<String, Posicao> posicoes = tab.getPosicoes();
         List<Peca> pecas = tab.getPecas(this.cor);
 
@@ -42,32 +43,32 @@ public class JogadorVirtual implements Jogador {
             Posicao posicao = entry.getValue();
             for (Peca peca : pecas) {
                 //Verificamos se é um movimento possível.
-                if (peca.validarMovimento(posicao) && !MovimentoPeca.isXeque(peca.getPosicao(), posicao)) {
+                if (peca.validarMovimento(posicao, partida) && !MovimentoPeca.isXeque(peca.getPosicao(), posicao, partida)) {
                     jogada.setOperacao(Operacao.MOVIMENTO);
                     jogada.setPosicaoFinal(posicao);
                     jogada.setPosicaoInicial(peca.getPosicao());
                     //Verificamos se é uma captura possível.
-                } else if ((peca.validarMovimentoCaptura(posicao) && posicao.getPeca().getNome() != NomePeca.REI)
-                        || MovimentoPeca.isEnPassant(peca.getPosicao(), posicao)) {
+                } else if ((peca.validarMovimentoCaptura(posicao, partida) && posicao.getPeca().getNome() != NomePeca.REI)
+                        || MovimentoPeca.isEnPassant(peca.getPosicao(), posicao, partida)) {
                     jogada.setOperacao(Operacao.CAPTURA);
                     jogada.setPosicaoFinal(posicao);
                     jogada.setPosicaoInicial(peca.getPosicao());
                     //Verificado se é um Roque maior.
-                } else if (MovimentoPeca.isRoqueMaior(peca.getPosicao())) {
+                } else if (MovimentoPeca.isRoqueMaior(peca.getPosicao(), partida)) {
                     jogada.setOperacao(Operacao.RMAIOR);
                     jogada.setPosicaoInicial(peca.getPosicao());
                     //Verificado se é um Roque menor.
-                } else if (MovimentoPeca.isRoqueMenor(peca.getPosicao())) {
+                } else if (MovimentoPeca.isRoqueMenor(peca.getPosicao(), partida)) {
                     jogada.setOperacao(Operacao.RMENOR);
                     jogada.setPosicaoInicial(peca.getPosicao());
                     //Verifica se é um Xeque.
-                } else if (MovimentoPeca.isXeque(peca.getPosicao(), posicao)
-                        && !MovimentoPeca.isXequeMate(peca.getPosicao(), posicao)) {
+                } else if (MovimentoPeca.isXeque(peca.getPosicao(), posicao, partida)
+                        && !MovimentoPeca.isXequeMate(peca.getPosicao(), posicao, partida)) {
                     jogada.setOperacao(Operacao.XEQUE);
                     jogada.setPosicaoInicial(peca.getPosicao());
                     jogada.setPosicaoFinal(posicao);
                     //Verifica se é um xeque mate.
-                } else if (MovimentoPeca.isXequeMate(peca.getPosicao(), posicao)) {
+                } else if (MovimentoPeca.isXequeMate(peca.getPosicao(), posicao, partida)) {
                     jogada.setOperacao(Operacao.XMATE);
                     jogada.setPosicaoInicial(peca.getPosicao());
                     jogada.setPosicaoFinal(posicao);

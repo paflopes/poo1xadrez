@@ -25,7 +25,6 @@ import java.util.Map;
 public class Tabuleiro implements Serializable{
 
     private final Map<String, Posicao> mapNomePosicao;
-    private static Tabuleiro instance = new Tabuleiro();
 
     public Tabuleiro() {
         this.mapNomePosicao = new HashMap<>();
@@ -38,13 +37,6 @@ public class Tabuleiro implements Serializable{
         criarRainhas();
     }
 
-    /**
-     *
-     * @return Uma instância de Tabuleiro.
-     */
-    public static Tabuleiro getInstance() {
-        return Tabuleiro.instance;
-    }
 
     /**
      * Pega uma posição do Tabuleiro
@@ -110,9 +102,6 @@ public class Tabuleiro implements Serializable{
     /**
      * Restaura o Tabuleiro para seu estado inicial.
      */
-    public void restaurarTabuleiro() {
-        Tabuleiro.instance = new Tabuleiro();
-    }
 
 //    @Override
 //    protected Object clone() throws CloneNotSupportedException {

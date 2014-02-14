@@ -24,7 +24,8 @@ public class Partida implements Serializable {
     private Date inicio;
     private Date fim;
     private String vencedor;
-
+    private String turno;
+    
     public String getVencedor() {
         return vencedor;
     }
@@ -73,7 +74,7 @@ public class Partida implements Serializable {
         this.jogadorPreto = jogadorPreto;
     }
 
-    public Tabuleiro getTabuleiro() {
+    public  Tabuleiro getTabuleiro() {
         return tabuleiro;
     }
 
@@ -93,6 +94,12 @@ public class Partida implements Serializable {
             }
         }
         return numeroPartidas;
+    }
+    
+    public void iniciaPartida(){
+        this.turno = "jogadorBranco";
+        this.inicio = new Date();
+        this.tabuleiro = new Tabuleiro();
     }
     
     public void recomeçarPartida(){

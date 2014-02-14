@@ -7,6 +7,7 @@
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 
 /**
@@ -21,7 +22,7 @@ public class JogadorImpl implements Jogador  {
     }
 
     @Override
-    public Jogada getJogada() {
+    public Jogada getJogada(Partida partida) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

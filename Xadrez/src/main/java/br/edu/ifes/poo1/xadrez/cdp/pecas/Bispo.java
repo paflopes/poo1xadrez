@@ -9,6 +9,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import java.util.List;
 
 /**
@@ -23,19 +24,19 @@ public class Bispo extends PecaImpl {
     }
 
     @Override
-    public boolean validarMovimento(Posicao novaPosicao) {
+    public boolean validarMovimento(Posicao novaPosicao, Partida partida) {
         List<String> caminho = MovimentoPeca.caminhoDiagonal(this.getPosicao(), novaPosicao);
 
         //O movimento só é válido quando for diagonal, não houver peças em seu caminho e não existir nenhuma peça na nova posição.
-        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho) && !novaPosicao.existePeca();
+        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho, partida) && !novaPosicao.existePeca();
     }
 
     @Override
-    public boolean validarMovimentoCaptura(Posicao novaPosicao) {
+    public boolean validarMovimentoCaptura(Posicao novaPosicao, Partida partida) {
         List<String> caminho = MovimentoPeca.caminhoDiagonal(this.getPosicao(), novaPosicao);
 
         //O movimento só é válido quando for diagonal, não houver peças em seu caminho,
-        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho)
+        return MovimentoPeca.isDiagonal(this.getPosicao(), novaPosicao) && !MovimentoPeca.haPeca(caminho, partida)
                 //existir uma peça na nova posição e esta peça for de outra cor.
                 && novaPosicao.existePeca() && novaPosicao.getPeca().getCor() != this.getCor();
     }

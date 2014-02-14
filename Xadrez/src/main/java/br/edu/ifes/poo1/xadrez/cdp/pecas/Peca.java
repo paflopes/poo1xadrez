@@ -8,12 +8,14 @@ package br.edu.ifes.poo1.xadrez.cdp.pecas;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
+import br.edu.ifes.poo1.xadrez.cdp.Partida;
+import java.io.Serializable;
 
 /**
  *
  * @author leds
  */
-public interface Peca extends Cloneable {
+public interface Peca extends Serializable {
 
     public Posicao getPosicao();
 
@@ -45,14 +47,15 @@ public interface Peca extends Cloneable {
      * @param novaPosicao A posição que se deseja que a peça vá.
      * @return
      */
-    public boolean validarMovimento(Posicao novaPosicao);
+    public boolean validarMovimento(Posicao novaPosicao , Partida partida);
 
     /**
      * Verifica se a peça pode realizar a captura.
      * @param novaPosicao Posição onde está a peça a ser capturada.
+     * @param partida
      * @return {@code true} se o movimento for válido ou {@code false} caso contrário.
      */
-    public boolean validarMovimentoCaptura(Posicao novaPosicao);
+    public boolean validarMovimentoCaptura(Posicao novaPosicao, Partida partida);
     
     /**
      * @return the desenho

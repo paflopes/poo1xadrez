@@ -6,12 +6,13 @@
 package br.edu.ifes.poo1.xadrez.cdp;
 
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import java.io.Serializable;
 
 /**
  *
  * @author phillipe
  */
-public class PosicaoImpl implements Posicao {
+public class PosicaoImpl implements Posicao, Serializable {
 
     private final String id;
     private Peca peca;

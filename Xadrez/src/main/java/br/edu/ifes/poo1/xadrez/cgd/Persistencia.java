@@ -20,7 +20,7 @@ import java.io.Serializable;
  */
 public class Persistencia<T extends Serializable> {
     
-    public void savePartidas(T objeto) {
+    public void save(T objeto) {
 
         try {
             /*Tenta salvar os dados do usuario*/
@@ -33,7 +33,7 @@ public class Persistencia<T extends Serializable> {
         }
     }
 
-    public T loadPartidas() throws ClassNotFoundException {
+    public T load() throws ClassNotFoundException {
 
         try {
             File testeArquivo = new File("partidas.dat");
