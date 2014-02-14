@@ -101,4 +101,12 @@ public class Partida implements Serializable {
             this.jogadorPreto.setSave(false);
         }
     }
+    
+    public void encerrarPartida(String nome){
+    
+        this.fim = new Date();
+        this.vencedor = nome;
+        this.finalizada = true;
+    
+    }
 }

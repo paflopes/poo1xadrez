@@ -12,6 +12,7 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Rainha;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Rei;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.Map;
  *
  * @author phillipe
  */
-public class Tabuleiro {
+public class Tabuleiro implements Serializable{
 
     private final Map<String, Posicao> mapNomePosicao;
     private static Tabuleiro instance = new Tabuleiro();

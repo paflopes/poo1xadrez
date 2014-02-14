@@ -180,8 +180,7 @@ public class ControleGeral {
                     }
                     DadoJogo.setListaDados(jogadorAtual, apl.getDados());
                     DadoJogo.setListaDados(jogadorProx, apl.getDados());
-                    partida.setFinalizada(true);
-                    partida.setVencedor(jogadorProx.getNome());
+                    partida.encerrarPartida(jogadorProx.getNome());
                     this.persintencia.savePartidas(this.listPartidas);
                     impressora.imprimirJogoSalvo();
                     impressora.imprimiFimJogo();
@@ -195,8 +194,7 @@ public class ControleGeral {
                         switch (escolha) {
                             case ("S"):
                                 impressora.imprimiEmpate();
-                                partida.setFinalizada(true);
-                                partida.setVencedor("Empate");
+                                partida.encerrarPartida("Empate");
                                 this.persintencia.savePartidas(this.listPartidas);
                                 impressora.imprimirJogoSalvo();
                                 impressora.imprimiFimJogo();
@@ -238,8 +236,7 @@ public class ControleGeral {
         if (jogadorAtual.isVitoria()) {
             DadoJogo.setListaDados(jogadorAtual, apl.getDados());
             DadoJogo.setListaDados(jogadorProx, apl.getDados());
-            partida.setFinalizada(true);
-            partida.setVencedor(jogadorAtual.getNome());
+            partida.encerrarPartida(jogadorAtual.getNome());
             this.persintencia.savePartidas(this.listPartidas);
             impressora.imprimirJogoSalvo();
             impressora.imprimiFimJogo();
