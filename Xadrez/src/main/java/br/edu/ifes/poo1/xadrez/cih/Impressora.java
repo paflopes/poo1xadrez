@@ -151,6 +151,7 @@ public class Impressora {
             if(listPartidas.get(contador).isFinalizada() == false){
                 imprimir("Partida "+contadorAux);
                 imprimir("Jogador branco: "+listPartidas.get(contador).getJogadorBranco().getNome()+" Jogador preto: "+listPartidas.get(contador).getJogadorPreto().getNome());
+                contadorAux++;
             }
             contador++;        
         }

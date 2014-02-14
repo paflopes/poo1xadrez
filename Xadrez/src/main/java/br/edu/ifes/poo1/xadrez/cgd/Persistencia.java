@@ -17,6 +17,7 @@ import java.io.Serializable;
 /**
  *
  * @author Lincoln
+ * @param <T>
  */
 public class Persistencia<T extends Serializable> {
     
@@ -29,16 +30,18 @@ public class Persistencia<T extends Serializable> {
             out.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     public T load() throws ClassNotFoundException {
 
         try {
+            
             File testeArquivo = new File("partidas.dat");
+            System.out.println("1");
             if (testeArquivo.exists()) {
                 /*Se o arquivo existir ele faz o load*/
+                System.out.println("0");
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream("partidas.dat"));
                 T partidasReturn = (T) in.readObject();
                 in.close();
@@ -46,7 +49,6 @@ public class Persistencia<T extends Serializable> {
             } 
             
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }

@@ -26,6 +26,14 @@ public class Partida implements Serializable {
     private String vencedor;
     private String turno;
     
+     public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+    
     public String getVencedor() {
         return vencedor;
     }
