@@ -38,13 +38,13 @@ public class Persistencia<T extends Serializable> {
         try {
             
             File testeArquivo = new File("partidas.dat");
-            System.out.println("1");
+            System.out.println("Tentando load");
             if (testeArquivo.exists()) {
                 /*Se o arquivo existir ele faz o load*/
-                System.out.println("0");
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream("partidas.dat"));
                 T partidasReturn = (T) in.readObject();
                 in.close();
+                System.out.println("Fez load");
                 return (T) partidasReturn;
             } 
             

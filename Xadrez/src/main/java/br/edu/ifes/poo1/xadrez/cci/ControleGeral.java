@@ -31,28 +31,29 @@ public class ControleGeral {
     private final JogoApl apl;
     private static Partida partida;
     private Persistencia<Jogos> persintencia = new Persistencia<Jogos>();
-    private Jogos jogos;
+    private Jogos jogos = null;
     
     
     public ControleGeral() throws ClassNotFoundException {
         this.impressora = new Impressora();
         this.apl = new JogoApl();
-        this.jogos = persintencia.load();
+        
     }
 
     public void iniciarPrograma() throws ClassNotFoundException, PartidaEncerradaException {
         this.impressora.imprimirMenu();
         String escolha = this.impressora.getString();
-        
+        this.jogos = persintencia.load();
         
         //Verifica se a escolha é válida.
-        if (escolha.matches("[1-3]")) {
-            while (!escolha.equals("3")) {
+        if (escolha.matches("[1-4]")) {
+            while (!escolha.equals("4")) {
                 switch (escolha) {
                     case "1":
                         try {
                             
                             if(jogos == null){
+                                System.out.println("1");
                                 jogos = new Jogos();
                             }
                             partida = new Partida();
@@ -63,7 +64,7 @@ public class ControleGeral {
                         break;
                     
                     case "2":
-                        
+                        this.jogos = persintencia.load();
                         int numeroPartidas = partida.getPartidasNaoFinalizadas(jogos.getListPartidas()); //numero de partidas nao finalizadas
                         if(numeroPartidas>0){ //se existir partida para jogar                    
                             impressora.imprimirPartidas(jogos.getListPartidas());
