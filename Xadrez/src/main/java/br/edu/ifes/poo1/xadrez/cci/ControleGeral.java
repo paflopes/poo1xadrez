@@ -13,7 +13,7 @@ import br.edu.ifes.poo1.xadrez.cdp.pecas.Bispo;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Cavalo;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Rainha;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Torre;
-import br.edu.ifes.poo1.xadrez.cgd.Jogos;
+import br.edu.ifes.poo1.xadrez.cdp.Jogos;
 import br.edu.ifes.poo1.xadrez.cgd.Persistencia;
 import br.edu.ifes.poo1.xadrez.cgt.JogoApl;
 import br.edu.ifes.poo1.xadrez.cih.Impressora;
@@ -30,7 +30,7 @@ public class ControleGeral {
     private final Impressora impressora;
     private final JogoApl apl;
     private static Partida partida;
-    private Persistencia<Jogos> persintencia = new Persistencia<Jogos>();
+    private final Persistencia<Jogos> persintencia = new Persistencia<>();
     private Jogos jogos = null;
     
     
@@ -43,7 +43,7 @@ public class ControleGeral {
     public void iniciarPrograma() throws ClassNotFoundException, PartidaEncerradaException {
         this.impressora.imprimirMenu();
         String escolha = this.impressora.getString();
-        this.jogos = persintencia.load();
+        
         
         //Verifica se a escolha é válida.
         if (escolha.matches("[1-4]")) {
@@ -52,8 +52,8 @@ public class ControleGeral {
                     case "1":
                         try {
                             
+                            this.jogos = persintencia.load();
                             if(jogos == null){
-                                System.out.println("1");
                                 jogos = new Jogos();
                             }
                             partida = new Partida();
@@ -64,32 +64,43 @@ public class ControleGeral {
                         break;
                     
                     case "2":
-                        this.jogos = persintencia.load();
-                        int numeroPartidas = partida.getPartidasNaoFinalizadas(jogos.getListPartidas()); //numero de partidas nao finalizadas
-                        if(numeroPartidas>0){ //se existir partida para jogar                    
-                            impressora.imprimirPartidas(jogos.getListPartidas());
-                            escolha = impressora.getString(); //escolhe a partida
-                            if(escolha.matches("[0 -"+(numeroPartidas-1)+"]")){ //verifica se a escolha é verdadeira
-                                partida = jogos.getListPartidas().get(Integer.parseInt(escolha.trim())); //pega a partida escolhida
-                                jogos.getListPartidas().remove(Integer.parseInt(escolha.trim()));
-                                partida.recomeçarPartida(); //coloca false na variavel que indica se o usuario ja salvou, para poder sair
-                                this.jogadas(partida);
-                            }else{ // se a escolha nao for verdadeira
-                                impressora.imprimirArgumentoInvalido();
+                        this.jogos = (Jogos) persintencia.load();
+                        if(jogos != null){
+                            int numeroPartidas = jogos.getListPartidasNaoFinalizadas().size(); //numero de partidas nao finalizadas
+                            if(numeroPartidas>0){                     
+                                impressora.imprimirPartidas(jogos.getListPartidasNaoFinalizadas());
+                                String opcao = impressora.getString(); //escolhe a partida
+                                if(opcao.matches("[0 -"+(numeroPartidas-1)+"]")){ //verifica se a escolha é verdadeira
+                                    partida = jogos.getListPartidasNaoFinalizadas().get(Integer.parseInt(opcao.trim())); //pega a partida escolhida
+                                    jogos.getListPartidasNaoFinalizadas().remove(Integer.parseInt(opcao.trim()));
+                                    partida.recomeçarPartida(); //coloca false na variavel que indica se o usuario ja salvou, para poder sair
+                                    this.jogadas(partida);
+                                }else{ // se a escolha nao for verdadeira
+                                    impressora.imprimirArgumentoInvalido();
+                                    this.iniciarPrograma();
+                                    return;
+                                }                            
+                            }else{
+                                impressora.imprimirSemPartidas();
                                 this.iniciarPrograma();
+                                return;
                             }
                         }else{ // se nao existir partidas
                             impressora.imprimirSemPartidas();
                             this.iniciarPrograma();
+                            return;
                         }
                         break;
                     
                     case "3":
-                        impressora.imprimirDados(apl.getDados());
+                        jogos = persintencia.load(); 
+                        if(jogos != null){
+                            impressora.imprimirDados(jogos);                            
+                        }else{
+                            impressora.imprimirSemDados();
+                        } 
                         break;
-                        
-                    case "4":
-                        throw new PartidaEncerradaException("Partida encerrada!");    
+                         
                 }
                 impressora.imprimirMenu();
                 escolha = impressora.getString();
@@ -106,6 +117,13 @@ public class ControleGeral {
      *
      * @param partida
      * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException
+     */
+
+    /**
+     * Inicia uma partida.
+     * @param partida
+     * @throws br.edu.ifes.poo1.xadrez.cci.PartidaEncerradaException
+     * @throws java.lang.ClassNotFoundException
      */
     public void iniciarPartida(Partida partida) throws PartidaEncerradaException, ClassNotFoundException {
         //Cadastra os jogadores e verifica se é um jogo a dois ou contra a máquina.
@@ -167,14 +185,14 @@ public class ControleGeral {
                     if (!jogadorProx.getNome().equals("ZEUS")) {
                         jogadorProx.setVitoria(true);
                     }
-                    DadoJogo.setListaDados(jogadorAtual, apl.getDados());
-                    DadoJogo.setListaDados(jogadorProx, apl.getDados());
+                    jogos.setListDadosJogos(jogadorAtual, jogos.getListDadoJogo());
+                    jogos.setListDadosJogos(jogadorProx, jogos.getListDadoJogo());
                     partida.encerrarPartida(jogadorProx.getNome());
-                    this.jogos.getListPartidas().add(partida);
+                    this.jogos.getListPartidasFinalizadas().add(partida);
                     this.persintencia.save(this.jogos);
                     impressora.imprimirJogoSalvo();
                     impressora.imprimiFimJogo();
-                    throw new PartidaEncerradaException("Partida encerrada!");
+                    this.iniciarPrograma();
                 case "empate":
                     String escolha = "";
                     while (!escolha.equals("S") && !escolha.equals("N")) {
@@ -185,11 +203,11 @@ public class ControleGeral {
                             case ("S"):
                                 impressora.imprimiEmpate();
                                 partida.encerrarPartida("Empate");
-                                this.jogos.getListPartidas().add(partida);
+                                this.jogos.getListPartidasFinalizadas().add(partida);
                                 this.persintencia.save(this.jogos);
                                 impressora.imprimirJogoSalvo();
                                 impressora.imprimiFimJogo();
-                                throw new PartidaEncerradaException("Partida encerrada!");
+                                this.iniciarPrograma();
                             case ("N"):
                                 iniciarJogada(jogadorAtual, jogadorProx);
                                 return;
@@ -203,7 +221,7 @@ public class ControleGeral {
                    
                 case "salvar":                    
                     jogadorAtual.setSave(true);  
-                    this.jogos.getListPartidas().add(partida);
+                    this.jogos.getListPartidasNaoFinalizadas().add(partida);
                     this.persintencia.save(this.jogos);
                     impressora.imprimirJogoSalvo();
                     iniciarJogada(jogadorAtual, jogadorProx);
@@ -227,14 +245,14 @@ public class ControleGeral {
         this.apl.fazerJogada(jogadorAtual, partida);
 
         if (jogadorAtual.isVitoria()) {
-            DadoJogo.setListaDados(jogadorAtual, apl.getDados());
-            DadoJogo.setListaDados(jogadorProx, apl.getDados());
+            jogos.setListDadosJogos(jogadorAtual, jogos.getListDadoJogo());
+            jogos.setListDadosJogos(jogadorProx, jogos.getListDadoJogo());
             partida.encerrarPartida(jogadorAtual.getNome());
-            this.jogos.getListPartidas().add(partida);
+            this.jogos.getListPartidasFinalizadas().add(partida);
             this.persintencia.save(this.jogos);
             impressora.imprimirJogoSalvo();
             impressora.imprimiFimJogo();
-            throw new PartidaEncerradaException("Partida encerrada!");
+            this.iniciarPrograma();
         }
     }
 
@@ -344,17 +362,29 @@ public class ControleGeral {
     
     public void jogarJogador(Partida partida) throws PartidaEncerradaException, ClassNotFoundException{
         
-        impressora.imprimirTabuleiro(this.partida.getTabuleiro());
+        impressora.imprimirTabuleiro(partida.getTabuleiro());
         if(partida.getTurno().equals(partida.getJogadorBranco().getNome())){
-            while (true) {
-                 try {
-                    this.iniciarJogada((JogadorHumano) partida.getJogadorBranco(), (JogadorHumano) partida.getJogadorPreto());
-                    partida.setTurno(partida.getJogadorPreto().getNome());
-                    break;
-                    } catch (JogadaInvalidaException ex) {
-                        impressora.imprimirJogadaInvalida();
-                    }
-            }
+            if(partida.getJogadorPreto().getNome().equals("ZEUS")){
+                while (true) {
+                     try {
+                        this.iniciarJogada((JogadorHumano) partida.getJogadorBranco(), (JogadorVirtual) partida.getJogadorPreto());
+                        partida.setTurno(partida.getJogadorPreto().getNome());
+                        break;
+                        } catch (JogadaInvalidaException ex) {
+                            impressora.imprimirJogadaInvalida();
+                        }
+                }
+            }else{
+                while (true) {
+                     try {
+                        this.iniciarJogada((JogadorHumano) partida.getJogadorBranco(), (JogadorHumano) partida.getJogadorPreto());
+                        partida.setTurno(partida.getJogadorPreto().getNome());
+                        break;
+                        } catch (JogadaInvalidaException ex) {
+                            impressora.imprimirJogadaInvalida();
+                        }
+                }
+            }                           
         }else if(partida.getTurno().equals("ZEUS")){
             try {
                 this.apl.fazerJogada(partida.getJogadorPreto(), partida);

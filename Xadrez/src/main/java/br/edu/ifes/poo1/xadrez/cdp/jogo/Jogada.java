@@ -8,12 +8,13 @@ package br.edu.ifes.poo1.xadrez.cdp.jogo;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import java.io.Serializable;
 
 /**
  *
  * @author leds
  */
-public class Jogada {
+public class Jogada implements Serializable {
 
     Posicao posicaoInicial;
     Posicao posicaoFinal;

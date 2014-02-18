@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 
-package br.edu.ifes.poo1.xadrez.cgt;
+package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
-import br.edu.ifes.poo1.xadrez.cdp.Partida;
-import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Lincoln
  */
-public class JogoAplTest {
+public class OperacaoTest {
     
-    public JogoAplTest() {
+    public OperacaoTest() {
     }
     
     @BeforeClass
@@ -42,30 +39,27 @@ public class JogoAplTest {
     }
 
     /**
-     * Test of fazerJogada method, of class JogoApl.
+     * Test of values method, of class Operacao.
      */
     @Test
-    public void testFazerJogada() throws Exception {
-        System.out.println("fazerJogada");
-        Jogador jogador = null;
-        Partida partida = null;
-        JogoApl instance = new JogoApl();
-        instance.fazerJogada(jogador, partida);
+    public void testValues() {
+        System.out.println("values");
+        Operacao[] expResult = null;
+        Operacao[] result = Operacao.values();
+        assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getPosicao method, of class JogoApl.
+     * Test of valueOf method, of class Operacao.
      */
     @Test
-    public void testGetPosicao() {
-        System.out.println("getPosicao");
-        String idPosicao = "";
-        Partida partida = null;
-        JogoApl instance = new JogoApl();
-        Posicao expResult = null;
-        Posicao result = instance.getPosicao(idPosicao, partida);
+    public void testValueOf() {
+        System.out.println("valueOf");
+        String name = "";
+        Operacao expResult = null;
+        Operacao result = Operacao.valueOf(name);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

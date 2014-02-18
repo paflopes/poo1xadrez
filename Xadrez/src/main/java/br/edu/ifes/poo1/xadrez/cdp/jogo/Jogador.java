@@ -8,6 +8,7 @@ package br.edu.ifes.poo1.xadrez.cdp.jogo;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.io.Serializable;
 
 /**
@@ -29,4 +30,10 @@ public interface Jogador extends Serializable{
     public void atualizaPontosJogador(Posicao novaPosicao);
     
     public void setSave(boolean save);
+    
+    public void setPecasCapturadas(Peca peca);
+    
+    public String getPecasCapturadas();
+    
+    
 }

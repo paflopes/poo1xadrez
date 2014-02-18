@@ -7,11 +7,10 @@ package br.edu.ifes.poo1.xadrez.cih;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
-import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
+import br.edu.ifes.poo1.xadrez.cdp.Jogos;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -100,6 +99,7 @@ public class Impressora {
     public void imprimirPontos(JogadorHumano jogador) {
         clearConsole();
         imprimir("Pontos do jogador " + jogador.getNome() + ": " + jogador.getPontos());
+        imprimir("Pecas capturadas: "+jogador.getPecasCapturadas());
     }
 
     /**
@@ -133,14 +133,30 @@ public class Impressora {
         imprimir("Deseja aceitar o empate? S/N");
     }
     
-    public void imprimirDados(List<DadoJogo> listaDadoJogo){
-        imprimir("Nomes:                        Pontos:");
-        for(int contador = 0;contador < listaDadoJogo.size(); contador++){
-            System.out.print(listaDadoJogo.get(contador).getNome());
-            for(int espaco = 30 - listaDadoJogo.get(contador).getNome().length(); espaco>0; espaco--){
+    public void imprimirDados( Jogos jogos){
+        
+        imprimir("Partidas: \n");
+        for(int contador = 0; contador<jogos.getListPartidasFinalizadas().size();contador++){
+            imprimir("Partida "+contador +": Inicio:" +jogos.getListPartidasFinalizadas().get(contador).getInicio() +" Fim: "+jogos.getListPartidasFinalizadas().get(contador).getFim());
+            imprimir("Jogador branco: "+jogos.getListPartidasFinalizadas().get(contador).getJogadorBranco().getNome() +" Jogador preto: " +jogos.getListPartidasFinalizadas().get(contador).getJogadorPreto().getNome());
+            imprimir("Vencedor: " +jogos.getListPartidasFinalizadas().get(contador).getVencedor()+"\n");
+        }
+          
+        
+        for(int contadorAux = 0; contadorAux<jogos.getListPartidasNaoFinalizadas().size() ;contadorAux++){
+            imprimir("Partida "+(contadorAux + jogos.getListPartidasFinalizadas().size()) +": Inicio:" +jogos.getListPartidasNaoFinalizadas().get(contadorAux).getInicio() +" Fim: "+jogos.getListPartidasNaoFinalizadas().get(contadorAux).getFim());
+            imprimir("Jogador branco: "+jogos.getListPartidasNaoFinalizadas().get(contadorAux).getJogadorBranco().getNome() +" Jogador preto: " +jogos.getListPartidasNaoFinalizadas().get(contadorAux).getJogadorPreto().getNome());
+            imprimir("Vencedor: " +jogos.getListPartidasNaoFinalizadas().get(contadorAux).getVencedor()+"\n");
+        }
+        
+        
+        imprimir("\nNomes:                        Pontos:");      
+        for(int contador = 0;contador < jogos.getListDadoJogo().size(); contador++){
+            System.out.print(jogos.getListDadoJogo().get(contador).getNome());
+            for(int espaco = 30 - jogos.getListDadoJogo().get(contador).getNome().length(); espaco>0; espaco--){
                 System.out.print(" ");
             }        
-            imprimir(listaDadoJogo.get(contador).getPontos());
+            imprimir(jogos.getListDadoJogo().get(contador).getPontos());
         }
     }
     
@@ -168,6 +184,10 @@ public class Impressora {
     
     public void imprimirSemPartidas(){
         imprimir("Não existe nenhuma partida para ser retomada.");
+    }
+    
+    public void imprimirSemDados(){
+        imprimir("Não há dados sobre nenhuma partida ou jogador ainda.");
     }
 }
 

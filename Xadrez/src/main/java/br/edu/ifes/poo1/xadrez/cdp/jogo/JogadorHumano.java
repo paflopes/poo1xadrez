@@ -8,6 +8,8 @@ package br.edu.ifes.poo1.xadrez.cdp.jogo;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
+import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +24,8 @@ public class JogadorHumano implements Jogador {
     private boolean vitoria;
     private final Cor cor;
     private boolean save = false;
+    private ArrayList<Peca> pecasCapturadas = new ArrayList<Peca>();
+    
     
     /**
      *
@@ -50,6 +54,7 @@ public class JogadorHumano implements Jogador {
 
     /**
      *
+     * @param partida
      * @return A última jogada feita.
      */
     @Override
@@ -134,5 +139,33 @@ public class JogadorHumano implements Jogador {
     public boolean getSave(){
         return save;
     }
+
+    @Override
+    public void setPecasCapturadas(Peca peca) {
+        this.pecasCapturadas.add(peca);
+    }
+
+    @Override
+    public String getPecasCapturadas() {
+
+        String retornoPecas = "";
+        for(int contador = 0; contador < this.pecasCapturadas.size(); contador++){
+            for(int contadorAux = 0; contador < this.pecasCapturadas.size(); contadorAux++){
+                if(this.pecasCapturadas.get(contadorAux).getValor() > this.pecasCapturadas.get(contador).getValor()){
+                    Peca pecaAux = this.pecasCapturadas.get(contadorAux);
+                    this.pecasCapturadas.add(contadorAux, this.pecasCapturadas.get(contador));
+                    this.pecasCapturadas.add(contador, pecaAux);
+                }
+            }
+        }
+        for(int contador = 0; contador < this.pecasCapturadas.size(); contador++){
+            retornoPecas = retornoPecas + "" +pecasCapturadas.get(contador).getDesenho();
+        }
+
+        return retornoPecas;
+    }
+
+
+    
 
 }

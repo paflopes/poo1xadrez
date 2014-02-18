@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 
-package br.edu.ifes.poo1.xadrez.cgt;
+package br.edu.ifes.poo1.xadrez.cdp.pecas;
 
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,9 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author Lincoln
  */
-public class JogoAplTest {
+public class RainhaTest {
     
-    public JogoAplTest() {
+    public RainhaTest() {
     }
     
     @BeforeClass
@@ -42,30 +41,32 @@ public class JogoAplTest {
     }
 
     /**
-     * Test of fazerJogada method, of class JogoApl.
+     * Test of validarMovimento method, of class Rainha.
      */
     @Test
-    public void testFazerJogada() throws Exception {
-        System.out.println("fazerJogada");
-        Jogador jogador = null;
+    public void testValidarMovimento() {
+        System.out.println("validarMovimento");
+        Posicao novaPosicao = null;
         Partida partida = null;
-        JogoApl instance = new JogoApl();
-        instance.fazerJogada(jogador, partida);
+        Rainha instance = null;
+        boolean expResult = false;
+        boolean result = instance.validarMovimento(novaPosicao, partida);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getPosicao method, of class JogoApl.
+     * Test of validarMovimentoCaptura method, of class Rainha.
      */
     @Test
-    public void testGetPosicao() {
-        System.out.println("getPosicao");
-        String idPosicao = "";
+    public void testValidarMovimentoCaptura() {
+        System.out.println("validarMovimentoCaptura");
+        Posicao novaPosicao = null;
         Partida partida = null;
-        JogoApl instance = new JogoApl();
-        Posicao expResult = null;
-        Posicao result = instance.getPosicao(idPosicao, partida);
+        Rainha instance = null;
+        boolean expResult = false;
+        boolean result = instance.validarMovimentoCaptura(novaPosicao, partida);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -8,7 +8,6 @@ package br.edu.ifes.poo1.xadrez.cdp;
 
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Date;
  */
 public class Partida implements Serializable {
   
-    private boolean finalizada = false;
+    private boolean finalizada;
     private Jogador jogadorBranco;
     private Jogador jogadorPreto;
     private Tabuleiro tabuleiro;
@@ -90,24 +89,14 @@ public class Partida implements Serializable {
         this.tabuleiro = tabuleiro;
     }
     
-    public int getPartidasNaoFinalizadas(ArrayList<Partida> listPartidas){
-        
-        int numeroPartidas = 0;
-        for(int contador = 0; contador<listPartidas.size(); contador++){
-            if(listPartidas.get(contador).isFinalizada()){
-                listPartidas.add(listPartidas.get(contador));
-                listPartidas.remove(contador);
-            }else{
-                numeroPartidas++;
-            }
-        }
-        return numeroPartidas;
-    }
+
     
     public void iniciaPartida(){
         this.turno = "jogadorBranco";
         this.inicio = new Date();
         this.tabuleiro = new Tabuleiro();
+        this.vencedor = "Em andamento";
+        this.finalizada = false;
     }
     
     public void recomeçarPartida(){

@@ -26,12 +26,7 @@ import java.util.List;
  */
 public class JogoApl {
 
-    private final List<DadoJogo> dadosJogo;
-
-    public JogoApl() {
-        this.dadosJogo = new ArrayList<>();
-    }
-
+    
     public void fazerJogada(Jogador jogador, Partida partida) throws JogadaInvalidaException {
         Jogada jogada = jogador.getJogada(partida);
         Posicao posicaoAtual = jogada.getPosicaoInicial();
@@ -144,10 +139,6 @@ public class JogoApl {
             throw new JogadaInvalidaException("Jogada inválida!");
         }
 
-    }
-
-    public List<DadoJogo> getDados() {
-        return this.dadosJogo;
     }
 
     public Posicao getPosicao(String idPosicao, Partida partida) {

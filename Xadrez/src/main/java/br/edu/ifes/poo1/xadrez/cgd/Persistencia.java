@@ -25,11 +25,12 @@ public class Persistencia<T extends Serializable> {
 
         try {
             /*Tenta salvar os dados do usuario*/
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("partidas.dat"));           
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("jogos.dat"));                       
             out.writeObject(objeto);
             out.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -37,18 +38,17 @@ public class Persistencia<T extends Serializable> {
 
         try {
             
-            File testeArquivo = new File("partidas.dat");
-            System.out.println("Tentando load");
+            File testeArquivo = new File("jogos.dat");
             if (testeArquivo.exists()) {
                 /*Se o arquivo existir ele faz o load*/
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream("partidas.dat"));
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream("jogos.dat"));
                 T partidasReturn = (T) in.readObject();
                 in.close();
-                System.out.println("Fez load");
                 return (T) partidasReturn;
             } 
             
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }

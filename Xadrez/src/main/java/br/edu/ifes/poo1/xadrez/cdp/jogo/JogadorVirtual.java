@@ -25,6 +25,7 @@ public class JogadorVirtual implements Jogador {
     private final String nome;
     private int pontos;
     private boolean vitoria;
+    
 
     public JogadorVirtual() {
         this.cor = Cor.PRETO;
@@ -105,6 +106,20 @@ public class JogadorVirtual implements Jogador {
 
     @Override
     public void setSave(boolean save) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPecasCapturadas(Peca peca) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String getPecasCapturadas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
