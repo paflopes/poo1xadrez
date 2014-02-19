@@ -1,15 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifes.poo1.xadrez.cdp.jogo;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Lincoln
+ * @author 20121bsi0414
  */
 public class JogadorVirtualTest {
     
@@ -144,9 +141,9 @@ public class JogadorVirtualTest {
     @Test
     public void testSetPecasCapturadas() {
         System.out.println("setPecasCapturadas");
-        Peca peca = null;
+        String desenho = "";
         JogadorVirtual instance = new JogadorVirtual();
-        instance.setPecasCapturadas(peca);
+        instance.setPecasCapturadas(desenho);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -164,5 +161,4 @@ public class JogadorVirtualTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
 }

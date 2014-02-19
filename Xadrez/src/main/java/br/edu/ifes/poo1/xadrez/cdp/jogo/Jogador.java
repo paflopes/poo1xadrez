@@ -31,7 +31,7 @@ public interface Jogador extends Serializable{
     
     public void setSave(boolean save);
     
-    public void setPecasCapturadas(Peca peca);
+    public void setPecasCapturadas(String desenho);
     
     public String getPecasCapturadas();
     

@@ -24,7 +24,7 @@ public class JogadorHumano implements Jogador {
     private boolean vitoria;
     private final Cor cor;
     private boolean save = false;
-    private ArrayList<Peca> pecasCapturadas = new ArrayList<Peca>();
+    private ArrayList<String> pecasCapturadas = new ArrayList<>();
     
     
     /**
@@ -141,27 +141,19 @@ public class JogadorHumano implements Jogador {
     }
 
     @Override
-    public void setPecasCapturadas(Peca peca) {
-        this.pecasCapturadas.add(peca);
+    public void setPecasCapturadas(String desenho) {
+        this.pecasCapturadas.add(desenho);
     }
 
     @Override
     public String getPecasCapturadas() {
 
-        String retornoPecas = "";
+        String retornoPecas= "";                
+        
         for(int contador = 0; contador < this.pecasCapturadas.size(); contador++){
-            for(int contadorAux = 0; contador < this.pecasCapturadas.size(); contadorAux++){
-                if(this.pecasCapturadas.get(contadorAux).getValor() > this.pecasCapturadas.get(contador).getValor()){
-                    Peca pecaAux = this.pecasCapturadas.get(contadorAux);
-                    this.pecasCapturadas.add(contadorAux, this.pecasCapturadas.get(contador));
-                    this.pecasCapturadas.add(contador, pecaAux);
-                }
-            }
+            retornoPecas = retornoPecas + " " +pecasCapturadas.get(contador);
+            
         }
-        for(int contador = 0; contador < this.pecasCapturadas.size(); contador++){
-            retornoPecas = retornoPecas + "" +pecasCapturadas.get(contador).getDesenho();
-        }
-
         return retornoPecas;
     }
 

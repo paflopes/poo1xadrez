@@ -110,7 +110,7 @@ public class JogadorVirtual implements Jogador {
     }
 
     @Override
-    public void setPecasCapturadas(Peca peca) {
+    public void setPecasCapturadas(String desenho) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

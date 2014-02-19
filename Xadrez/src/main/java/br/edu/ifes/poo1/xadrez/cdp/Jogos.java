@@ -6,7 +6,6 @@
 
 package br.edu.ifes.poo1.xadrez.cdp;
 
-import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import java.io.Serializable;
@@ -19,9 +18,9 @@ import java.util.List;
  */
 public class Jogos implements Serializable {
     
-    private  ArrayList<Partida> listPartidasFinalizadas = new ArrayList<Partida>();
-    private  ArrayList<Partida> listPartidasNaoFinalizadas = new ArrayList<Partida>();
-    private  ArrayList<DadoJogo> listDadosJogos = new ArrayList<DadoJogo>();
+    private  ArrayList<Partida> listPartidasFinalizadas = new ArrayList<>();
+    private  ArrayList<Partida> listPartidasNaoFinalizadas = new ArrayList<>();
+    private  ArrayList<DadoJogo> listDadosJogos = new ArrayList<>();
 
    
     

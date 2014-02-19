@@ -11,14 +11,11 @@ import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
-import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -60,6 +57,7 @@ public class JogoApl {
 
                         //Atualiza os pontos pela captura
                         jogador.atualizaPontosJogador(posicaoFinal);
+                        jogador.setPecasCapturadas(posicaoFinal.getPeca().getDesenho());
                         posicaoFinal.setPeca(peca);
 
                         //Caso a captura seja um enPassant.
@@ -77,6 +75,7 @@ public class JogoApl {
                         posicaoFinal.setPeca(peca);
                         posicaoFinal = partida.getTabuleiro().getPosicao("" + colunaFinal + linhaFinal);
                         jogador.atualizaPontosJogador(posicaoFinal);
+                        jogador.setPecasCapturadas(posicaoFinal.getPeca().getDesenho());
                         posicaoFinal.setPeca(null);
                     } else {
                         throw new JogadaInvalidaException("Jogada Inválida!");

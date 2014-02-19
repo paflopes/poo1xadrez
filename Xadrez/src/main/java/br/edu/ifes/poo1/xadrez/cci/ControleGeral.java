@@ -2,7 +2,6 @@ package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
-import br.edu.ifes.poo1.xadrez.cdp.jogo.DadoJogo;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
