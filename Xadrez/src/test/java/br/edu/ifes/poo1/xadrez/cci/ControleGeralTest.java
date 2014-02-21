@@ -98,7 +98,7 @@ public class ControleGeralTest {
      * Test of cadastraJogador method, of class ControleGeral.
      */
     @Test
-    public void testCadastraJogador() {
+    public void testCadastraJogador() throws ClassNotFoundException {
         System.out.println("cadastraJogador");
         Cor cor = null;
         ControleGeral instance = new ControleGeral();
@@ -113,7 +113,7 @@ public class ControleGeralTest {
      * Test of criaJogada method, of class ControleGeral.
      */
     @Test
-    public void testCriaJogada() {
+    public void testCriaJogada() throws ClassNotFoundException {
         System.out.println("criaJogada");
         String jogadaStr = "";
         ControleGeral instance = new ControleGeral();
@@ -128,7 +128,7 @@ public class ControleGeralTest {
      * Test of identificaOperacao method, of class ControleGeral.
      */
     @Test
-    public void testIdentificaOperacao() {
+    public void testIdentificaOperacao() throws ClassNotFoundException {
         System.out.println("identificaOperacao");
         String jogada = "";
         ControleGeral instance = new ControleGeral();
@@ -143,7 +143,7 @@ public class ControleGeralTest {
      * Test of validarEntrada method, of class ControleGeral.
      */
     @Test
-    public void testValidarEntrada() {
+    public void testValidarEntrada() throws ClassNotFoundException {
         System.out.println("validarEntrada");
         String entrada = "";
         ControleGeral instance = new ControleGeral();
