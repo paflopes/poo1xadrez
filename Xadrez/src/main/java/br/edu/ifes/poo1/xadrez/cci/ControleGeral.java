@@ -87,6 +87,7 @@ public class ControleGeral {
                             int numeroPartidas = jogos.getListPartidasNaoFinalizadas().size(); //numero de partidas nao finalizadas
                             if(numeroPartidas>0){                     
                                 impressora.imprimirPartidas(jogos.getListPartidasNaoFinalizadas());
+                                impressora.imprimirEscolhaPartida();
                                 String opcao = impressora.getString(); //escolhe a partida
                                 if(opcao.matches("[0 -"+(numeroPartidas-1)+"]")){ //verifica se a escolha é verdadeira
                                     partida = jogos.getListPartidasNaoFinalizadas().get(Integer.parseInt(opcao.trim())); //pega a partida escolhida
