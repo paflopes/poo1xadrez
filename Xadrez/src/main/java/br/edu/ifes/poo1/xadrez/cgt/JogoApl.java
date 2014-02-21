@@ -10,7 +10,6 @@ import br.edu.ifes.poo1.xadrez.cdp.MovimentoPeca;
 import br.edu.ifes.poo1.xadrez.cdp.NomePeca;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.Tabuleiro;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadaInvalidaException;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;

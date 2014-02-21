@@ -28,7 +28,7 @@ public class ControleGeral {
 
     private final Impressora impressora;
     private final JogoApl apl;
-    private static Partida partida;
+    private Partida partida;
     private final Persistencia<Jogos> persintencia = new Persistencia<>();
     private Jogos jogos = null;
     
@@ -266,6 +266,11 @@ public class ControleGeral {
 
     public Jogada criaJogada(String jogadaStr) {
         Jogada jogada = new Jogada();
+        
+        if(this.partida == null) {
+            this.partida = new Partida();
+            this.partida.iniciaPartida();
+        }
 
         //Definimos a operação da jogada.
         jogada.setOperacao(identificaOperacao(jogadaStr));

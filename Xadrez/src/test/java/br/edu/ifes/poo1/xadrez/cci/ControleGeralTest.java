@@ -3,171 +3,81 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifes.poo1.xadrez.cci;
 
-import br.edu.ifes.poo1.xadrez.cdp.Cor;
-import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogada;
-import br.edu.ifes.poo1.xadrez.cdp.jogo.Jogador;
-import br.edu.ifes.poo1.xadrez.cdp.jogo.JogadorHumano;
 import br.edu.ifes.poo1.xadrez.cdp.jogo.Operacao;
-import org.junit.After;
-import org.junit.AfterClass;
+import junit.framework.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
- * @author Lincoln
+ * @author phillipe
  */
 public class ControleGeralTest {
-    
-    public ControleGeralTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
+    private ControleGeral controle;
+
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void before() throws ClassNotFoundException, PartidaEncerradaException {
+        this.controle = new ControleGeral();
     }
 
-    /**
-     * Test of iniciarPrograma method, of class ControleGeral.
-     * @throws java.lang.Exception
-     */
     @Test
-    public void testIniciarPrograma() throws Exception {
-        System.out.println("iniciarPrograma");
-        ControleGeral instance = new ControleGeral();
-        instance.iniciarPrograma();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testIdentificaOperacao() {
+        Assert.assertEquals(Operacao.MOVIMENTO, controle.identificaOperacao("2346"));
+        Assert.assertEquals(Operacao.CAPTURA, controle.identificaOperacao("11x22"));
+        Assert.assertEquals(Operacao.PROMOCAO, controle.identificaOperacao("11=D"));
+        Assert.assertEquals(Operacao.RMAIOR, controle.identificaOperacao("O-O-O"));
+        Assert.assertEquals(Operacao.RMENOR, controle.identificaOperacao("O-O"));
+        Assert.assertEquals(Operacao.XEQUE, controle.identificaOperacao("4523+"));
+        Assert.assertEquals(Operacao.XMATE, controle.identificaOperacao("4523#"));
     }
 
-    /**
-     * Test of iniciarPartida method, of class ControleGeral.
-     */
     @Test
-    public void testIniciarPartida() throws Exception {
-        System.out.println("iniciarPartida");
-        Partida partida = null;
-        ControleGeral instance = new ControleGeral();
-        instance.iniciarPartida(partida);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCriaJogada() {
+        Jogada jogada = controle.criaJogada("1122");
+
+        Assert.assertEquals("11", jogada.getPosicaoInicial().getId());
+        Assert.assertEquals("22", jogada.getPosicaoFinal().getId());
+        Assert.assertEquals(Operacao.MOVIMENTO, jogada.getOperacao());
+
+        jogada = controle.criaJogada("33x54");
+        Assert.assertEquals("33", jogada.getPosicaoInicial().getId());
+        Assert.assertEquals("54", jogada.getPosicaoFinal().getId());
+        Assert.assertEquals(Operacao.CAPTURA, jogada.getOperacao());
     }
 
-    /**
-     * Test of iniciarJogada method, of class ControleGeral.
-     */
     @Test
-    public void testIniciarJogada() throws Exception {
-        System.out.println("iniciarJogada");
-        JogadorHumano jogadorAtual = null;
-        Jogador jogadorProx = null;
-        ControleGeral instance = new ControleGeral();
-        instance.iniciarJogada(jogadorAtual, jogadorProx);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    public void testValidarEntrada() {
+        Assert.assertTrue(controle.validarEntrada("desistir"));
+        Assert.assertTrue(controle.validarEntrada("empate"));
+        Assert.assertTrue(controle.validarEntrada("O-O"));
+        Assert.assertTrue(controle.validarEntrada("O-O-O"));
+        Assert.assertFalse(controle.validarEntrada("abacate"));
+        Assert.assertFalse(controle.validarEntrada("testw1"));
+        Assert.assertFalse(controle.validarEntrada("o-o-o"));
 
-    /**
-     * Test of cadastraJogador method, of class ControleGeral.
-     */
-    @Test
-    public void testCadastraJogador() throws ClassNotFoundException {
-        System.out.println("cadastraJogador");
-        Cor cor = null;
-        ControleGeral instance = new ControleGeral();
-        Jogador expResult = null;
-        Jogador result = instance.cadastraJogador(cor);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Assert.assertTrue(controle.validarEntrada("1234"));
+        Assert.assertTrue(controle.validarEntrada("2845"));
+        Assert.assertFalse(controle.validarEntrada("23451"));
+        Assert.assertFalse(controle.validarEntrada("2340"));
+        Assert.assertFalse(controle.validarEntrada("5495"));
 
-    /**
-     * Test of criaJogada method, of class ControleGeral.
-     */
-    @Test
-    public void testCriaJogada() throws ClassNotFoundException {
-        System.out.println("criaJogada");
-        String jogadaStr = "";
-        ControleGeral instance = new ControleGeral();
-        Jogada expResult = null;
-        Jogada result = instance.criaJogada(jogadaStr);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Assert.assertTrue(controle.validarEntrada("12x34"));
+        Assert.assertFalse(controle.validarEntrada("22c34"));
 
-    /**
-     * Test of identificaOperacao method, of class ControleGeral.
-     */
-    @Test
-    public void testIdentificaOperacao() throws ClassNotFoundException {
-        System.out.println("identificaOperacao");
-        String jogada = "";
-        ControleGeral instance = new ControleGeral();
-        Operacao expResult = null;
-        Operacao result = instance.identificaOperacao(jogada);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Assert.assertTrue(controle.validarEntrada("1234+"));
+        Assert.assertTrue(controle.validarEntrada("1234#"));
+        Assert.assertFalse(controle.validarEntrada("2234$"));
 
-    /**
-     * Test of validarEntrada method, of class ControleGeral.
-     */
-    @Test
-    public void testValidarEntrada() throws ClassNotFoundException {
-        System.out.println("validarEntrada");
-        String entrada = "";
-        ControleGeral instance = new ControleGeral();
-        boolean expResult = false;
-        boolean result = instance.validarEntrada(entrada);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Assert.assertTrue(controle.validarEntrada("31=D"));
+        Assert.assertTrue(controle.validarEntrada("81=C"));
+        Assert.assertTrue(controle.validarEntrada("48=T"));
+        Assert.assertTrue(controle.validarEntrada("78=B"));
+        Assert.assertFalse(controle.validarEntrada("74=B"));
+        Assert.assertFalse(controle.validarEntrada("41=F"));
 
-    /**
-     * Test of jogadas method, of class ControleGeral.
-     */
-    @Test
-    public void testJogadas() throws Exception {
-        System.out.println("jogadas");
-        Partida partida = null;
-        ControleGeral instance = new ControleGeral();
-        instance.jogadas(partida);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of jogarJogador method, of class ControleGeral.
-     */
-    @Test
-    public void testJogarJogador() throws Exception {
-        System.out.println("jogarJogador");
-        Partida partida = null;
-        ControleGeral instance = new ControleGeral();
-        instance.jogarJogador(partida);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
