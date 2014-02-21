@@ -9,6 +9,7 @@ import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
 import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Jogada implements Serializable {
     public Peca getPecaDesejada(Cor cor) {
         try {
             return (Peca) pecaDesejada.getConstructor(Cor.class).newInstance(cor);
-        } catch (Exception e) {
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             return null;
         }
     }
