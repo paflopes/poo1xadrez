@@ -1,9 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifes.poo1.xadrez.cci;
 
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
@@ -21,7 +19,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Lincoln
+ * @author 20121bsi0414
  */
 public class ControleGeralTest {
     
@@ -45,14 +43,26 @@ public class ControleGeralTest {
     }
 
     /**
+     * Test of run method, of class ControleGeral.
+     */
+    @Test
+    public void testRun() throws Exception {
+        System.out.println("run");
+        ControleGeral instance = new ControleGeral();
+        instance.run();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of iniciarPrograma method, of class ControleGeral.
-     * @throws java.lang.Exception
      */
     @Test
     public void testIniciarPrograma() throws Exception {
         System.out.println("iniciarPrograma");
+        String escolha = "";
         ControleGeral instance = new ControleGeral();
-        instance.iniciarPrograma();
+        instance.iniciarPrograma(escolha);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -88,7 +98,7 @@ public class ControleGeralTest {
      * Test of cadastraJogador method, of class ControleGeral.
      */
     @Test
-    public void testCadastraJogador() throws ClassNotFoundException {
+    public void testCadastraJogador() {
         System.out.println("cadastraJogador");
         Cor cor = null;
         ControleGeral instance = new ControleGeral();
@@ -103,7 +113,7 @@ public class ControleGeralTest {
      * Test of criaJogada method, of class ControleGeral.
      */
     @Test
-    public void testCriaJogada() throws ClassNotFoundException {
+    public void testCriaJogada() {
         System.out.println("criaJogada");
         String jogadaStr = "";
         ControleGeral instance = new ControleGeral();
@@ -118,7 +128,7 @@ public class ControleGeralTest {
      * Test of identificaOperacao method, of class ControleGeral.
      */
     @Test
-    public void testIdentificaOperacao() throws ClassNotFoundException {
+    public void testIdentificaOperacao() {
         System.out.println("identificaOperacao");
         String jogada = "";
         ControleGeral instance = new ControleGeral();
@@ -133,7 +143,7 @@ public class ControleGeralTest {
      * Test of validarEntrada method, of class ControleGeral.
      */
     @Test
-    public void testValidarEntrada() throws ClassNotFoundException {
+    public void testValidarEntrada() {
         System.out.println("validarEntrada");
         String entrada = "";
         ControleGeral instance = new ControleGeral();
@@ -169,5 +179,4 @@ public class ControleGeralTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
 }

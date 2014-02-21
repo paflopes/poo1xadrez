@@ -64,6 +64,4 @@ public class JogadorImpl implements Jogador  {
     
     
     
-    
-    
 }

@@ -24,6 +24,17 @@ public class Partida implements Serializable {
     private Date fim;
     private String vencedor;
     private String turno;
+    private boolean partidaInterrompida;
+
+    public boolean isPartidaInterrompida() {
+        return partidaInterrompida;
+    }
+
+    public void setPartidaInterrompida(boolean partidaInterrompida) {
+        this.partidaInterrompida = partidaInterrompida;
+    }
+    
+    
     
      public String getTurno() {
         return turno;
@@ -97,9 +108,11 @@ public class Partida implements Serializable {
         this.tabuleiro = new Tabuleiro();
         this.vencedor = "Em andamento";
         this.finalizada = false;
+        this.partidaInterrompida = false;
     }
     
     public void recomeçarPartida(){
+        this.partidaInterrompida = false;
         this.jogadorBranco.setSave(false);
         if(!jogadorPreto.getNome().equals("ZEUS")){
             this.jogadorPreto.setSave(false);
@@ -108,6 +121,7 @@ public class Partida implements Serializable {
     
     public void encerrarPartida(String nome){
     
+        this.partidaInterrompida = true;
         this.fim = new Date();
         this.vencedor = nome;
         this.finalizada = true;

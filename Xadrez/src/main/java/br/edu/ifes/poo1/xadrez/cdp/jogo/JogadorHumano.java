@@ -8,7 +8,6 @@ package br.edu.ifes.poo1.xadrez.cdp.jogo;
 import br.edu.ifes.poo1.xadrez.cdp.Cor;
 import br.edu.ifes.poo1.xadrez.cdp.Partida;
 import br.edu.ifes.poo1.xadrez.cdp.Posicao;
-import br.edu.ifes.poo1.xadrez.cdp.pecas.Peca;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +24,8 @@ public class JogadorHumano implements Jogador {
     private final Cor cor;
     private boolean save = false;
     private ArrayList<String> pecasCapturadas = new ArrayList<>();
+
+    
     
     
     /**
