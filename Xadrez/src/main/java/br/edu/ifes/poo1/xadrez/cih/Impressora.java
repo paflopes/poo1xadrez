@@ -189,6 +189,10 @@ public class Impressora {
     public void imprimirSemDados(){
         imprimir("Não há dados sobre nenhuma partida ou jogador ainda.");
     }
+    
+    public void imprimirEscolhaPartida(){
+        imprimir("Digite o numero da partida para retoma-la.");
+    }
 }
 
                 

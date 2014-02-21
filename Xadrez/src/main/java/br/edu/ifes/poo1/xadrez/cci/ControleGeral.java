@@ -38,15 +38,34 @@ public class ControleGeral {
         this.apl = new JogoApl();
         
     }
-
-    public void iniciarPrograma() throws ClassNotFoundException, PartidaEncerradaException {
+    
+    public void run() throws ClassNotFoundException, PartidaEncerradaException{
+        
         this.impressora.imprimirMenu();
         String escolha = this.impressora.getString();
         
-        
         //Verifica se a escolha é válida.
+        
+        
+        
         if (escolha.matches("[1-4]")) {
-            while (!escolha.equals("4")) {
+            while (escolha.matches("[1-3]")) {
+                iniciarPrograma(escolha);
+                this.impressora.imprimirMenu();
+                escolha = this.impressora.getString();
+                
+            }
+        
+        } else {
+            impressora.imprimirArgumentoInvalido();
+            this.run();
+            return;
+        }
+    }
+
+    public void iniciarPrograma(String escolha) throws ClassNotFoundException, PartidaEncerradaException {
+               
+        
                 switch (escolha) {
                     case "1":
                         try {
@@ -68,6 +87,7 @@ public class ControleGeral {
                             int numeroPartidas = jogos.getListPartidasNaoFinalizadas().size(); //numero de partidas nao finalizadas
                             if(numeroPartidas>0){                     
                                 impressora.imprimirPartidas(jogos.getListPartidasNaoFinalizadas());
+                                impressora.imprimirEscolhaPartida();
                                 String opcao = impressora.getString(); //escolhe a partida
                                 if(opcao.matches("[0 -"+(numeroPartidas-1)+"]")){ //verifica se a escolha é verdadeira
                                     partida = jogos.getListPartidasNaoFinalizadas().get(Integer.parseInt(opcao.trim())); //pega a partida escolhida
@@ -76,17 +96,14 @@ public class ControleGeral {
                                     this.jogadas(partida);
                                 }else{ // se a escolha nao for verdadeira
                                     impressora.imprimirArgumentoInvalido();
-                                    this.iniciarPrograma();
                                     return;
                                 }                            
                             }else{
                                 impressora.imprimirSemPartidas();
-                                this.iniciarPrograma();
                                 return;
                             }
                         }else{ // se nao existir partidas
                             impressora.imprimirSemPartidas();
-                            this.iniciarPrograma();
                             return;
                         }
                         break;
@@ -101,14 +118,7 @@ public class ControleGeral {
                         break;
                          
                 }
-                impressora.imprimirMenu();
-                escolha = impressora.getString();
-            }
-            //Se a escolha for inválida, então tentamos reiniciar a partida.
-        } else {
-            impressora.imprimirArgumentoInvalido();
-            this.iniciarPrograma();
-        }
+                                  
     }
 
     /**
@@ -191,7 +201,7 @@ public class ControleGeral {
                     this.persintencia.save(this.jogos);
                     impressora.imprimirJogoSalvo();
                     impressora.imprimiFimJogo();
-                    this.iniciarPrograma();
+                    return;
                 case "empate":
                     String escolha = "";
                     while (!escolha.equals("S") && !escolha.equals("N")) {
@@ -206,7 +216,8 @@ public class ControleGeral {
                                 this.persintencia.save(this.jogos);
                                 impressora.imprimirJogoSalvo();
                                 impressora.imprimiFimJogo();
-                                this.iniciarPrograma();
+                                
+                                return;
                             case ("N"):
                                 iniciarJogada(jogadorAtual, jogadorProx);
                                 return;
@@ -228,8 +239,9 @@ public class ControleGeral {
                     
                 case "sair":
                     if(jogadorAtual.getSave()){
+                        partida.setPartidaInterrompida(true);
+                        
                         impressora.imprimiFimJogo();
-                        this.iniciarPrograma();
                         return;
                     }else{
                         impressora.imprimiErroSaida();
@@ -251,7 +263,7 @@ public class ControleGeral {
             this.persintencia.save(this.jogos);
             impressora.imprimirJogoSalvo();
             impressora.imprimiFimJogo();
-            this.iniciarPrograma();
+            return;
         }
     }
 
@@ -358,10 +370,11 @@ public class ControleGeral {
     }
     
     public void jogadas(Partida partida) throws PartidaEncerradaException, ClassNotFoundException{
-        for (;;) {         
-            jogarJogador(partida);
+        
+        while(!partida.isFinalizada() && !partida.isPartidaInterrompida()){
             jogarJogador(partida);
         }
+        
     }
     
     public void jogarJogador(Partida partida) throws PartidaEncerradaException, ClassNotFoundException{
