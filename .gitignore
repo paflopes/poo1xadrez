@@ -1,5 +1,6 @@
 *.class
 *.dat
+*.bak
 
 # Package Files #
 *.jar
