@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, PartidaEncerradaException {
         ControleGeral controle = new ControleGeral();
 
-        controle.iniciarPrograma();
+        controle.run();
     }
 
 }
